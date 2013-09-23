@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Installation
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="select-toc">Installation</a> <span style="color: #f05687;">&rarr;</span></li>		
+				<ol class="toc-nav">
+					<li><a href="Bootstrapping-on-OS-X.html" class="toc">Bootstrapping on OS X</a></li>
+					<li><a href="Bootstrapping-the-Raspberry-Pi.html" class="toc">Bootstrapping Raspberry Pi</a></li>
+					<li><a href="Bootstrapping-the-BeagleBone.html" class="toc">Bootstrapping BeagleBone</a></li>
+					<li><a href="Instructions-for-starting-the-Steward.html" class="toc">Starting the Steward</a></li>
+				</ol>			
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Installation</h1>
+<p>There are a number of different ways to install the <em>steward</em> software. After installation please see the documentation <a href="Instructions-for-starting-the-Steward.html">on how to start the Steward</a>.</p>
+
+<h2>Installation from source</h2>
+
+<p>If you want to install the <em>steward</em> from source you should follow the appropriate instructions for your platform:</p>
+
+<ul>
+<li><p><a href="Bootstrapping-on-OS-X.html">OS X</a> on the Mac</p></li>
+<li><p>Linux on the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a></p></li>
+</ul>
+
+<p>The <em>steward</em> is also mostly functional, but without <em>mdns</em> capability on the following platform,</p>
+
+<ul>
+<li><a href="Bootstrapping-the-BeagleBone-Black.html">BeagleBone Black</a></li>
+</ul>
+
+<h2>Disk images</h2>
+
+<p>There is a <a href="https://www.dropbox.com/sh/ytkhohsk1x91850/h3B43_qvFP">raw disk disk image available for the Raspberry Pi</a> based around the latest version of Raspbian. You will need a 4GB SD card.</p>
+
+<p>Go ahead and download the <a href="https://www.dropbox.com/sh/ytkhohsk1x91850/h3B43_qvFP">latest version of our distribution</a>. Insert your SD card into your Macbook. Open up a Terminal window and type <em>df -h</em>, remember the device name for your SD Card. In my case it's <em>/dev/disk1</em>. We'll need to use the raw device, <em>/dev/rdisk1</em>.</p>
+
+<pre><code>Filesystem      Size   Used  Avail Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2   699Gi  367Gi  332Gi    53% 96214802 86992771   53%   /
+devfs          206Ki  206Ki    0Bi   100%      714        0  100%   /dev
+map -hosts       0Bi    0Bi    0Bi   100%        0        0  100%   /net
+map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
+/dev/disk1s1    59Gi   33Gi   26Gi    57%  8739054  6768902   56%   /Volumes/SD Card
+</code></pre>
+
+<p>Unmount the card,</p>
+
+<pre><code>sudo diskutil unmount /dev/disk1s1
+</code></pre>
+
+<p>rather than ejecting it by dragging it to the trash. Then in the Terminal change directory to your downloads folder and type</p>
+
+<pre><code>sudo dd bs=1m if=2013-05-25-wheezy-raspbian.img of=/dev/rdisk1
+</code></pre>
+
+<p>if the above command report an error <em>"dd: bs: illegal numeric value"</em>, change <em>bs=1m</em> to <em>bs=1M</em>. The card should automatically remount when <em>dd</em> is done.</p>
+
+<p>Eject the card with the command, </p>
+
+<pre><code>sudo diskutil eject /dev/rdisk1
+</code></pre>
+
+<p>Insert the card in the Raspberry Pi, plug the Pi into the Ethernet, and then connect the power to start it booting. A red LED will initially come on, however the green ACT LED should start flashing, and the orange FDX and LNK LEDS should light up if the boot works correctly. If you run into problems you can <a href="http://elinux.org/R-Pi_Troubleshooting#Power_.2F_Start-up">troubleshoot</a>.</p>
+
+<p>The <em>steward</em> should automatically start at boot time.</p>
+
+<h2>Other platforms</h2>
+
+<p>The <em>steward</em> is currently being tested on the other platforms, including the <a href="Bootstrapping-the-BeagleBone.html">BeagleBone</a>. The <em>steward</em> is also mostly functional, but without <em>mdns</em> capability on,</p>
+
+<ul>
+<li><a href="Bootstrapping-the-BeagleBone-Black.html">BeagleBone Black</a></li>
+</ul>
+
+<p>Additionally partial instructions for these new platforms exist but aren't guaranteed to work:</p>
+
+<ul>
+<li><a href="Bootstrapping-the-BeagleBone-Rev.A6.html">BeagleBone</a> Rev.A6 (white)</li>
+</ul>
+
+<p><em>NB: These instructions are currently incomplete. Please see the instructions for the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a> for hints to how to carry through to completion on these platforms at this time.</em></p>
+
+<h2>Installation using Package Management</h2>
+
+<p>At the moment installation of the steward from source, and is a fairly complicated and meant for developers. We intend to simplify this process by providing packages for various flavors of Linux as well as <em>MacPorts</em> for OS X. If you're not a developer the easiest way to get started with the steward is probably to use the Raspberry Pi disk images discussed above.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

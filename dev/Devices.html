@@ -1,0 +1,966 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Devices
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="select-toc">Steward</a></li>
+						<ol class="toc-nav">
+							<li><a href="Activities.html" class="toc">Activities</a></li>
+							<li><a href="Actors.html" class="toc">Actors</a></li>
+							<li><a href="Devices.html" class="toc" style="color:#f05687;">Devices</a> <span style="color: #f05687;">&rarr;</span></li>
+						</ol>						
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Devices</h1>
+<p>An <em>actor</em> refers to an entity that participates in an activity. Typically, these refer to devices; however, there are two other types of actors: <em>groups</em> which combine actors accordingly to a logical relationship (e.g., 'and' or 'first/next') and <em>pseudo actors</em> which are software-only constructs (e.g., the <em>place</em>).</p>
+
+<h2>Architecture</h2>
+
+<p>Support for devices is added by creating a module with a path and name that conform to the Device Taxonomy.
+This module is detected and loaded by the steward during startup.
+<strong>(Note that whenever you add a module to a running steward, you must restart the steward.)</strong></p>
+
+<p>When the module is loaded,
+the <em>start()</em> function is invoked which does two things:</p>
+
+<ul>
+<li><p>It defines an object that is consulted when an instance of the device is discovered.</p></li>
+<li><p>It defines how instances of the device are discovered.</p></li>
+</ul>
+
+<h3>Module Structure</h3>
+
+<p>A module consists of several parts.
+In reading this section, it is probably useful to also glance at one of the existing modules.
+For the examples that follow,
+let's say we're going to the define a module for a <em>macguffin</em> presence device manufactured by <em>Yoyodyne Propulsion Systems</em>.</p>
+
+<p>The first step is to select the name of the device prototype.
+In this case, it's probably going to be:</p>
+
+<pre><code>/device/presence/yoyodyne/macguffin
+</code></pre>
+
+<p>The corresponding file name would be:</p>
+
+<pre><code>devices/device-presence/presence-yoyodyne-macguffin.js
+</code></pre>
+
+<p>The file should have six parts:</p>
+
+<p><em>First</em>,
+is the <em>require</em> section where external modules are loaded.
+By convention, system and third-party modules are loaded first, followed by any steward-provided modules, e.g.,</p>
+
+<pre><code>var util        = require('util')
+  , devices     = require('./../../core/device')
+  , steward     = require('./../../core/steward')
+  , utility     = require('./../../core/utility')
+  , presence    = require('./../device-presence')
+  ;
+</code></pre>
+
+<p><em>Second</em>,
+is the <em>logger</em> section, which is usually just one line:</p>
+
+<pre><code>var logger = presence.logger;
+</code></pre>
+
+<p>Logging is done <em>syslog-style</em>, which means these functions are available</p>
+
+<pre><code>logger.crit
+logger.error
+logger.warning
+logger.notice
+logger.info
+logger.debug
+</code></pre>
+
+<p>These functions take two arguments: a string and a property-list object, e.g.,</p>
+
+<pre><code>try {
+  ...
+} catch(ex) {
+  logger.error('device/' + self.deviceID,
+               { event: 'perform', diagnostic: ex.message });
+}
+</code></pre>
+
+<p><em>Third</em>,
+is the <em>prototype</em> function that is invoked by the steward whenever an instance of this device is (re-)discovered:</p>
+
+<p><em>Fourth</em>,
+comes the optional <em>observe</em> section, that implements asynchronous observation of events.</p>
+
+<p><em>Fifth</em>,
+comes the optional <em>perform</em> section, that implements the performance of tasks.</p>
+
+<p><em>Sixth</em>,
+comes the <em>start()</em> function.</p>
+
+<h3>The Prototype function</h3>
+
+<pre><code>var Macguffin = exports.Device = function(deviceID, deviceUID, info) {
+  // begin boilerpate...
+  var self = this;
+
+  self.whatami = info.deviceType;
+  self.deviceID = deviceID.toString();
+  self.deviceUID = deviceUID;
+  self.name = info.device.name;
+
+  self.info = utility.clone(info);
+  delete(self.info.id);
+  delete(self.info.device);
+  delete(self.info.deviceType);
+  // end boilerplate...
+
+  self.status = '...';
+  self.changed();
+
+  // perform initialization here
+
+  utility.broker.subscribe('actors', function(request, taskID, actor, observe, parameter) {
+    if (request === 'ping') {
+      logger.info('device/' + self.deviceID, { status: self.status });
+      return;
+    }
+
+         if (actor !== ('device/' + self.deviceID)) return;
+    else if (request === 'observe') self.observer(self, taskID, observe, parameter);
+    else if (request === 'perform') self.perform(self, taskID, observe, parameter);
+  });
+};
+util.inherits(Macguffin, indicator.Device);
+</code></pre>
+
+<h3>The Observe section</h3>
+
+<p>The prototype function invokes this whenever the <em>steward</em> module publishes a request to the actor asking that a particular
+event be monitored:</p>
+
+<pre><code>Macguffin.prototype.observe = function(self, eventID, observe, parameter) {
+  var params;
+
+  try { params = JSON.parse(parameter); } catch(ex) { params = {}; }
+
+  switch (observe) {
+    case '...':
+      // create a data structure to monitor for this observe/params pair
+
+      // whenever an event occurs, invoke
+      //     steward.observed(eventID);
+
+      // now tell the steward that monitoring has started
+      steward.report(eventID);
+      break;
+
+    default:
+      break;
+  }
+}
+</code></pre>
+
+<h3>The Perform section</h3>
+
+<p>The prototype function invokes this whenever the <em>steward</em> module publishes a request to the actor asking that a particular
+task be performed:</p>
+
+<pre><code>Macguffin.prototype.perform = function(self, taskID, perform, parameter) {
+  var params;
+
+  try { params = JSON.parse(parameter); } catch(ex) { params = {}; }
+
+  if (perform === 'set') {
+    if (!!params.name) self.setName(params.name);
+
+    // other state variables may be set here
+    if (!!params.whatever) {
+      // may wish to range-check params.whatever here...
+
+      self.info.whatever = params.whatever;
+      self.setInfo();
+    }
+
+    return steward.performed(taskID);
+  }
+
+ // any other tasks allowed?
+ if (perform === '...') {
+ }
+
+ return false;
+};
+</code></pre>
+
+<h3>The start() function: Linkage</h3>
+
+<p>As noted earlier, this function performs two tasks.
+The first task is to link the device prototype into the steward:</p>
+
+<pre><code>exports.start = function() {
+  steward.actors.device.presence.yoyodyne =
+      steward.actors.device.presence.yoyodyne ||
+      { $info     : { type: '/device/presence/yoyodyne' } };
+
+  steward.actors.device.presence.yoyodyne.macguffin =
+      { $info     : { type       : '/device/presence/yoyodyne/macguffin'
+                    , observe    : [ ... ]
+                    , perform    : [ ... ]
+                    , properties : { name   : true
+                                   , status : [ ... ]
+                                   ...
+                                   }
+                    }
+      , $observe  : {  observe   : validate_observe }
+      , $validate : {  perform   : validate_perform }
+      };
+  devices.makers['/device/presence/yoyodyne/macguffin'] = MacGuffin;
+...
+</code></pre>
+
+<p>The first assignment:</p>
+
+<pre><code>  steward.actors.device.presence.yoyodyne =
+      steward.actors.device.presence.yoyodyne ||
+      { $info     : { type: '/device/presence/yoyodyne' } };
+</code></pre>
+
+<p>is there simply to make sure the naming tree already has a node for the parent of the device prototype.
+(The steward automatically creates naming nodes for the top-level categories).</p>
+
+<p>The next assignment is the tricky one:</p>
+
+<pre><code>  steward.actors.device.presence.yoyodyne.macguffin =
+      { $info     : { type       : '/device/presence/yoyodyne/macguffin'
+                    , observe    : [ ... ]
+                    , perform    : [ ... ]
+                    , properties : { name   : true
+                                   , status : [ ... ]
+                                   ...
+                                   }
+                    }
+      , $list     : function()   { ... }
+      , $lookup   : function(id) { ... }
+      , $validate : { create     : validate_create
+                    , observe    : validate_observe
+                    , perform    : validate_perform
+                    }
+      };
+</code></pre>
+
+<p>The <em>$info</em> field is mandatory, as are its four sub-fields:</p>
+
+<ul>
+<li><p><em>type</em>: the name of the device prototype.</p></li>
+<li><p><em>observe</em>: an array of events that the device observe.
+The array may be empty.</p></li>
+<li><p><em>perform</em>: an array of tasks that the device performs.
+At a minimum,
+Every device must support a "set" task in order to set the name of the device instance.
+The array may be empty (the "set" task does not appear in the array).</p></li>
+<li><p><em>properties</em>: a list of property names and syntaxes.
+Consult the <em>Device Taxonomy</em> section below for a list of defined properties and corresponding syntaxes.</p></li>
+</ul>
+
+<p>The <em>$list</em> and <em>$lookup</em> fields are for "special" kinds of actors, and are described later.</p>
+
+<p>The <em>$validate</em> field contains an object, with these sub-fields:</p>
+
+<ul>
+<li><p><em>create</em>: present for "special" kinds of actors, described later.</p></li>
+<li><p><em>observe</em>: a function that is used to evaluate an event and its associated parameter, to see if "it makes sense."</p></li>
+<li><p><em>perform</em>: a function that is used to evaluate a task and its associated parameter, to see if "it makes sense."</p></li>
+</ul>
+
+<h4>The start() function: Discovery</h4>
+
+<p>The second task performed by the <em>start()</em> function is to register with the appropriate discovery module.
+There are presently five modules:</p>
+
+<ul>
+<li><p>SSDP: LAN multicast (not necessarily UPnP)</p></li>
+<li><p>BLE: Bluetooth Low Energy</p></li>
+<li><p>TCP port: TCP port number</p></li>
+<li><p>MAC OUI: MAC prefix</p></li>
+<li><p>TRSP: <a href="Thing Sensor Report Protocol.html">Thing Sensor Reporting Protocol</a></p></li>
+</ul>
+
+<p>For the first two discovery modules,
+the steward will automatically (re-)create device instances as appropriate.
+For the others,
+the module may need to do some additional processing before it decides that a device instance should (re-)created.
+Accordingly, the module calls <em>device.discovery()</em> directly.</p>
+
+<p>Discovery via SSDP occurs when the steward encounters a local host with an SSDP server that advertises a particular
+"friendlyName" or "deviceType":</p>
+
+<pre><code>devices.makers['Yoyodye Propulsion Systems MacGuffin'] = Macguffin;
+</code></pre>
+
+<p>Discovery via BLE occurs when the steward identifies a BLE device from a particular manufacturer,
+and find a matching characteristic value:</p>
+
+<pre><code>devices.makers['/device/presence/yoyodyne/macguffing'] = Macguffin;
+require('./../../discovery/discovery-ble').register(
+  { 'Yoyodyne Propulsion' :
+      { '2a24' :
+          { 'MacGuffin 1.1' :
+              { type : '/device/presence/yoyodyne/macguffin' }
+          }
+      }
+  });
+</code></pre>
+
+<p>Discovery via TCP port occurs when the steward is able to connect to a particular TCP port on a local host:</p>
+
+<pre><code>require('./../../discovery/discovery-portscan').pairing([ 1234 ],
+function(socket, ipaddr, portno, macaddr, tag) {
+  var info = { };
+
+  ...
+  info.deviceType = '/device/presence/yoyodyne/macguffin';
+  info.id = info.device.unit.udn;
+  if (devices.devices[info.id]) return socket.destroy();
+
+  utility.logger('discovery').info(tag, { ... });
+  devices.discover(info);
+});
+</code></pre>
+
+<p>Discovery via MAC OUI occurs when the steward encounters a local host with a MAC address whose first 3 octets match a particular
+prefix:</p>
+
+<pre><code>require('./../../discovery/discovery-mac').pairing([ '01:23:45' ],
+function(ipaddr, macaddr, tag) {
+  var info = { };
+
+  ...
+  info.deviceType = '/device/presence/yoyodyne/macguffin';
+  info.id = info.device.unit.udn;
+  if (devices.devices[info.id]) return;
+
+  utility.logger('discovery').info(tag, { ... });
+  devices.discover(info);
+});
+</code></pre>
+
+<p>Discovery via TSRP occurs when the steward receives a multicast message on the <a href="Thing-Sensor-Report-Protocol.html">TSRP</a> port.</p>
+
+<h2>Design Patterns</h2>
+
+<p>There are three design patterns currently in use for device actors.</p>
+
+<h3>Standalone Actor</h3>
+
+<p>A standalone actor refers to a device that is discovered by the steward and doesn't discover anything on its own.</p>
+
+<p>Examples of standalone actors include:</p>
+
+<ul>
+<li><p>/device/lighting/blinkstick/led</p></li>
+<li><p>/device/media/sonos/audio</p></li>
+<li><p>/device/presence/fob/inrange</p></li>
+<li><p>/device/sensor/wemo/motion</p></li>
+</ul>
+
+<h3>Gateway and Subordinate Actors</h3>
+
+<p>Typically the steward is able to discover a gateway for a particular technology,
+and the module for that gateway then discovers "interesting" devices.
+Examples of these kinds of actors include things like:</p>
+
+<ul>
+<li><p>/device/gateway/insteon/hub and /device/switch/insteon/dimmer, etc.</p></li>
+<li><p>/device/gateway/netatmo/cloud and device/climate/netatmo/sensor</p></li>
+</ul>
+
+<p>When a gateway actor discovers an "interesting" device,
+it calls <em>devices.discover()</em> to tell the steward to (re-)create it.</p>
+
+<h3>Creatable Actors</h3>
+
+<p>These kind of actors aren't discoverable,
+so a client must make a specific API call to the steward in order to create an instance.
+Examples of creatable actors include:</p>
+
+<ul>
+<li>/device/indicator/text/cosm</li>
+</ul>
+
+<p>In general,
+these actors refer to software-only constructs:
+while it's the steward's job to discovery devices,
+only a user can decide whether they want sensor readings uploaded somewhere.</p>
+
+<h2>API calls</h2>
+
+<p>Devices are managed by authorized clients using the</p>
+
+<pre><code>/manage/api/v1/device/
+</code></pre>
+
+<p>path prefix, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/actor/list'
+, requestID : '1'
+, options   : { depth: all }
+}
+</code></pre>
+
+<h3>Create Device</h3>
+
+<p>To create a device,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/create/UUID'
+, requestID : 'X'
+, name      : 'NAME'
+, whatami   : 'TAXONOMY'
+, info      : { PARAMS }
+, comments  : 'COMMENTS'
+}
+</code></pre>
+
+<p>where <em>UUID</em> corresponds to an unpredictable string generated by the client,
+<em>X</em> is any non-empty string,
+<em>NAME</em> is a user-friendly name for this instance,
+<em>INFO</em> are any parameters associated with the device,
+and <em>COMMENTS</em> (if present) are textual, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/actor/create/YPI'
+, requestID : '1'
+, name      : 'OO'
+, whatami   : '/device/presence/yoyodune/macguffin'
+, info      : { beep: 'annoying' }
+}
+</code></pre>
+
+<h3>List Device(s)</h3>
+
+<p>To list the properties of a single device,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/list/ID'
+, requestID : 'X'
+, options   : { depth: DEPTH }
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>deviceID</em> of the device to be deleted,
+<em>X</em> is any non-empty string,
+and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
+
+<p>If the ID is omitted, then all devices are listed, e.g., to find out anything about everything,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/list'
+, requestID : '2'
+, options   : { depth: 'all' }
+}
+</code></pre>
+
+<h3>Perform Task</h3>
+
+<p>To have a device perform a task,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/perform/ID'
+, requestID : 'X'
+, perform   : 'TASK'
+, parameter : 'PARAM'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>deviceID</em> of the device to perform the task,
+<em>X</em> is any non-empty string,
+<em>TASK</em> identifies a task to be performed,
+and <em>PARAM</em> (if present) provides parameters for the task, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/actor/perform/7'
+, requestID : '3'
+, perform   : 'on'
+, parameter : '{"color":{"model":"cie1931","cie1931":{"x":0.5771,"y":0.3830}},"brightness":50}'
+}
+</code></pre>
+
+<h3>Delete Device</h3>
+
+<p>To define a device,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/device/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>deviceID</em> of the device to be deleted, and <em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/actor/device/7'
+, requestID : '4'
+}
+</code></pre>
+
+<h2>Device Taxonomy</h2>
+
+<p>The steward's taxonomy consists of a hierarchical system for device prototypes along with a flat namespace for properties.
+Although the naming for device prototypes is hierarchical,
+based on primary function,
+a given property may appear in any device prototype in which "it makes sense".</p>
+
+<p>Properties are expressed in a consistent set of units:</p>
+
+<ul>
+<li><em>percentage</em>    - [0 .. 100]</li>
+<li><em>degrees</em>       - [0 .. 360)</li>
+<li><em>mireds</em>        - [154 .. 500] (philips hue, aka 2000-6500K)</li>
+<li><em>meters/second</em> - [0 .. N]</li>
+<li><em>coordinates</em>   - [latitude, longitude] -or- [latitude, longitude, elevation]</li>
+<li><em>meters</em>        - [0 .. N]</li>
+<li><em>kilometers</em>    - [0 .. N]</li>
+<li><em>milliseconds</em>  - [0 .. N]</li>
+<li><em>id</em>            - [1 .. N]</li>
+<li><em>u8</em>            - [0 .. 255]</li>
+<li><em>s8</em>            - [-127 .. 128]</li>
+<li><em>fraction</em>      - [0 .. 1]</li>
+<li><em>timestamp</em>     - 2013-03-28T15:52:49.680Z</li>
+<li><em>celsius</em></li>
+<li><em>ppm</em></li>
+<li><em>decibels</em></li>
+<li><em>millibars</em></li>
+<li><em>sigmas</em></li>
+</ul>
+
+<p>or as an entry from a fixed set of keywords.</p>
+
+<p>At a minimum,
+three properties must be present in all devices:</p>
+
+<ul>
+<li><p><em>name</em> - a string</p></li>
+<li><p><em>status</em> - a keyword:</p>
+
+<ul>
+<li><p><em>waiting</em> - indicates that the steward is waiting for the device to communicate</p></li>
+<li><p><em>busy</em> - indicates that the device is busy "doing something"</p></li>
+<li><p><em>ready</em> - indicates that all is well between the steward and the device</p></li>
+<li><p><em>error</em> - indicates something else</p></li>
+<li><p><em>reset</em> - indicates that the device, sadly, requires intervention</p></li>
+<li><p><em>on</em> or <em>off</em> - for lighting and switches</p></li>
+<li><p><em>motion</em> or <em>quiet</em> - for motion sensors</p></li>
+<li><p><em>idle</em>, <em>playing</em>, or <em>paused</em> - for media players</p></li>
+<li><p><em>present</em>, <em>absent</em>, or <em>recent</em> - for presence and sensors</p></li>
+<li><p><em>green</em>, <em>blue</em>, <em>orange</em>, or <em>red</em> - for reporting steward health</p></li>
+</ul></li>
+<li><p><em>updated</em> - a timestamp</p></li>
+</ul>
+
+<h4>Measurement Properties</h4>
+
+<p>Certain properties are termed <em>measurement properties</em> in that model a physical characteristic that:</p>
+
+<ul>
+<li><p>is measured in a particular set of units (e.g., 'celsius');</p></li>
+<li><p>that may be related to the <a href="http://en.wikipedia.org/wiki/International_System_of_Units">SI</a> system; and,</p></li>
+<li><p>and often expressed using a symbol (e.g., 'C').</p></li>
+</ul>
+
+<p>If you wish for a measurement property to be automatically archived,
+then examine the file</p>
+
+<pre><code>steward/devices/device-sensor.js
+</code></pre>
+
+<p>to see which measurement properties are currently defined in the <em>measures</em> object, e.g.,</p>
+
+<pre><code>var measures = { temperature: { symbol: 'C', units: 'celsius', type: 'derivedSI' }
+                 ...
+               };
+</code></pre>
+
+<p>Add to this object as appropriate.
+The valid values for the <em>type</em> field are:</p>
+
+<ul>
+<li><p><em>baseSI</em> - one of the seven <a href="http://en.wikipedia.org/wiki/SI_base_unit">SI base units</a>;</p></li>
+<li><p><em>derivedSI</em> - formed by the juxtaposition of <a href="http://en.wikipedia.org/wiki/SI_derived_unit">two or more base units</a>;</p></li>
+<li><p><em>derivedUnits</em> - a unit derived not derived from the SI, but <a href="http://en.wikipedia.org/wiki/Non-SI_units_mentioned_in_the_SI">frequently used in conjunction with the SI</a>; and,</p></li>
+<li><p><em>contextDependentUnits</em> - anything else.</p></li>
+</ul>
+
+<p>Now let's look at the ten categories of devices.</p>
+
+<h3>Climate</h3>
+
+<p>These are devices that monitor or control the "breathable environment".
+The naming pattern is:</p>
+
+<pre><code>/device/climate/XYZ/control
+/device/climate/XYZ/monitor
+</code></pre>
+
+<p>depending on whether control functions are available.</p>
+
+<p>At a minimum, two properties must be present:</p>
+
+<ul>
+<li><p><em>lastSample</em> - a timestamp</p></li>
+<li><p><em>temperature</em> - in degrees centigrade (celsius)</p></li>
+</ul>
+
+<p>In addition, depending on the capabilities of the device, additional properties may be present:</p>
+
+<ul>
+<li><p><em>coordinates</em> - an array containing latitude (degrees), longitude (degrees), and optionally elevation (meters)</p></li>
+<li><p><em>humidity</em> - a percentage</p></li>
+<li><p><em>co2</em> - in parts-per-million</p></li>
+<li><p><em>noise</em> - in decibels</p></li>
+<li><p><em>pressure</em> - in millibars</p></li>
+</ul>
+
+<p>Please note that the <em>updated</em> and <em>lastSample</em> properties report different things:
+<em>lastSample</em> indicates when the climate properties where last measured,
+whilst <em>updated</em> indicates the last change in state for the device
+(i.e., it is possible for <em>updated</em> to change regardless of whether <em>lastSample</em> changes;
+however, whenever <em>lastSample</em> changes to reflect a more recent measurement,
+<em>updated</em> will also change to the current time).</p>
+
+<h3>Gateway</h3>
+
+<p>These are devices that interface to non-IP devices,
+or devices that talk to a cloud-based service to get information about a device in the home.
+Accordingly, there are two naming patterns, i.e.,</p>
+
+<pre><code>/device/gateway/TECHNOLOGY/MODEL
+/device/gateway/TECHNOLOGY/cloud
+</code></pre>
+
+<p>For example:</p>
+
+<pre><code>/device/gateway/insteon/hub
+/device/gateway/netatmo/cloud
+</code></pre>
+
+<p>The <em>status</em> property may be the only property present:</p>
+
+<ul>
+<li><em>status</em> - <em>waiting</em>, <em>ready</em>, <em>error</em>, or <em>reset</em></li>
+</ul>
+
+<p>Note that gateways to cloud-based services require authentication information,
+which is typically set using either the</p>
+
+<pre><code>/manage/api/v1/device/create/uuid
+</code></pre>
+
+<p>or</p>
+
+<pre><code>/manage/api/v1/device/perform/id
+</code></pre>
+
+<p>APIs.</p>
+
+<h3>Indicator</h3>
+
+<p>These are devices that provide an indication to the user that is related to neither the "lighting environment" or the
+"media environment".
+The naming pattern is:</p>
+
+<pre><code>/dev/indicator/MEDIA/XYZ
+</code></pre>
+
+<p>where MEDIA is usually <em>text</em>.</p>
+
+<p>The <em>status</em> property may be the only property present:</p>
+
+<ul>
+<li><em>status</em> - <em>waiting</em>, <em>ready</em>, or <em>error</em></li>
+</ul>
+
+<p>As with gateway devices for cloud-based services,
+once initialized,
+these devices are almost entirely uninteresting to the user.</p>
+
+<h3>Lighting</h3>
+
+<p>These are devices that control the "lighting environment".
+The naming pattern is:</p>
+
+<pre><code>/device/lighting/XYZ/cfl
+/device/lighting/XYZ/led
+/device/lighting/XYZ/fluorescent
+/device/lighting/XYZ/incandescent
+</code></pre>
+
+<p>Given the range of physical properties,
+it is challenging to provide an abstraction which preserves the fidelity of the device-specific color model.</p>
+
+<p>The <em>status</em> property indicates the current state of the bulb:</p>
+
+<ul>
+<li><em>status</em> - <em>waiting</em>,  <em>on</em>, or <em>off</em></li>
+</ul>
+
+<p>At a minimum, two tasks must be available:</p>
+
+<ul>
+<li><p><em>on</em> - turns the light on</p></li>
+<li><p><em>off</em> - turns the light off</p></li>
+</ul>
+
+<p>Any of these properties may be present, which are set with the <em>on</em> task:</p>
+
+<ul>
+<li><p><em>color.model</em> - defines the model and parameters, any combination of:</p>
+
+<ul>
+<li><p><em>color.rgb</em> - with parameters <em>r</em>, <em>g</em>, and <em>b</em>, each a integer-value between 0 and 255</p></li>
+<li><p><em>color.hue</em> - with parameters <em>hue</em> (in degrees) and <em>saturation</em> (as a percentage)</p></li>
+<li><p><em>color.temperature</em> - with parameter <em>temperature</em> expressed in mireds</p></li>
+<li><p><em>color.cie1931</em> - with parameters <em>x</em> and <em>y</em> expressed as a real-value between 0 and 1</p></li>
+</ul></li>
+<li><p><em>brightness</em> - an integer-value percentage of the bulb's possible output</p></li>
+<li><p><em>transition</em> - how many milliseconds should elapse as the bulb transitions to the new color and/or brightness</p></li>
+<li><p><em>interval</em> - whether the bulb should change and remain (<em>solid</em>),
+change and return (<em>once</em>),
+or change back and forth (<em>flash</em>)</p></li>
+</ul>
+
+<p>With respect to the color model,
+the list above is presented starting at the least-desirable (<em>rgb</em>) to the most-desirable (<em>cie1931</em>).
+Clueful clients that manage the lighting environment should take note of which models are supported by a device and use the
+most desirable.</p>
+
+<h3>Media</h3>
+
+<p>These are devices that control the "media environment".
+The naming pattern is:</p>
+
+<pre><code>/device/media/audio/XYZ
+/device/media/video/XYZ
+</code></pre>
+
+<p>At a minimum, these properties must be present:</p>
+
+<ul>
+<li><p><em>status</em> - one of <em>idle</em>, <em>playing</em>, <em>paused</em>, or <em>busy</em></p></li>
+<li><p><em>track</em> - defines the track information:</p>
+
+<ul>
+<li><p><em>title</em>, <em>artist</em>, and <em>album</em> - strings</p></li>
+<li><p><em>albumArtURI</em> - a URI</p></li>
+</ul></li>
+<li><p><em>position</em> - an integer-value indicating the number of milliseconds</p></li>
+<li><p><em>volume</em> - an integer-value percentage of the device's possible output</p></li>
+<li><p><em>muted</em> - either <em>on</em> or <em>off</em></p></li>
+</ul>
+
+<p>At a minimum, these tasks must be available:</p>
+
+<ul>
+<li><p><em>play</em> - plays the <em>url</em> parameter (or resumes playback if the <em>url</em> isn't present)</p></li>
+<li><p><em>stop</em> - stops playback</p></li>
+<li><p><em>pause</em> - pauses playback</p></li>
+<li><p><em>seek</em> - to the <em>position</em> parameter</p></li>
+<li><p><em>set</em> - set any of these parameters: <em>position</em>, <em>volume</em>, and/or <em>muted</em></p></li>
+</ul>
+
+<h3>Motive</h3>
+
+<p>These are devices that have some movement capability: either rotational or mobile.
+The naming pattern is:</p>
+
+<pre><code>/device/motive/2d/XYZ
+/device/motive/3d/XYZ
+/device/motive/ptz/XYZ
+</code></pre>
+
+<p><strong>TBD</strong></p>
+
+<h3>Presence</h3>
+
+<p>These are devices that report presence.
+The naming pattern is:</p>
+
+<pre><code>/device/presence/fob/XYZ
+</code></pre>
+
+<p>At a minimum, two properties must be present:</p>
+
+<ul>
+<li><p><em>status</em></p>
+
+<ul>
+<li><p><em>present</em> - the device is currently detected</p></li>
+<li><p><em>absent</em> - the device is no longer detected</p></li>
+<li><p><em>recent</em> - the device was recently detected (to save device power, the steward does not continuously probe the device)</p></li>
+</ul></li>
+<li><p><em>rssi</em> - an integer-value between -127 and 128 indicating proximity</p></li>
+</ul>
+
+<p>At a minimum, one task must be present:</p>
+
+<ul>
+<li><p><em>alert</em> - causes the presence device to emit a visual and/or audio signal</p>
+
+<ul>
+<li><em>level</em> parameter: one of <em>none</em>, <em>mild</em>, or <em>high</em></li>
+</ul></li>
+</ul>
+
+<h3>Sensor</h3>
+
+<p>These are devices that measure one physical quality (such as motion).
+The naming pattern is:</p>
+
+<pre><code>/device/sensor/XYZ/QUALITY
+</code></pre>
+
+<p>At a minimum, one property must be present:</p>
+
+<ul>
+<li><em>lastSample</em> - a timestamp</li>
+</ul>
+
+<h3>Switch</h3>
+
+<p>These are devices that control power either in binary (<em>onoff</em>) or contiguously (<em>dimmer</em>).
+The naming pattern is:</p>
+
+<pre><code>/device/switch/XYZ/onoff
+/device/switch/XYZ/dimmer
+</code></pre>
+
+<p>The <em>status</em> property may be the only property present:</p>
+
+<ul>
+<li><em>status</em> - <em>on</em>, <em>off</em>, <em>busy</em>, or <em>waiting</em></li>
+</ul>
+
+<p>At a minimum, two tasks must be available:</p>
+
+<ul>
+<li><p><em>on</em> - turns the power on</p>
+
+<ul>
+<li><em>level</em> (<em>dimmer</em> only) - an integer-value percentage of the switch's possible output</li>
+</ul></li>
+<li><p><em>off</em> - turns the power off</p></li>
+</ul>
+
+<h3>Wearable</h3>
+
+<p>These are devices that are similar to fob devices, but meant to be more personal.
+The naming pattern is:</p>
+
+<pre><code>/device/wearable/watch/XYZ
+</code></pre>
+
+<p>Please consult the section on <em>Presence</em> devices for further details.
+(In the future, it is likely that this device prototype will have additional features.)</p>
+
+<h2>Choosing a technology to integrate</h2>
+
+<p>There are a large number of technologies available for integration.
+The steward's architecture is agnostic with respect to the choice of communication and application protocols.
+However,
+many of these technologies compete (in the loose sense of the word).
+Here is the algorithm that the steward's developers use to determine whether something should go into the development queue.</p>
+
+<ul>
+<li><p>Unless the device is going to solve a pressing problem for you, it really ought to be in <em>mainstream use</em>.
+One of the reasons that the open source/node.js ecosystem was selected is because it presently is the most accessible for
+developers.
+Similarly,
+it's desirable to integrate things that are going to reduce the pain for lots of people.</p></li>
+<li><p>The <em>mainstream use</em> test consists of going to your national <em>amazon</em> site and seeing what, if anything, is for sale.
+Usually, the search page will reveal several bits of useful information.</p>
+
+<ul>
+<li><p>Sponsored Links: often these are links to distributors, but sometimes there links to knowledge aggregators.
+The first kind link is useful for getting a better sense as to the range of products available,
+but the second kind link is usually more useful because it will direct you to places where you can find out more about the
+integration possibilities, e.g., community sites, developer forums, and so on.</p></li>
+<li><p>Products for sale: </p></li>
+<li><p>Frequently Bought Together:</p></li>
+<li><p>Customers Who Bought This Item Also Bought:</p></li>
+</ul></li>
+<li><p>One of the things that is quite perplexing is the lack of technical information on technical products.
+Although many developer forums have information,
+"code rules".
+So the obvious stop is <a href="https://github.com">github</a> - search for the technology there.
+Look at each project:</p>
+
+<ul>
+<li><p>Many projects often include pointers to community, forum, and documentation sources.</p></li>
+<li><p>Some projects contain a documentation directory;
+if not, you can usually get a sense of things by looking at the "main" source file.</p></li>
+<li><p>If you are fortunate,
+a large part of the integration may already be done in node.js (use "npm search").
+If so, check the licensing to see if it is "MIT".
+If not, study it carefully to see whether it will work for you.</p></li>
+<li><p>After reviewing the project, go up one level and look at the author's other projects.
+Often there are related projects that weren't returned by the first search.</p></li>
+</ul></li>
+</ul>
+
+<p>Finally, you may have a choice of devices to integrate with, and you may even have the opportunity to build your own.
+If you go the "off-the-shelf" route,
+please consider what is going to be easiest for others to connect to:</p>
+
+<ul>
+<li><p>If there is an ethernet-connected gateway to a device, then it is best to integrate to that gateway:
+others will be able to use the gateway fairly easily, because attaching devices to an ethernet is fairly simple.</p></li>
+<li><p>Otherwise, if there is a USB stick that talks to a device, then use that:
+although USB sticks should be less expensive than devices with ethernet-connectivity,
+they also tend to require more expertise to configure.</p></li>
+<li><p>Finally, if there is a serial connector that talks to a device, you can always use that. Good luck!</p></li>
+</ul>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

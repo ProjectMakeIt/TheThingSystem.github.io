@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Setting Up the Rendezvous Server
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc"  style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="select-toc">Node Rendezvous</a></li>
+						<ol class="toc-nav">
+							<li><a href="Setting-Up-the-Rendezvous-Server.html" class="toc" style="color: #f05687;">Setting Up the Rendezvous Server</a> <span style="color: #f05687;">&rarr;</span></li>
+							<li><a href="Rendezvous-Protocol.html" class="toc">Rendezvous Protocol</a></li>
+						</ol>						
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Setting Up the Rendezvous Server</h1>
+<p>You do not need to have a domain name for your VPS;
+however, you must have a stable IP address (e.g., 'a.b.c.d').</p>
+
+<ol>
+<li><p>Get a <a href="https://github.com/TheThingSystem/node-rendezvous/archive/master.zip">tarball</a> of this repository onto your local system,
+extract it, and then:</p>
+
+<pre><code>% cd node-rendezvous-master
+% npm -l install
+</code></pre>
+
+<p>Note that until we reach Step 7, all the commands will be run on your local system.</p></li>
+<li><p>Create a file called:</p>
+
+<pre><code>vps.js
+</code></pre>
+
+<p>that looks like this:</p>
+
+<pre><code>var fs          = require('fs')
+  ;
+
+
+exports.options =
+  { rendezvousHost : 'a.b.c.d'
+  , rendezvousPort : 8899
+
+
+  , keyData        : fs.readFileSync('./registrar.key')
+  , crtData        : fs.readFileSync('./registrar.crt')
+
+
+  , redisHost      : '127.0.0.1'
+  , redisPort      : 6379
+  , redisAuth      : ''
+  };
+</code></pre></li>
+<li><p>Create a key pair for use by the rendezvous server:</p>
+
+<pre><code>% node make-cert.js
+
+
+% chmod  a-w registrar.key registrar.crt
+
+
+% chmod go-r registrar.key
+</code></pre>
+
+<p>to create a self-signed certificate:</p>
+
+<pre><code>registrar.crt
+</code></pre>
+
+<p>and the corresponding private key:</p>
+
+<pre><code>registrar.key
+</code></pre></li>
+<li><p>We're nearly ready.
+The next step is to create entries in the database for the hidden servers.
+Running:</p>
+
+<pre><code>% node users.js
+</code></pre>
+
+<p>will bring up a server on:</p>
+
+<pre><code>http://127.0.0.1:8893
+</code></pre>
+
+<p>Browse this URL, and you will see all UUIDs defined in the database (initially, none).
+To create an entry, use the form on the page.
+Whenever an entry is created,
+a JS file is created which you can use with your hidden server.
+You will want to copy the JS file to the provisioning area for your hidden server.</p></li>
+<li><p>When you are done creating entries for the remote servers, kill the node process running</p>
+
+<pre><code>users.js
+</code></pre></li>
+<li><p>Copy the server files to the VPS:</p>
+
+<pre><code>% rm -rf node_modules
+% cd .. ; scp -r node-rendezvous-master root@a.b.c.d:.
+</code></pre></li>
+<li><p>Login to the VPS and install <a href="http://nodejs.org/download/">node.js</a>, and then</p>
+
+<pre><code>vps% cd node-rendezvous-master/
+vps% npm install -l
+vps% cp vps.js local.js
+</code></pre></li>
+<li><p>Finally, start the server:</p>
+
+<pre><code>vps% bin/run.sh
+</code></pre>
+
+<p>Log entries are written to the file:</p>
+
+<pre><code>server.log
+</code></pre></li>
+</ol>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

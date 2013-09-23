@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; the thing system - For Implementors - Introduction</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+		<ul class="subnav">
+			<li><a href="makers.html" class="toc">Thing Makers</li>
+			<li><a href="integrators.html" class="toc">System Integrators</a></li>
+			<li><a href="client-developers.html" class="toc">Client Developers</a></li>			
+		</ul>	
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="content">
+<h1>For Implementors</h1>
+
+<p>The home has evolved from one computer in a back room to a network of computing devices all over the house. Many of these are user-facing devices, such as tablets, laptops, and desktops. However increasingly, the home network has a number of special-purpose devices &#8212; things &#8212; that turns the home network into a network not just for the user, but for their devices; a network of things.</p>
+
+<p>Most of these things are controlled by a special-purpose application. Every thing has its own app, and its rare that one thing will talk to another. The Internet of Things isn't really connected together, not like the other Internet, the digital one. Right now its a series of (mostly proprietary) islands that don't talk to each other.</p>
+
+<p>The Thing System is a set of software components and network protocols that changes that. Our steward software is written in <a href="http://nodejs.org/" class="text">node.js</a> making it both portable and easily extensible. It can run on your laptop, or fit onto a small single board computer like the Raspberry Pi.</p>
+
+<p>The steward is at the heart of the system and connects to Things in your home, whether those things are media players such as the Sonos or the Apple TV, your Nest thermostat, your INSTEON home control system, or your Philips Hue lightbulbs &#8212; whether your things are connected together via Wi-Fi, USB or Bluetooth Low Energy (BLE). The steward will find them and bring them together so they can talk to one another and perform magic.</p>
+
+</div>
+
+<div class="content" style="white-space: nowrap;">
+	<div class="content-column-left" style="text-align: center;"><a href="thing.architecture.chart.pdf" class="logo"><img src="thing.architecture.chart.outline.svg" style="width: 100%" /></a><br /><span class="annotate">&uarr; Click to download as PDF <span style="color: #666">&#8212; Revised 08.05.13</span></span><br />The Thing System &#8212; Architecture Diagram</div>
+	<div class="content-column-left" style="text-align: center;"><a href="thing.steward.chart.pdf" class="logo"><img src="thing.steward.chart.outline.svg" style="width: 100%" /></a><br /> <span class="annotate">&uarr; Click to download as PDF <span style="color: #666">&#8212; Revised 08.08.13</span></span><br />The Thing System &#8212; Steward Diagram</div>
+</div>
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

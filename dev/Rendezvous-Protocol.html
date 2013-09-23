@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Rendezvous Protocol
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc"  style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="select-toc">Node Rendezvous</a></li>
+						<ol class="toc-nav">
+							<li><a href="Setting-Up-the-Rendezvous-Server.html" class="toc">Setting Up the Rendezvous Server</a></li>
+							<li><a href="Rendezvous-Protocol.html" class="toc" style="color: #f05687;">Rendezvous Protocol</a> <span style="color: #f05687;">&rarr;</span></li>
+						</ol>						
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Rendezvous Protocol</h1>
+<p><img class="doc-image" src="images/rendezvous.protocol.png" alt="Rendezvous Protocol Diagram" title=""></p>
+
+<p>The protocol is outlined below:</p>
+
+<ol>
+<li><p>The rendezvous server resides at a well-known location in the Internet, e.g.,</p>
+
+<pre><code>https://rendez.example.com/
+</code></pre></li>
+<li><p>The hidden server establishes an HTTPS connection to the rendezvous server,
+and uses TOTP to authenticate itself.</p>
+
+<pre><code>PUT /register/LABEL HTTP/1.1
+Host: rendez.example.com
+Authorization: TOTP username="ID", response="TKN"
+</code></pre>
+
+<p>where 'ID' is administratively assigned by the provider of the rendezvous server,
+and TKN is a one-time authentication token.</p></li>
+<li><p>If the hidden server successfully authenticates itself using 'ID' and 'TKN',
+and if the hidden server is authorized to use 'LABEL',
+then the rendezvous server listens on IP address 'a.b.c.d' for port 'p' and sends:</p>
+
+<pre><code>HTTP/1.1 200 OK
+Content-Type: text/plain
+
+
+a.b.c.d:p
+</code></pre>
+
+<p>and closes the connection.
+(If an error occurs, the rendezvous server returns a 4xx or 5xx response and closes the connection.)</p>
+
+<p>The hidden server, upon receiving the 200 response,
+immediately establishes a TCP connection to IP address 'a.b.c.d' port 'p',
+and waits for activity on that connection
+In the interim,
+if the connection fails,
+the hidden server retries Step 2 accordingly.
+The rendezvous server will accept at most one connection to IP address 'a.b.c.d' port 'p'.</p>
+
+<p>Instead of a 200, 4xx, or 5xx code, the rendezvous server might return a 3xx code.
+In that case, the hidden server should process the redirect appropriately.</p></li>
+<li><p>The mobile client establishes an HTTPS connection to the rendezvous server, e.g.,</p>
+
+<pre><code>https://LABEL.vous.example.com/...
+</code></pre></li>
+<li><p>If a hidden server with that identity is registered,
+then the rendezvous server listens on IP address 'a.b.c.d' for port 'q' and sends a 307 redirection:</p>
+
+<pre><code>HTTP/1.1 307
+Location: https://a.b.c.d:q
+</code></pre>
+
+<p>The mobile client, upon receiving the 307 response,
+immediately establishes a TCP connection to IP address 'a.b.c.d' port 'q' and then begins sending traffic.
+(If an error occurs, the rendezvous server returns a 4xx or 5xx response and closes the connection.)
+The rendezvous server will accept multiple connections to IP address 'a.b.c.d' port 'p'.</p></li>
+<li><p>The hidden server, in addition to processing any data on the connection,
+may make additional HTTPS connections to the rendezvous server (cf., Step 2).
+In this fashion,
+the hidden server should always have something waiting for the next mobile client connection.</p></li>
+<li><p>Regardless, the rendezvous server simply copies octets from one connection to the other.</p></li>
+</ol>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

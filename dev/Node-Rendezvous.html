@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Node Rendezvous
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc"  style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="select-toc">Node Rendezvous</a> <span style="color: #f05687;">&rarr;</span></li>
+						<ol class="toc-nav">
+							<li><a href="Setting-Up-the-Rendezvous-Server.html" class="toc">Setting Up the Rendezvous Server</a></li>
+							<li><a href="Rendezvous-Protocol.html" class="toc">Rendezvous Protocol</a></li>
+						</ol>						
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Node Rendezvous</h1>
+<p>The <a href="https://github.com/TheThingSystem/node-rendezvous2"><em>node-rendezvous</em></a> package is a general purpose stand-alone package allowing rendezvous for 'hidden servers' (behind firewalls/NATs) and 'mobile clients' using a third-party service. The source code is <a href="https://github.com/TheThingSystem/node-rendezvous2">available on GitHub</a></p>
+
+<p>It is used by the <em>steward</em> software for this purpose, however it is not tied to the <em>steward</em> code base. The package implements an HTTP-specific protocol that will allow an HTTP connection from the mobile client to the hidden server.</p>
+
+<h2>Protocol</h2>
+
+<p>The hidden server uses HTTPS and the <em>CONNECT</em> method both to authenticate itself and wait for a rendezvous.
+The mobile client establishes an HTTPS connection to the rendezvous server, and specifies the identity of the hidden server. At this point the rendezvous server moves the octets back-and-forth.</p>
+
+<p>A <a href="Rendezvous-Protocol.html">detail description of the Rendezvous protocol</a> is available.</p>
+
+<h2>Setup</h2>
+
+<p>The protocol may be provisioned using a <a href="http://en.wikipedia.org/wiki/Platform_as_a_service">PAAS</a> provider,
+<em>if</em> that service transparently supports the HTTP <em>CONNECT</em> method. Otherwise, deployment must be provisioned using a <a href="http://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>.</p>
+
+<p>Please follow the <a href="Setting-Up-the-Rendezvous-Server.html">setup instructions for VPS provisioning</a> to deploy the service.</p>
+
+<h2>The Security Model</h2>
+
+<p>The security model is:</p>
+
+<ol>
+<li><p>The hidden server and the mobile client have to know the domain-name or IP-address of the rendezvous server,
+and have to trust the certificate used by the rendezvous server.
+This knowledge and trust is determined by out-of-band means.</p></li>
+<li><p>The hidden server and rendezvous server must share a time-based secret. This is how the rendezvous server knows that the hidden server is allowed to respond to requests for a particular UUID. This shared secret is created by out-of-band means.</p></li>
+<li><p>The mobile client does not need to authenticate itself to the rendezvous server.
+If a hidden server is responding for a particular UUID,
+then amy mobile client knowing the UUID is allowed to initiate a connection to that hidden server.</p></li>
+<li><p><strong>Most importantly:</strong> it is the responsibility of the hidden server to authenticate the mobile client once the rendezvous occurs. Although there are many well-reasoned arguments as to why hiding behind a firewall is a bad thing, please do not negate the one good thing about being behind a firewall or NAT!</p></li>
+</ol>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

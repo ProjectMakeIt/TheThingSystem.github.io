@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+The Thing Architecture
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="select-toc">The Thing Architecture</a> <span style="color: #f05687;">&rarr;</span></li>
+				<ol class="toc-nav">
+					<li><a href="The-Security-Model.html" class="toc">The Security Model</a></li>
+				</ol>			
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>The Thing Architecture</h1>
+
+<p>The <a href="The-Thing-Philosophy.html">philosophy behind the architecture</a> describes the way we think about the Internet of Things and home automation systems, and informs our approach to the problem of connecting devices together.</p>
+<img src="images/thing.architecture.png" alt="Architecture Diagram" title="" style="float: right; padding: 20px 0px 30px 40px;">
+
+<p>The <a href="Steward.html">steward</a> is the center of the system, <a href="Thing-Sensor-Report-Protocol.html">monitoring</a> and <a href="Simple-Thing-Protocol.html">controlling</a> all sorts of <a href="Things.html">things</a>, according to the directives it receives from various <a href="Clients.html">clients</a>.</p>
+
+<p><strong>Developers: the links in the remainder of this document will take you to the relevant API information.</strong></p>
+
+<h2>Communicating with Things</h2>
+
+<p>There are three different <em>protocols</em> that the steward uses to communicate with a thing, the first is actually a grab bag of legacy protocols,</p>
+
+<ul>
+<li>Most consumer equipment implements some kind of industry-or manufacturer-specific protocol, which the steward terms a <em>native protocol</em>. Examples of these sorts things supported by the <a href="Steward.html">steward</a>  include the Philips Hue lightbulb, or the Apple TV, and they might talk Zigbee, Z-Wave, INSTEON, DASH7, and so on, many of which are implement as native protocols. If a particular native protocol isn't supported, then a developer must write a <a href="Devices.html">device driver</a> for the <a href="Steward.html">steward</a> to support it.</li>
+</ul>
+
+<p>In addition the <a href="Steward.html">steward</a> also implements two standard protocols which a device can choose to support to be "Thing System native."</p>
+
+<ul>
+<li><p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Reporting Protocol</a>. The repository contains <a href="https://github.com/TheThingSystem/steward/tree/master/things/examples">example code for Arduino and iOS</a> to help developers add the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> to their things.</p></li>
+<li><p>If a thing is capable not just of reporting sensor readings, or events, but also of performing actions then it can implement the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>. This protocol is more complex that the <a href="Thing-Sensor-Report-Protocol.html">reporting protocol</a> but allows the <a href="Steward.html">steward</a> to interact with the remote thing. Both to ask for sensor readings, instead of just passively waiting for them to be reported, but also to ask it to perform an action, e.g. turn a light on or off. These smart devices normally have a programmable environment. Examples of this sort of thing include smart phones, tablets, and the things that attach to them, such as Motrr's Galileo, Romotive's Romo, the Swivl, and so on. </p></li>
+</ul>
+
+<h2>Communicating with Clients</h2>
+
+<p>There are two different kinds of clients that the steward interacts with:</p>
+
+<ul>
+<li><p><em>Simple Clients</em> - These can be platform-specific clients, e.g., Android, iOS or Arduino, or platform neutral and implemented as HTML5 files. The steward implements a comprehensive set of web services to allow a client to monitor and control <a href="Devices.html">things</a>, <a href="Actors.html">actors</a>, <a href="Activities.html">activities</a>, and the <a href="Steward.html">steward</a> itself. The repository contains <a href="https://github.com/TheThingSystem/steward/tree/master/clients/examples">example code</a> for Arduino, iOS and node.js clients.</p></li>
+<li><p><em>Apprentices</em> - These differ from the other kinds of clients in that once configured they operate autonomously from the user. Each apprentice implements a particular kind of <a href="Magic.html">magic</a>. For example, a "vacation apprentice" might monitor when you turn on (or adjust) the lighting in your home. When you tell the apprentice that you are going on vacation, it then emulates that same behavior.</p></li>
+</ul>
+
+<p>Typically, an apprentice starts with by asking a couple of questions in order to construct a <em>prefab</em>.
+A prefab is an internal structure used by the apprentice in order to guide future actions. For example, a "lighting apprentice" might start by asking you to group the lights in your home into natural units (such as "living room", "entry way", and so on).</p>
+
+<h2>Communicating with the Cloud</h2>
+
+<p>The steward implements the <em>hidden server</em> side of a <a href="Node-Rendezvous.html">rendezvous protocol</a>. What that means is that you can have the steward listen for traffic on the Internet while sitting behind your home firewall.</p>
+
+<p>The steward implements a robust <a href="The-Security-Model.html">security model</a>, so clients are required to use either <em>https</em> or <em>wss</em> (secure web sockets) to connect to the steward, and then authenticate themselves using a time-based OTP system. Future implementations of the steward are planned to support <em>ssh</em> in addition to <em>https</em> and <em>wss</em>.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Implementing Magic
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="select-toc">Clients</a></li>
+						<ol class="toc-nav">
+							<li><a href="Building-Simple-Clients.html" class="toc">Building Simple Clients</a></li>
+							<li><a href="Implementing-Magic.html" class="toc" style="color: #f05687;">Implementing Magic</a> <span style="color: #f05687;">&rarr;</span></li>
+						</ol>					
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+<div class="doc-content">
+<h1>Implementing Magic</h1>
+<p>If you've read our <a href="The-Thing-Philosophy.html">philosophy</a> and <a href="Magic.html">magic</a> documents you'll know that the aim of the system is to reduce the friction between the user and their things. While <a href="Building-Simple-Clients.html">simple clients</a> usually require a lot of user interaction, effectively turning the steward into a sophisticated remote control for your devices, our philosophy is that more complicated clients probably shouldn't.</p>
+
+<h2>The Magic Architecture</h2>
+
+<p>Clients that perform "magic", at least from the user's perspective, and are separate stand alone tasks that talks to the steward at the API level &#8212; referred to as <em>apprentices</em>. They have no special status with the <a href="Steward.html">steward</a> and make use the same APIs as all <a href="Clients.html">other clients</a>. However apprentices monitor the steward and then act on event notifications from the devices associated with the steward. </p>
+
+<p>The beauty of this idea is that;</p>
+
+<ul>
+<li><p>If the internal rule engine gets locked up, it doesn't affect core functionality</p></li>
+<li><p>If they crash, it doesn't affect core functionality</p></li>
+<li><p>It forces both us to eat our own dog-food a build a useable API allowing everyone &#8212; not just us &#8212; to develop intelligent clients that can help end users solve their problems.</p></li>
+<li><p>Clean separation between magic and core functionality. Which means that individual bits of magic can be separate processes than can be spun up and down at will</p></li>
+<li><p>Doesn't have to run in the same place as the steward, while they're generally persistent they can make use of the <a href="Node-Rendezvous.html">Node Rendezvous</a> service to run remotely, which means they can also make use of remote resources.</p></li>
+</ul>
+
+<p>The above means that we can write as much, or as little, magic as we like. We can add magic at any time without affecting the core system, and the magic can be turned off and on without affecting the core system. It can also spectacularly crash and so long as the steward is still up, then the user doesn't seem a difference in controlling their hardware directly. Interestingly, it can also be anywhere in the cloud, on a different server, on the user's phone. It doesn't have to run on the same machine as the steward, it can, but it doesn't have to necessarily.</p>
+
+<p><img src="images/reflex.agent.png" alt="Reflex Agent" title="" style="float: right; margin: 0px 0px 20px 20px;"></p>
+
+<p>Apprentices are <a href="http://en.wikipedia.org/wiki/Intelligent_agent">intelligent agents</a> working in a <a href="http://en.wikipedia.org/wiki/Multi-agent_system">multi-agent system</a> with shared goals of making life more convenient for the user. In the simplest case these can be reflex agents that evaluate current conditions against a set of fixed rules and then perform actions based on those rules.</p>
+
+<h2>A case study</h2>
+
+<p>For instance as an example, think about light bulbs. You have 40 light Hue bulbs in your house. You have a "magic agent" sitting waiting for a "bulb added" event. It receives such an event, however it also knows that there was a recent "bulb removed" event &#8212; or rather that the steward lost contact with one of the Hue bulbs. It figures that this is the replacement bulb and configures it as the previous bulb &#8212; talking to the steward via the network API like any other bit of <a href="Clients.html">client software</a>. This is a fairly simple piece of rule-based software, however from the user's perspective magic happens as they don't have to configure their new bulb. It gets configured for them.</p>
+
+<h2>An example of magic</h2>
+
+<p>A simple example apprentice which monitors for high CO2 in an office, and blinks the office lights on and off to alert the user...</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Home
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+<div class="doc-content">
+
+<h1>Documentation</h1>
+<h2>The Thing System</h2>
+
+<p>The home has evolved from one computer in a back room to a network of computing devices all over the house. Many of these are user-facing devices, such as tablets, laptops, and desktops. However increasingly, the home network has a number of special-purpose devices &#8212; things &#8212; that turns the home network into a network not just for the user, but for their devices; a network of things.</p>
+
+<h2>Philosophy</h2>
+
+<p>The trouble with these things is that none of them talk to each other. They might be informing us, quantifying the world around us and allowing us to make better decisions, but it's still us that has to make the decisions, and the more things there are, the more decisions there are to make. The Internet of Things isn't connected together, not like the other Internet, the digital one. Right now its a series of &#8212; mostly proprietary &#8212; islands that don't talk to each other. We’re become a mechanical turk inside other people's software.</p>
+
+<p>The Thing System is a set of software components and network protocols that changes that. Our <a href="Steward.html">steward</a> software is written in <a href="http://nodejs.org">node.js</a> making it both portable and easily extensible. It can run on your laptop, or fit onto a small single board computer like the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a>.</p>
+
+<p>The design and architecture of the system is <a href="The-Thing-Philosophy.html">governed by the philosophy</a> that Internet of Things should revolve around rules in which things observe events, and in response, other things perform tasks. Not every choice needs to be presented to the user all the time. Not every option offered to them. The Internet of Things should be context sensitive, but not just that, it should be anticipatory, not responsive. </p>
+
+<img src="images/thing.architecture.png" alt="text" title="" style="float: right; margin: 10px 0px 10px 30px">
+
+<h2>The Thing Architecture</h2>
+
+<p>The <a href="Steward.html">steward</a> is at the heart of our system and connects to <a href="Knapsack.html">things</a> in your home, and allows them to connect to one another. Whether those things are media players, such as the Roku or the Apple TV, your Nest thermostat, your INSTEON home control system, or your Philips Hue lightbulbs &#8212; whether your things are connected together via Wi-Fi, Zigbee, Z-Wave, USB or Bluetooth LE. The steward will find them and bring them together so they can talk to one another and perform <a href="Magic.html">magic</a>.</p>
+
+<h2>Magic</h2>
+
+<p>Our <a href="The-Thing-Philosophy.html">philosophy</a> is that the Internet of Things should reduce the friction in our lives. Things should work like <a href="Magic.html">magic</a>. The more buttons, switches, dials and other interface elements that stand between us and our thing doing what we expect it to do, when we expect it to, makes the thing harder to use. It increases the friction between us and our things.</p>
+
+<p>There is very little point automating your home if you end up with a home that's harder to use afterwards than it was before. If your lights are harder to use, or you have to think about what state they're in before flipping a wall switch you've not made your life simpler, you've made it just a little bit harder.</p>
+
+<p>You don't want to have to think about that, you want it all to <a href="Magic.html">work like magic</a>. That's our goal</p>
+
+<h2>Installation and Getting Started</h2>
+
+<p>The first thing you'll need to do, whether you're a user or a developer is <a href="Installation.html">install</a> and <a href="Instructions-for-starting-the-Steward.html">start</a> the <a href="Steward.html">steward</a> software.</p>
+
+<h2>Remote Access</h2>
+
+<p>The <a href="Steward.html">steward</a> software advertises itself using <a href="http://en.wikipedia.org/wiki/Multicast_DNS">mDNS</a> (aka <a href="http://en.wikipedia.org/wiki/Bonjour_(software">Bonjour</a>) over the local network. However you can access your steward <a href="Node-Rendezvous.md.html">remotely</a> using our <a href="Node-Rendezvous.html">rendezvous</a> cloud service.</p>
+
+<h2>For Developers</h2>
+
+<p>There are three main tracks for <a href="Developer.html">developing for the Thing System</a>,</p>
+
+<ul>
+<li><p>Developing drivers for third party things, and hacking on the the <a href="Steward.html">steward</a>.</p></li>
+<li><p>Developing things which talk to the steward using the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>, or are monitored by it using the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol (TSRP)</a>.</p></li>
+<li><p>Developing <a href="Clients.html">clients</a> which talk to the steward, and perform <a href="Implementing-Magic.html">magic</a>.</p></li>
+</ul>
+
+<p>However, before getting started, you should probably read about the <a href="The-Thing-Architecture.html">architecture</a>.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

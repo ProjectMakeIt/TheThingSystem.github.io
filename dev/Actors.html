@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Actors
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="select-toc">Steward</a></li>
+						<ol class="toc-nav">
+							<li><a href="Activities.html" class="toc">Activities</a></li>
+							<li><a href="Actors.html" class="toc" style="color:#f05687;">Actors</a> <span style="color: #f05687;">&rarr;</span></li>
+							<li><a href="Devices.html" class="toc">Devices</a></li>
+						</ol>						
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Actors</h1>
+<p>An <em>actor</em> refers to a prototype of a entity that participates in an activity.</p>
+
+<ul>
+<li><p><em>Device actors</em> - A <a href="Devices.html">device</a> is a physical object.</p></li>
+<li><p><em>Group actors</em> - A group is a collection (possibly hierarchical) of physical objects. Information about groups can be found in the <a href="Activities.html">documentation on activities</a>.</p></li>
+<li><p><em>Pseudo actors</em> - Pseudo actors are software-only constructs. At present, there is one type of pseudo-actor: the place. The clipboard actor is experimental (it may be a solution in search of a problem).</p></li>
+</ul>
+
+<h3>The place pseudo-actor</h3>
+
+<p>At present, there is one place actor, 'place/1', which refers to the steward's physical location,</p>
+
+<ul>
+<li><p><em>name</em> - a user-friendly name</p></li>
+<li><p><em>status</em> - <em>green</em>, <em>blue</em>, <em>indigo</em>, or <em>red</em> - for reporting steward health</p></li>
+<li><p><em>solar</em> - <em>dawn</em>, <em>morning-twilight</em>, <em>sunrise</em>, <em>morning</em>, <em>daylight</em>, <em>evening</em>, <em>sunset</em>, <em>evening-twilight</em>,
+<em>dusk</em>, <em>night</em>, <em>noon</em>, and <em>nadir</em></p></li>
+<li><p><em>physical</em> - a string</p></li>
+<li><p><em>coordinates</em> - [latitude, longitude] -or- [latitude, longitude, elevation]</p></li>
+</ul>
+
+<h4>Events</h4>
+
+<p>There are two events that may be monitored:</p>
+
+<ul>
+<li><p>'cron' - the associated parameter is a <a href="http://en.wikipedia.org/wiki/Cron#CRON_expression">cron expression</a></p></li>
+<li><p>'solar' - the associated parameter is any of the values above (note that <em>noon</em> and <em>nadir</em> are precise moments in time, whilst the others are time ranges)</p></li>
+</ul>
+
+<h4>Tasks</h4>
+
+<p>The 'set' task may be used to update the <em>name</em>, <em>physical</em>, and <em>coordinates</em> parameters.
+Note that changing the <em>physical</em> parameter will not update the <em>coordinates</em> parameter.</p>
+
+<h2>API calls</h2>
+
+<p>Actors are managed by authorized clients using the</p>
+
+<pre><code>/manage/api/v1/actor/
+</code></pre>
+
+<p>path prefix, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/actor/list'
+, requestID : '1'
+, options   : { depth: all }
+}
+</code></pre>
+
+<h3>List Actor(s)</h3>
+
+<p>To list the properties of a single actor,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/list/ID'
+, requestID : 'X'
+, options   : { depth: DEPTH }
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>actorID</em> of the actor to be deleted,
+<em>X</em> is any non-empty string,
+and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
+
+<p>If the ID is omitted, then all actors are listed, e.g., to find out anything about everything,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/list'
+, requestID : '2'
+, options   : { depth: 'all' }
+}
+</code></pre>
+
+<h3>Perform Actor(s)</h3>
+
+<p>To have an actor perform a particular task,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/actor/PREFIX'
+, requestID : 'X'
+, perform   : 'TASK'
+, parameter : 'PARAMS'
+}
+</code></pre>
+
+<p>where <em>PREFIX</em> corresponds to a device taxonomy,
+<em>X</em> is any non-empty string,
+<em>TASK</em> identifies the particular task,
+and <em>PARAMS</em> provides the parameters, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/actor/perform/device/lighting'
+, requestID : '3'
+, perform   : 'off'
+, parameter : ''
+}
+</code></pre>
+
+<p>tells all devices to perform the 'off' task.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

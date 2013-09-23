@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; the thing system - For Implementors - Introduction</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+		<ul class="subnav">
+			<li><a href="makers.html" class="select-toc">Thing Makers&nbsp;<span class="annotate">&rarr;</span></a></li>
+			<li><a href="integrators.html" class="toc">System Integrators</a></li>
+			<li><a href="client-developers.html" class="toc">Client Developers</a></li>
+		</ul>	
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+</ul>
+
+<div class="content">
+<h1>Thing Makers</h1>
+
+<p>If you read the Philosophy section and feel the pain of the macguffin
+maestro, then you're a maker! If you didn't bother to read the
+<a href="The-Thing-Philosophy.html" class="text">Philosophy section,</a> here's the re-cap of the relevant portion:</p>
+
+<blockquote>"Let's say you've built a really nice thing. For now, let's call it a macguffin. Your passion is to bring the best possible macguffins to market, so that people everywhere can revel in the macguffiness of it all. In today's market however, it's not enough for you to design, manufacture, and market macguffins. You also have to write a macguffin management app for each of the different smart platforms (2 or 4, depending on how you count). You also need to design, provision, and operate a cloud service to allow remote access to the macguffins in the home. Even after you go sideways on all that, the macguffins in the home don't interact with anything else in the home."</blockquote>
+
+<p>Have we got news for you: you don't need to pound a square peg into a
+round hole, over and over again. Here's what you do instead:</p>
+
+<ol>
+	<li>Make the best possible macguffin</li>
+	<li>Get the steward and the macguffin talking</li>
+	<li>Modify the HTML5 client to monitor and/or control your macguffin
+      via the steward</li>
+</ol>
+
+<p>Making the best possible macguffin is your passion, and we won't presume
+to help you with that.</p>
+
+<p>There are many ways to get the steward and the macguffin
+talking. Need help? No worries! There's a <a href='https://plus.google.com/communities/113042377519941328693' class="text">Google+ community</a>
+that can provide lots of information and advice.</p>
+
+<p>If the macguffin already has its own access protocol, then
+write a steward driver that speaks the protocol. The implementation
+language is called node.js and it's used throughout the Internet (i.e.,
+there are lots of developers who know how to use it), and it has a
+vibrant and friendly community.</p>
+
+<p>When the steward was first released, it spoke a couple dozen of these
+access protocols. Some work really well, some not so well. It's largely
+a function of the access protocol (although some people may
+disagree). One thing that's rather odd about some makers is that they
+view the access protocol as some kind of proprietary intellectual
+property. That is, of course, their perogative. It is, however,
+fundamentally silly. If you are a macguffin guru and your goal is to
+cover the world in macguffins, then you want as many people as possible
+writing clients to manage your macguffins. Otherwise, you're simply
+limiting your adoption and the size of your market. Let's be clear: the
+steward curators are market capitalists. We believe in property rights
+(that's the "capitalist" part), and we also understand modern markets
+and how technology gets adopted (that's the "market" part).</p>
+
+<p>Now it may be that you haven't really thought about how the macguffin
+speaks to stuff in the home environment. That's fine. First, you have to
+figure out how to get the macguffin talking on the home network. Again,
+the community can help you looking at the options. At this point, you
+can define your own access protocol, but why bother? We provide maker
+libraries for Arduino and iOS for the Thing Sensor Reporting Protocol
+and its mighty cousin, the Simple Thing Protocol.</p>
+
+<p>The name of the Thing Sensor Reporting Protocol says it all: if you have
+a macguffin that senses but doesn't interact, then you just add some
+"trivial" code to spit out a multicast packet whenever values
+meaningfully change, and every 30 seconds. An Arduino sketch can do that
+in about 150 lines of code, of which 148 lines are boilerplate. Take a
+look at the examples in things/examples/arduino/ to see what we mean.</p>
+
+<p>The Simple Thing Protocol gives the steward both monitoring and control
+capabilities for your macguffin. Traffic is encrypted and authenticated.
+You can run this on an Arduino as well, although you'll need a Mega 2560
+or a Goldilocks in order to run it. (Some of the Arduino libraries need
+a bit of work.)</p>
+
+<p>Finally, what about the clients. The repository provides a slick HTML5
+client that can be modified to know about your macguffin. It knows about
+over two dozen other things, so there's lots of code to
+"borrow". Furthermore, anyone can write a client presenting whatever
+paradigm they think is most intuitive to the user. If you've made the
+uber-macguffin, then client developers will be very interested in adding
+support to automate management of your macguffin using the steward. It's
+a win-win-win situation.</p>
+
+<p>So, click on "Get The Code" below, take a look, ask some questions, and
+have fun!</p>
+
+
+<br />
+<p><span class="montserrat">Next section</span> &rarr; <a href="integrators.html" class="purple select-purple">System Integrators &nbsp;</a></p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

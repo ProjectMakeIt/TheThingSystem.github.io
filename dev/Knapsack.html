@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Knapsack
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="select-toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Knapsack</h1>
+<p>Here is the current implementation status of various third-party consumer devices:</p>
+
+<h2>/device/climate</h2>
+
+<h3 class="knapsack"><a href="http://koubachi.com">koubachi/plant</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://koubachi.com">koubachi/sensor</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://nest.com">nest/control</a> - <em>complete</em> - thank you <a href="https://github.com/tmpvar">@tmpvar</a> for the 'set' functionality!</h3>
+
+<h3 class="knapsack"><a href="http://www.netatmo.com">netatmo/sensor</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.oregonscientificstore.com">oregon-scientific/sensor</a> - <em>complete</em></h3>
+
+<p>These require the RFXrec433 gateway:</p>
+
+<ul>
+<li><p>THGR122NX/THGR810: Wireless Temperature and Humidity Sensor</p></li>
+<li><p>THGN123N: Remote Thermo-Hygrometer Sensor</p></li>
+<li><p>THN132: Wireless Remote Temperature Sensor</p></li>
+<li><p>THGN132ES:Solar Thermo-Hygrometer Sensor</p></li>
+</ul>
+
+<h2>/device/gateway/</h2>
+
+<h3 class="knapsack"><a href="http://www.meethue.com">hue/bridge</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.insteon.com/2242-222-insteon-hub.html">insteon/hub</a> - <em>need more devices to integrate</em></h3>
+
+<h3 class="knapsack"><a href="http://www.insteon.com/2412N-smartlinc-central-controller.html">insteon/smartlinc</a> - <em>need more devices to integrate</em></h3>
+
+<h3 class="knapsack"><a href="http://koubachi.com">koubachi/cloud</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://nest.com">nest/cloud</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.netatmo.com">netatmo/cloud</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.rfxcom.com/store/Receivers/12113">rfxrec433/usb</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.sonos.com/system">sonos/bridge</a> - <em>recognized</em></h3>
+
+<h3 class="knapsack"><a href="http://www.teslamotors.com/">telsa/cloud</a> - <em>complete</em></h3>
+
+<h2>/device/indicator</h2>
+
+<h3 class="knapsack"><a href="http://xively.com">text/xively</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.prowlapp.com">text/prowl</a> - <em>complete</em></h3>
+
+<h2>/device/lighting</h2>
+
+<h3 class="knapsack"><a href="http://thingm.com/products/blink-1.html">blink1/led</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.blinkstick.com">blinkstick/led</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.meethue.com">hue/*</a> - <em>complete</em></h3>
+
+<p>You must press the center <em>pairing button</em> to authorize the steward to talk to the Hue bridge.</p>
+
+<h3 class="knapsack"><a href="http://www.insteon.com/bulb.html">insteon/led</a> - <em>complete</em></h3>
+
+<p>Requires either the Insteon hub or SmartLinc.</p>
+
+<h3 class="knapsack"><a href="http://www.smarthome-labs.com">robosmart/led</a> - <em>complete</em></h3>
+
+<h2>/device/media</h2>
+
+<h3 class="knapsack"><a href="http://www.appletv.com/developer">appletv/video</a> - <em>complete</em> - thank you <a href="https://github.com/tmpvar">@tmpvar</a>!</h3>
+
+<p>The API will report "track" information only if the API was used to play the media.</p>
+
+<h3 class="knapsack"><a href="http://www.google.com/chromecast">chromecast/video</a> - <em>complete</em> - thank you <a href="https://github.com/tmpvar">@tmpvar</a>!</h3>
+
+<h3 class="knapsack"><a href="http://www.roku.com">roku/video</a> - <em>non-functional</em> - thank you <a href="https://github.com/tmpvar">@tmpvar</a> for verifying this!</h3>
+
+<p>The Roku API lacks monitoring calls (e.g., "what is running" or "what is it doing").</p>
+
+<h3 class="knapsack"><a href="http://www.sonos.com/system">sonos/audio</a> - <em>complete</em></h3>
+
+<h2>/device/motive</h2>
+
+<h3 class="knapsack"><a href="http://www.teslamotors.com/">tesla/model-s</a> - <em>complete</em></h3>
+
+<h2>/device/presence</h2>
+
+<h3 class="knapsack">fob/ble - any kind of BLE presence device
+(e.g., the <a href="http://www.hippih.com/hipkey">Hippih</a>)</h3>
+
+<h3 class="knapsack"><a href="http://gethone.com">fob/hone</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://www.usa.philips.com/c/App-enhanced-accessories/for-iphone-5-4s-the-new-ipad-aea1000_00/prd/en/">fob/inrange</a> - <em>complete</em></h3>
+
+<h2>/device/sensor</h2>
+
+<h3 class="knapsack"><a href="http://processors.wiki.ti.com/index.php/SensorTag_User_Guide">texas-instruments/sensortag</a> - <em>complete</em> - thank you <a href="https://github.com/sandeepmistry">@sandeepmistry</a>!</h3>
+
+<p>Be careful: you can exhaust the battery very quickly &#8212; use this as a multi-function sensor, not a presence beacon.</p>
+
+<h3 class="knapsack"><a href="http://www.belkin.com/us/wemo-motion">wemo/motion</a> - <em>complete</em></h3>
+
+<h2>/device/switch</h2>
+
+<h3 class="knapsack"><a href="http://www.insteon.com/2457D2-lamplinc-dual-band.html">insteon/dimmer</a> - <em>complete</em></h3>
+
+<p>Requires either the Insteon hub or SmartLinc.</p>
+
+<h3 class="knapsack"><a href="http://www.insteon.com/2456s3-appliancelinc.html">insteon/onoff</a> - <em>complete</em></h3>
+
+<p>Requires either the Insteon hub or SmartLinc.</p>
+
+<h3 class="knapsack"><a href="http://www.belkin.com/us/wemo-switch">wemo/onoff</a> - <em>complete</em></h3>
+
+<h2>/device/wearable</h2>
+
+<h3 class="knapsack"><a href="http://cookoowatch.com">watch/cookoo</a> - <em>complete</em></h3>
+
+<h3 class="knapsack"><a href="http://shop.metawatch.com">watch/metawatch</a> - <em>complete</em></h3>
+
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

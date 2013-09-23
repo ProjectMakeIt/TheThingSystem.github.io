@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Steward
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="select-toc">Steward</a> <span style="color: #f05687;">&rarr;</span></li>
+						<ol class="toc-nav">
+							<li><a href="Activities.html" class="toc">Activities</a></li>
+							<li><a href="Actors.html" class="toc">Actors</a></li>
+							<li><a href="Devices.html" class="toc">Devices</a></li>
+						</ol>						
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+<div class="doc-content">
+<img src="images/steward.outline.png" alt="Architecture Diagram" title="" style="float: right; margin: 20px 0px 30px 40px;">
+<h1>Steward</h1>
+
+<p>When the main <em>index.js</em> runs <a href="Instructions-for-starting-the-Steward.html">on startup</a>, it starts three modules: <em>utility</em>, <em>database</em>, and <em>steward</em>.</p>
+
+<h2>Utility module</h2>
+
+<p>On startup,
+the <em>utility</em> module creates pubsub mailboxes for:</p>
+
+<ul>
+<li><p><em>beacon-ingress</em>: the utility module both publishes and subscribes to this mailbox to maintain a history of recent logging
+entries and then to republish the latest logging entry to <em>beacon-egress</em>.</p></li>
+<li><p><em>beacon-egress</em>: the console management API and any indicator actors subscribe to this mailbox to receive logging
+entries.</p></li>
+<li><p><em>actors</em>: all actors subscribe to this mailbox to receive requests to report current status information, observe events,
+and perform tasks.</p></li>
+<li><p><em>discovery</em>: all UPnP-based actors subscribe to this mailbox to receive notifications.</p></li>
+<li><p><em>readings</em>: any indicator actors subscribe to this mailbox to receive sensor readings.</p></li>
+<li><p><em>status</em>: any indicator actors subscribe to this mailbox to receive aggregate state information from the steward.</p></li>
+</ul>
+
+<p>As with any pubsub service,
+these mailboxes are used when it is "inconvenient" for a publisher to enumerate the list of interested subscribers.</p>
+
+<p>The <em>utility</em> module also houses the logging function,
+which is a wrapper around <a href="https://github.com/flatiron/winston">winston</a>.
+The most important aspect of this is the local variable <em>logconfigs</em> which contains the logging configuration for each module.</p>
+
+<p>Finally,
+there are a small number of convenience routines.</p>
+
+<h2>Database module</h2>
+
+<p>On startup,
+the <em>database</em> module creates, if needed, the file <em>db/database.db</em> and initializes it:</p>
+
+<ul>
+<li><p>The <em>devices</em> table persists basic information about actors,
+most importantly the <em>deviceID</em> and <em>deviceUID</em> that are used to uniquely identify a particular actor.</p></li>
+<li><p>The <em>deviceProps</em> table persists information about "virtual" actors (e.g., <em>place/1</em>) along
+device-specific information (e.g., pairing information for the Philips Hue bridge).</p></li>
+<li><p>The <em>groups</em> table persists information about the grouping structure,
+and the <em>members</em> table persists membership information about each group.</p></li>
+<li><p>The <em>events</em>, <em>tasks</em>, and <em>activities</em> tables are described in <a href="Activities.html">Activities</a>.</p></li>
+</ul>
+
+<p>Once the database is initialized, the <em>database</em> module_ starts the <em>device</em> module.</p>
+
+<h2>Device module</h2>
+
+<p>On startup,
+the <em>device</em> module creates an entry for the root of the actor tree ('steward.actors.device'),
+which is described in <a href="Actors.html">Actors</a>.</p>
+
+<p>Next,
+the category-specific prototypes are loaded by starting all files in the <em>devices/</em> directory with a matching name of
+<em>/^device-.*.js/</em>.
+In turn,
+each of these category-specific files starts all files in an appropriately named subdirectory (e.g., <em>devices/device-climate/</em>.</p>
+
+<p>The <em>device</em>module implements a device-generic driver:</p>
+
+<ul>
+<li><p>children: returns an array of deviceIDs corresponding to the dynamic list of children associated with a drive
+(e.g., the Philips Hue driver).
+In most cases, this returns a zero-length array.</p></li>
+<li><p>proplist: returns the six properties associated with a particular actor:</p>
+
+<ul>
+<li><p>whatami: the prototype identifier, e.g., '/device/lighting/hue'</p></li>
+<li><p>whoami: a pairing of the actor type (typically 'device') and a number, e.g., 'device/1'</p></li>
+<li><p>name: the user-friendly name </p></li>
+<li><p>status: the prototype-specific status</p></li>
+<li><p>info: prototype-specific state information</p></li>
+<li><p>updated: the time of the last change to any of the preceding three properties</p></li>
+</ul></li>
+</ul>
+
+<p>In addition,
+there are a small number of utility functions that can be used by device-specific drivers.</p>
+
+<h2>Steward module</h2>
+
+<p>On startup,
+the <em>steward</em> module examines the list of network interfaces on the system,
+ignoring those that are either local (i.e., the loopback interface) or associated with virtual machines.
+For each the remaining interfaces,
+it starts a packet capture session to examine ARP packets and primes the pump by attempting to connect to TCP port 8888 on five
+unpredictably chosen addresses.
+<strong>(Note that priming the pump is unnecessary when the steward is able to read the kernel's arp table.)</strong></p>
+
+<p>The steward then sets up the infrastructure to report aggregate state information and then re-schedules itself.
+This is done so the capture sessions can run to determine the MAC address of the machine that the steward is running on.
+Once that occurs, the steward computes its own UUID and starts the <em>server</em> module.
+It then loads the pseudo actors (e.g., 'place/1') and begins its observer-perform (or 'activity') loop.</p>
+
+<h3>The Observe-Perform Loop</h3>
+
+<p>In a sense,
+this is the heart of the <em>steward</em>.
+Once a second, the <em>scan</em> function in the steward module is run.
+This looks through the list of all events known to the steward.
+There are three possibilities:</p>
+
+<ul>
+<li><p>The event is '.condition',
+which indicates that the steward should look at the actors' state information to see if the event should be considered observed.</p></li>
+<li><p>The event isn't being observed, in which case, the steward publishes a request for the event to be observed.
+(When the actor that is supposed to observe the event is able to do so, in response it will call the <em>report</em> function.)</p></li>
+<li><p>The event is being observed.</p></li>
+</ul>
+
+<p>Next,
+the <em>scan</em> function looks through the list of armed activities,
+and if the event associated with an activity has been observed,
+then the associated task is marked for subsequent performance.
+The <em>scan</em> function then looks through the list of all non-conditional events known to the steward and resets their "observed"
+status.</p>
+
+<p>Then,
+the <em>scan</em>function then looks through the list of all tasks known to the steward,
+and constructs a list of tasks to be performed.
+For each task it publishes a request for the task to be performed.
+<strong>NOTE THAT TEMPORAL EVALUATION IS NOT YET IMPLEMENTED</strong></p>
+
+<h2>Server module</h2>
+
+<p>On startup,
+the <em>server</em> module listens for <em>http:</em> and <em>wss:</em> traffic on an unused port.
+(If an HTTP connection does not upgrade to WebSockets,
+then static files are served from the <em>sandbox/</em> directory.)
+The <em>server</em> module then advertises itself using multicast DNS,
+loads the discovery modules,
+and then loads the routing modules.</p>
+
+<h2>Discovery modules</h2>
+
+<p>There are four discovery modules that are started by the <em>server</em> module.</p>
+
+<h3>SSDP discovery</h3>
+
+<p>This module creates an SSDP instance,
+both to listen for SSDP announcements and to advertise itself as a basic device on each network interface discovered by the
+<em>steward</em> module.
+In addition to listening on port 1900 for multicast traffic,
+it also listens on an unused port for UPnP notifications.
+The module also creates a file called <em>sandbox/index.xml</em> that lists the (minimal) UPnP capabilities of the steward.</p>
+
+<p>The <em>device</em> module is informed whenever a new device is discovered via UPnP.</p>
+
+<p>For UPnP-based actors,
+the module provides routines for roundtrip'ing UPnP traffic and subscribing to notifications.</p>
+
+<h3>BLE discovery</h3>
+
+<p>This module turns on the system's BLE module and starts scanning.
+Upon discovering a device,
+it scans the services and characteristics advertised by the device,
+then determines the prototype associated with those characteristics,
+and then informs the <em>device</em> module.</p>
+
+<p>The module's <em>register</em> method is used to associate BLE characteristics with a particular device-specific driver.</p>
+
+<h3>TCP port discovery</h3>
+
+<p>The module's <em>pairing</em> method is used to associate port numbers (and optionally OUI prefixes) with a callback in a
+particular device-specific driver.
+This callback determines whether the <em>device</em> module should be informed.</p>
+
+<p>Every five seconds, the module does a port scan of registered port numbers on IP addresses that have not responded to those
+port numbers.
+If a connection is made, then the device-specific callback is invoked.</p>
+
+<h3>MAC OUI discovery</h3>
+
+<p>The module's <em>pairing</em> method is used to associate OUI prefixes with a callback in a particular device-specific driver.
+This callback determines whether the <em>device</em> module should be informed.</p>
+
+<p>Whenever the <em>steward</em> module captures an ARP request,
+it invokes a method in this module to see if either MAC address has not previously been examined and whether the device-specific
+callback should be invoked.</p>
+
+<h3>Thing Sensor Report Protocol (TSRP) discovery</h3>
+
+<p>This module listens on traffic for UDP port 22602 on multicast address '224.192.32.19' which is where devices report
+information via the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol</a>.
+Upon receipt of a report,
+the module updates the steward accordingly.</p>
+
+<h2>Routing modules</h2>
+
+<p>At present, the <em>steward</em> has three API modules.</p>
+
+<h2>Console API</h2>
+
+<p>Authorized clients connect to the</p>
+
+<pre><code>/console
+</code></pre>
+
+<p>resource in order to receive logging entries from the <em>steward</em> as well as state updates.
+When a client first connects to this resource,
+most actors in the system will present a brief synopsis.
+Thereafter log entries will be sent to the client, e.g.,</p>
+
+<pre><code>{
+  "climate": [
+    {
+      "date": "2013-06-18T08:12:12.787Z",
+      "level": "info",
+      "message": "device\/44",
+      "meta": {
+        "status": "present"
+      }
+    },
+    {
+      "date": "2013-06-18T08:12:12.788Z",
+      "level": "info",
+      "message": "device\/45",
+      "meta": {
+        "status": "present"
+      }
+    },
+    {
+      "date": "2013-06-18T08:12:12.788Z",
+      "level": "info",
+      "message": "device\/49",
+      "meta": {
+        "status": "present"
+      }
+    }
+  ]
+}
+</code></pre>
+
+<p>State updates look at little different:</p>
+
+<pre><code>{
+  ".updates": [
+    {
+      "whatami": "/device/lighting/blinkstick/led",
+      "whoami": "device/36",
+      "name": "Blinkstick #3",
+      "status": "on",
+      "info":
+        { "color":
+          { "model": "rgb",
+            "rgb": { "r":75, "g":0, "b":130 }
+          }
+        },
+      "updated":1374521033437
+    }
+
+    // other state updates, if any, go here ...
+  ]
+}
+</code></pre>
+
+<p>As you might expect,
+any traffic sent from the client is ignored.</p>
+
+<h2>Inspection API</h2>
+
+<p>Authorized client may connect to the</p>
+
+<pre><code>/
+</code></pre>
+
+<p>resource in order to inspect available resources and API calls, e.g.,</p>
+
+<pre><code>{
+  "requestID": 0,
+  "result": {
+    "\/console": {
+
+    },
+    "\/manage": {
+      "\/api\/v1\/activity\/create": {
+        "access": "write",
+        "required": {
+          "uuid": true,
+          "name": true,
+          "event": "actor",
+          "task": "actor"
+        },
+        "optional": {
+          "comments": true,
+          "armed": [
+            "true",
+            "false"
+          ]
+        },
+        "response": {
+
+        },
+        "comments": [
+          "the uuid is specified as the create suffix",
+          "the event actor must resolve to an event or a group of events",
+          "the task actor must resolve to an event or a group of tasks"
+        ]
+      },
+    },
+
+    ...
+
+    "\/": {
+
+    }
+  }
+}
+</code></pre>
+
+<h2>Management API</h2>
+
+<p>Authorized clients connect to the</p>
+
+<pre><code>/manage
+</code></pre>
+
+<p>resource in order to manage <a href="Devices.html">devices</a> or <a href="Activities.html">activities, events, tasks, and groups</a>.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

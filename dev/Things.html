@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Things
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="select-toc">Things</a> <span style="color: #f05687;">&rarr;</span></li>
+						<ol class="toc-nav">
+							<li><a href="Simple-Thing-Protocol.html" class="toc">Simple Thing Protocol</a></li>
+							<li><a href="Thing-Sensor-Report-Protocol.html" class="toc">Thing Sensor Report Protocol</a></li>
+						</ol>					
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Things</h1>
+<p>If you are a hardware developer interesting in adding an API to your device. The <a href="Steward.html">steward</a> supports two standard protocols which a device can choose to support and be "Thing System native."</p>
+
+<ul>
+<li><p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol</a>. This is a simple multicast UDP based protocol. The repository contains <a href="https://github.com/TheThingSystem/steward/tree/master/things/examples">example code for Arduino and iOS</a> to help developers add the Thing Sensor Report Protocol to their things.</p></li>
+<li><p>If a thing is capable not just of reporting sensor readings, or events, but also of performing actions then it can implement the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>. This protocol is more complex that the <a href="Thing-Sensor-Report-Protocol.html">reporting protocol</a>, and is a websocket based protocol, but allows the <a href="Steward.html">steward</a> to interact with the remote thing. Both to ask for sensor readings, instead of just passively waiting for them to be reported, but also to ask it to perform an action, e.g. turn a light on or off. These smart devices normally have a programmable environment. Examples of this sort of thing include smart phones, tablets, and the things that attach to them, such as Motrr's Galileo, Romotive's Romo, the Swivl, and so on. </p></li>
+</ul>
+
+<h2>Building TSRP Things</h2>
+
+<p>Building things using the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol</a> is fairly easy. Let's take a simple example of a pressure mat connected to an <a href="http://arduino.cc/en/Main/ArduinoBoardEthernet">Arduino Ethernet</a> board.</p>
+
+<p><img class="doc-image" src="images/pressure.mat.png" alt="Wiring Diagram" title=""></p>
+
+<p>Wiring up the mat as shown in the above diagram the following code will send a multicast TSRP packet when the mat changes state, i.e. when weight is put on the mat (state changes to "on") or when weight is removed (state changes to "off). A heartbeat packet will also be sent every 60 seconds to let the steward know that the device is still alive and connected to the network.</p>
+
+<p><em>NB: Without this heartbeat packet the steward will mark this device as "absent".</em></p>
+
+<pre><code>#include &lt;Dhcp.h&gt;
+#include &lt;Dns.h&gt;
+#include &lt;Ethernet.h&gt;
+#include &lt;EthernetClient.h&gt;
+#include &lt;EthernetServer.h&gt;
+#include &lt;EthernetUdp.h&gt;
+#include &lt;util.h&gt;
+
+#include &lt;SPI.h&gt;
+
+void send_packet( char * state );
+void callback( );
+
+int requestID = 1;
+unsigned long lastCallbackTime = 0; // the last time the data was written
+
+byte mac[] = { 0x0, 0xA2, 0xDA, 0x0D, 0x90, 0xE2 };  
+
+char packetBuffer[512];
+
+PROGMEM prog_char *loopPacket1 = "{\"path\":\"/api/v1/thing/reporting\",\"requestID\":\"";
+PROGMEM prog_char *loopPacket2 = "\",\"things\":{\"/device/sensor/arduino/seated-mat\":{\"prototype\":{\"device\":{\"name\":\"7-10# Chair Occupancy Sensor Mat\",\"maker\":\"RECORA\"},\"name\":\"true\",\"status\":[\"present\",\"absent\",\"recent\"],\"properties\":{\"contact\":[\"on\",\"off\"]}},\"instances\":[{\"name\":\"Pressure Mat\",\"status\":\"present\",\"unit\":{\"serial\":\"";
+PROGMEM prog_char *loopPacket3 = "\",\"udn\":\"195a42b0-ef6b-11e2-99d0-";
+PROGMEM prog_char *loopPacket4 = "-mat\"},\"info\":{\"contact\":\"";
+PROGMEM prog_char *loopPacket5 = "\"},\"uptime\":";
+PROGMEM prog_char *loopPacket6 = "}]}}}";
+
+// All TSRP transmissions are via UDP to port 22601 on multicast address '224.192.32.19'.
+EthernetUDP udp;
+IPAddress ip(224,192,32,19);
+unsigned int port = 22601;   
+
+const int buttonPin = 7;
+int buttonState;             
+int lastButtonState = LOW;
+int sentPacket = 0;
+
+long lastDebounceTime = 0;  
+long debounceDelay = 50; 
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+
+  Serial.begin(9600);
+  Serial.println("Starting...");
+  while(!Serial) { }
+
+  Serial.println("Waiting for DHCP address.");
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Error: Failed to configure Ethernet using DHCP");
+    while(1) {  }
+  } 
+
+  udp.beginMulti(ip,port);
+
+}
+
+void loop() {
+  int reading = digitalRead(buttonPin);
+
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
+  } 
+  if ((millis() - lastDebounceTime) &gt; debounceDelay) {
+    buttonState = reading;
+    if ( buttonState &amp;&amp; !sentPacket ) {
+       Serial.println("Sending contact = on");  
+       send_packet( "on" );       
+       sentPacket = 1;
+
+    } else if ( !buttonState &amp;&amp; !sentPacket ) {
+       Serial.println("Sending contact = off"); 
+       send_packet( "off" );       
+       sentPacket = 1;    
+    }
+  }
+
+  if ( lastButtonState != reading ) {
+     sentPacket = 0; 
+  }  
+  lastButtonState = reading;
+
+  if ((millis() - lastCallbackTime) &gt; 60000) {
+       if ( buttonState ) {
+          Serial.println("Sending heartbeat (on)");    
+          send_packet( "on" );       
+          sentPacket = 1;
+       } else {
+          Serial.println("Sending heartbeat (off)");               
+          send_packet( "off" );       
+          sentPacket = 1;     
+      }
+      lastCallbackTime = millis();
+  }
+
+}
+
+void send_packet( char * state ) {
+
+   char buffer[12];
+   strcpy(packetBuffer,(char*)pgm_read_word(&amp;loopPacket1) );
+   strcat(packetBuffer, itoa( requestID, buffer, 10) );
+   strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket2) );
+   for (byte thisByte = 0; thisByte &lt; 6; thisByte++) {
+     sprintf(buffer, "%x", mac[thisByte] );
+     strcat(packetBuffer, buffer); 
+   }   
+   strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket3) );
+   for (byte thisByte = 0; thisByte &lt; 6; thisByte++) {
+     sprintf(buffer, "%x", mac[thisByte] );
+     strcat(packetBuffer, buffer); 
+   }   
+   strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket4) );
+   strcat(packetBuffer, state);
+   strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket5) );
+   strcat(packetBuffer, itoa( millis()/1000, buffer, 10) );
+   strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket6) );
+
+   Serial.println(packetBuffer); 
+   udp.beginPacket(udp.remoteIP(), udp.remotePort());
+   udp.write(packetBuffer);
+   udp.endPacket();       
+   requestID = requestID + 1;
+
+}
+</code></pre>
+
+<p>This example makes use of multicast UDP. Although supported by the underlying hardware this isn't supported by the stock Ethernet library distributed with the Arduino. You'll need to patch the Ethernet library as below. Add the following declaration to <em>EthernetUdp.h</em> directly after line 55,</p>
+
+<pre><code>// Initialize, start listening on specified port. Returns 1 if successful, 0 if there are no sockets available to use
+virtual uint8_t beginMulti(IPAddress, uint16_t);
+</code></pre>
+
+<p>then add the following code to the end of <em>EthernetUdp.cpp</em>,</p>
+
+<pre><code>/* Start EthernetUDP socket, listening at local port PORT */
+uint8_t EthernetUDP::beginMulti(IPAddress ip, uint16_t port) {
+    Serial.println("beginMulti()");
+    if (_sock != MAX_SOCK_NUM)
+        return 0;
+
+    for (int i = 0; i &lt; MAX_SOCK_NUM; i++) {
+        uint8_t s = W5100.readSnSR(i);
+        if (s == SnSR::CLOSED || s == SnSR::FIN_WAIT) {
+            _sock = i;
+            break;
+        }
+    }
+
+    if (_sock == MAX_SOCK_NUM)
+        return 0;
+
+
+    // Calculate MAC address from Multicast IP Address
+    byte mac[] = {  0x01, 0x00, 0x5E, 0x00, 0x00, 0x00 };
+
+    mac[3] = ip[1] &amp; 0x7F;
+    mac[4] = ip[2];
+    mac[5] = ip[3];
+
+    W5100.writeSnDIPR(_sock, rawIPAddress(ip));   //239.255.0.1
+    W5100.writeSnDPORT(_sock, port);
+    W5100.writeSnDHAR(_sock,mac);
+
+    _remaining = 0;
+
+    socket(_sock, SnMR::UDP, port, SnMR::MULTI);
+
+    return 1;
+}
+</code></pre>
+
+<p>you shouldn't need to restart the Arduino IDE, the changes will be included next time you compile a sketch.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

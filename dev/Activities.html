@@ -1,0 +1,619 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Activities
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="select-toc">Steward</a></li>
+						<ol class="toc-nav">
+							<li><a href="Activities.html" class="toc" style="color:#f05687;">Activities</a> <span style="color: #f05687;">&rarr;</span></li>
+							<li><a href="Actors.html" class="toc">Actors</a></li>
+							<li><a href="Devices.html" class="toc">Devices</a></li>
+						</ol>						
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Activities</h1>
+<p>An <em>activity</em> is a binding between an event and a task.</p>
+
+<p>Both the event and task are often groups of actors.
+For events, groups are boolean composed (e.g., "if THIS or THAT"),
+whilst for tasks, groups are temporally composed (e.g., "UP then DOWN").</p>
+
+<p><strong>NOTE THAT TEMPORAL EVALUATION IS NOT YET IMPLEMENTED</strong></p>
+
+<p>In addition,
+each task has an optional guard to disable its performance.
+For example, an activity might perform a task to turn all lights to full during an alarm condition;
+however, the lights in a nursery might have a guard telling them not to perform during solar night.</p>
+
+<h2>Architecture</h2>
+
+<p>An <em>activity</em> consists of:</p>
+
+<ul>
+<li><p>A fixed <em>activityID</em> that is assigned by the steward during activity creation,
+and is used by any subsequent API call referencing that activity.</p></li>
+<li><p>A fixed <em>activityUID</em> that is assigned by the client during activity creation,
+and is used to ensure atomicity of activity creation.</p></li>
+<li><p>An <em>activityName</em> and <em>activityComments</em> that is assigned by the client during activity creation.
+Unlike the <em>activityID</em> and <em>activityUID</em>, these are meant to be meaningful to people.</p></li>
+<li><p>An <em>eventType</em> (either 'event' or 'group') and <em>eventID</em> that is assigned by the client during activity creation.</p></li>
+<li><p>A <em>taskType</em> (either 'task' or 'group') and <em>taskID</em> that is assigned by the client during activity creation.</p></li>
+<li><p>A <em>sortOrder</em> to provide an optional hint to programs when sorting activities for display.</p></li>
+</ul>
+
+<h3>An Example</h3>
+
+<p>Let's say we want to turn on a lightbulb at solar sunrise.
+Logically, this is an activity:</p>
+
+<ul>
+<li><p>binding an event:</p>
+
+<ul>
+<li><p>actor: place/1</p></li>
+<li><p>observes: solar</p></li>
+<li><p>parameter: sunrise</p></li>
+</ul></li>
+<li><p>to a task: where</p>
+
+<ul>
+<li><p>actor: device/1</p></li>
+<li><p>performs: on</p></li>
+<li><p>parameter: { color: { model: rgb, rgb: { r: 255, g: 255, b: 255 } }, brightness: 100 }</p></li>
+</ul></li>
+</ul>
+
+<p>Things like 'place/1' and 'device/1' are called <em>actors</em>  &#8212; their job is to observe events or perform tasks.
+The possible events that can be observed, or tasks that can be performed, depend on the type of actor.
+The <em>Device Taxonomy</em> defines these possibilities along with how the parameters are interpreted.</p>
+
+<p>In this case,
+hopefully, the light is not close to someone sleeping, as they may not appreciate a light going white at full brightness!</p>
+
+<p>Of course,
+real-world activities tend to be more complex in the sense that we might want multiple lights to go on at once.
+So, the steward supports <em>groups</em> (discussed later on).</p>
+
+<h2>Taxonomy</h2>
+
+<p>A <strong>key concept</strong> in the steward is that when a thing observes an event,
+then another thing performs an task.
+Events and tasks either refer to a single actor (e.g., a particular device),
+or may refer to a group of actors combined by either boolean (event) or temporal (task) logic.</p>
+
+<h3>Events</h3>
+
+<p>An <em>event</em> consists of:</p>
+
+<ul>
+<li><p>A fixed <em>eventID</em> that is assigned by the steward during event creation,
+and is used by any subsequent API call referencing that event.</p></li>
+<li><p>A fixed <em>eventUID</em> that is assigned by the client during event creation,
+and is used to ensure atomicity of event creation.</p></li>
+<li><p>An <em>eventName</em> and <em>eventComments</em> that is assigned by the client during event creation,
+Unlike the <em>eventID</em> and <em>eventUID</em>, these are meant t be meaningful to people.</p></li>
+<li><p>An <em>actorType</em> (either 'device', 'place', or 'group') and <em>actorID</em> that is assigned by the client during event creation.</p></li>
+<li><p>An <em>observe</em> verb and <em>parameter</em> value specific to the actor that is assigned by the client during event creation.</p></li>
+<li><p>A <em>sortOrder</em> to provide an optional hint to programs when sorting events for display.</p></li>
+</ul>
+
+<p>If the <em>observe</em> verb is the value '.condition',
+then the associated actor may NOT refer to a group,
+and the <em>parameter</em> value is an expression that is evaluated against the <em>info</em> property of the actor
+(termed the actor's state information).
+For example, </p>
+
+<pre><code>{ operator : "any-of"
+, operand1 : ".solar"
+, operand2": ["morning", "daylight", "evening"]
+}
+</code></pre>
+
+<p>says to look at the actor's 'info.solar' property, and if the value is equal to any of the strings in the list,
+then this evaluates to true.</p>
+
+<p>The parameter consists of three parts:</p>
+
+<ul>
+<li><p><em>operator</em>: one of "equals", "not-equals", "less-than", "less-than-or-equals", "greater-than", "greater-than-or-equals",
+"any-of", "none-of", "present", "not" "and", "or"</p></li>
+<li><p><em>operand1</em>: either a number, a string beginning with "." (referring to a state variable), or a literal string.</p></li>
+<li><p><em>operand2</em>: as <em>operand1</em>, but optional, depending on the operator</p></li>
+</ul>
+
+<p>Typically conditional events are long-lived and are grouped with some other event that is observed to trigger an activity.
+For example,
+the condition above refers to daylight hours.
+It is likely that this is used with something an observed event (e.g., a motion sensor detecting motion) to perform a particular
+task.
+Alternatively,
+this might be used as a task <em>guard</em> so to limit the performance of a particular task to daylight hours.</p>
+
+<h3>Tasks</h3>
+
+<p>An <em>task</em> consists of:</p>
+
+<ul>
+<li><p>A fixed <em>taskID</em> that is assigned by the steward during task creation,
+and is used by any subsequent API call referencing that task.</p></li>
+<li><p>A fixed <em>taskUID</em> that is assigned by the client during task creation,
+and is used to ensure atomicity of task creation.</p></li>
+<li><p>An <em>taskName</em> and <em>taskComments</em> that is assigned by the client during task creation,
+Unlike the <em>taskID</em> and <em>taskUID</em>, these are meant t be meaningful to people.</p></li>
+<li><p>An <em>actorType</em> (either 'device', 'place', or 'group') and <em>actorID</em> that is assigned by the client during task creation.</p></li>
+<li><p>A <em>perform</em> verb and <em>parameter</em> value specific to the actor that is assigned by the client during task creation.</p></li>
+<li><p>A <em>guard</em>, if present, identifies a conditional event that must be true in order for the task to be performed.</p></li>
+<li><p>A <em>sortOrder</em> to provide an optional hint to programs when sorting tasks for display.</p></li>
+</ul>
+
+<h3>Groups</h3>
+
+<p>An <em>group</em> consists of:</p>
+
+<ul>
+<li><p>A fixed <em>groupID</em> that is assigned by the steward during group creation,
+and is used by any subsequent API call referencing that group.</p></li>
+<li><p>A fixed <em>groupUID</em> that is assigned by the client during group creation,
+and is used to ensure atomicity of group creation.</p></li>
+<li><p>A fixed <em>parentID</em> that refers to the superior entry for the group.</p></li>
+<li><p>An <em>groupName</em> and <em>groupComments</em> that is assigned by the client during group creation,
+Unlike the <em>groupID</em> and <em>groupUID</em>, these are meant t be meaningful to people.</p></li>
+<li><p>An <em>groupType</em> (either 'device', 'event', or 'task') and <em>actorID</em> that is assigned by the client during group creation.</p></li>
+<li><p>A <em>groupOperator</em> used by a superior to relate its immediate children:
+<em>and</em> (0), <em>or</em> (1), or <em>not</em> (2).</p></li>
+<li><p>A <em>sortOrder</em> to provide an optional hint to programs when sorting groups for display.</p></li>
+</ul>
+
+<h2>API calls</h2>
+
+<h3>Events</h3>
+
+<p>Events are managed by authorized clients using the</p>
+
+<pre><code>/manage/api/v1/event/
+</code></pre>
+
+<p>path prefix, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/event/list'
+, requestID : '1'
+, options   : { depth: all }
+}
+</code></pre>
+
+<h4>Create Event</h4>
+
+<p>To create a event,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/event/create/UUID'
+, requestID : 'X'
+, name      : 'NAME'
+, actor     : 'TYPE/ID'
+, observe   : 'EVENT'
+, parameter : 'PARAMS'
+, comments  : 'COMMENTS'
+}
+</code></pre>
+
+<p>where <em>UUID</em> corresponds to an unpredictable string generated by the client,
+<em>X</em> is any non-empty string,
+<em>NAME</em> is a user-friendly name for this instance,
+<em>TYPE/ID</em> identifies the actor that observes the event,
+<em>TASK</em> identifies the particular event,
+<em>PARAMS</em> provides the parameters,
+and <em>COMMENTS</em> (if present) are textual, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/event/create/0123456789abcdef'
+, requestID : '1'
+, name      : 'hello sunrise'
+, actor     : 'place/1'
+, observe   : 'solar'
+, parameter : 'sunrise'
+}
+</code></pre>
+
+<h4>List Event(s)</h4>
+
+<p>To list the properties of a single event,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/event/list/ID'
+, requestID : 'X'
+, options   : { depth: DEPTH }
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>eventID</em> of the event to be deleted,
+<em>X</em> is any non-empty string,
+and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
+
+<p>If the ID is omitted, then all events are listed, e.g., to find out anything about everything,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/event/list'
+, requestID : '2'
+, options   : { depth: 'all' }
+}
+</code></pre>
+
+<h4>Delete Event</h4>
+
+<p>To define a event,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/event/delete/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>eventID</em> of the event to be deleted, and <em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/event/delete/6'
+, requestID : '3'
+}
+</code></pre>
+
+<h3>Tasks</h3>
+
+<p>Tasks are managed by authorized clients using the</p>
+
+<pre><code>/manage/api/v1/task/
+</code></pre>
+
+<p>path prefix, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/task/list'
+, requestID : '1'
+, options   : { depth: all }
+}
+</code></pre>
+
+<h4>Create Task</h4>
+
+<p>To create a task,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/task/create/UUID'
+, requestID : 'X'
+, name      : 'NAME'
+, actor     : 'TYPE/ID'
+, perform   : 'TASK'
+, parameter : 'PARAMS'
+, guard     : 'event/ID'
+, comments  : 'COMMENTS'
+}
+</code></pre>
+
+<p>where <em>UUID</em> corresponds to an unpredictable string generated by the client,
+<em>X</em> is any non-empty string,
+<em>NAME</em> is a user-friendly name for this instance,
+<em>TYPE/ID</em> identifies the actor that performs the task,
+<em>TASK</em> identifies the particular task,
+<em>PARAMS</em> provides the parameters,
+<em>event/ID</em> (if present) the guard event associated with this task,
+and <em>COMMENTS</em> (if present) are textual, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/task/create/0123456789abcdef'
+, requestID : '1'
+, name      : 'wakeup light'
+, actor     : 'device/1'
+, perform   : 'on'
+, parameter : '{"color":{"model":"rgb","rgb":{"r":255,"g":255,"b": 255}},"brightness":100 }'
+}
+</code></pre>
+
+<h4>List Task(s)</h4>
+
+<p>To list the properties of a single task,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/task/list/ID'
+, requestID : 'X'
+, options   : { depth: DEPTH }
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>taskID</em> of the task to be deleted,
+<em>X</em> is any non-empty string,
+and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
+
+<p>If the ID is omitted, then all tasks are listed, e.g., to find out anything about everything,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/task/list'
+, requestID : '2'
+, options   : { depth: 'all' }
+}
+</code></pre>
+
+<h4>Perform Task</h4>
+
+<p>To perform a task,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/task/perform/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>taskID</em> of the task to be performed,
+<em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/task/perform/7'
+, requestID : '3'
+}
+</code></pre>
+
+<h4>Delete Task</h4>
+
+<p>To define a task,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/task/delete/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>taskID</em> of the task to be deleted, and <em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/task/delete/7'
+, requestID : '4'
+}
+</code></pre>
+
+<h3>Activities</h3>
+
+<p>Activities are managed by authorized clients using the</p>
+
+<pre><code>/manage/api/v1/activity/
+</code></pre>
+
+<p>path prefix, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/activity/list'
+, requestID : '1'
+, options   : { depth: all }
+}
+</code></pre>
+
+<h4>Create Activity</h4>
+
+<p>To create a activity,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/activity/create/UUID'
+, requestID : 'X'
+, name      : 'NAME'
+, armed     : BOOLEAN
+, event     : 'EVENT/ID'
+, task      : 'TASK/ID'
+, comments  : 'COMMENTS'
+}
+</code></pre>
+
+<p>where <em>UUID</em> corresponds to an unpredictable string generated by the client,
+<em>X</em> is any non-empty string,
+<em>NAME</em> is a user-friendly name for this instance,
+<em>ARMED</em> indicates whether this activity should be evaluated,
+<em>EVENT/ID</em> identifies the event,
+<em>TASK/ID</em> identifies the task,
+and <em>COMMENTS</em> (if present) are textual, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/activity/create/0123456789abcdef'
+, requestID : '1'
+, armed     : true
+, event     : 'event/6'
+, task      : 'task/7'
+}
+</code></pre>
+
+<h4>List Activity(s)</h4>
+
+<p>To list the properties of a single activity,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/activity/list/ID'
+, requestID : 'X'
+, options   : { depth: DEPTH }
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>activityID</em> of the activity to be deleted,
+<em>X</em> is any non-empty string,
+and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
+
+<p>If the ID is omitted, then all activities are listed, e.g., to find out anything about everything,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/activity/list'
+, requestID : '2'
+, options   : { depth: 'all' }
+}
+</code></pre>
+
+<h4>Perform Activity</h4>
+
+<p>To perform a activity,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/activity/perform/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>activityID</em> of the activity to be performed,
+<em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/activity/perform/8'
+, requestID : '3'
+}
+</code></pre>
+
+<h4>Delete Activity</h4>
+
+<p>To define a activity,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/activity/delete/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>activityID</em> of the activity to be deleted, and <em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/activity/delete/8'
+, requestID : '4'
+}
+</code></pre>
+
+<h3>Groups</h3>
+
+<p>Groups are managed by authorized clients using the</p>
+
+<pre><code>/manage/api/v1/group/
+</code></pre>
+
+<p>path prefix, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/group/list'
+, requestID : '1'
+, options   : { depth: all }
+}
+</code></pre>
+
+<h4>Create Group</h4>
+
+<p>To create a group,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/group/create/UUID'
+, requestID : 'X'
+, parentID  : 'Y'
+, name      : 'NAME'
+, type      : 'device' (default) | 'event' | 'task'
+, operator  : 'and' (default) | 'or' | 'not'
+, members   : [ 'TYPE/ID, ... ]
+, comments  : 'COMMENTS'
+}
+</code></pre>
+
+<p>where <em>UUID</em> corresponds to an unpredictable string generated by the client,
+<em>X</em> is any non-empty string,
+<em>Y</em> (if present) refers to an existing group to be the superior,
+<em>NAME</em> is a user-friendly name for this instance,
+each <em>TASK/ID</em> identifies the actors associated with this group,
+and <em>COMMENTS</em> (if present) are textual, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/group/create/0123456789abcdef'
+, requestID : '1'
+, members   : [ 'device/1', 'device/2' ]
+}
+</code></pre>
+
+<h4>List Group(s)</h4>
+
+<p>To list the properties of a single group,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/group/list/ID'
+, requestID : 'X'
+, options   : { depth: DEPTH }
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>groupID</em> of the group to be deleted,
+<em>X</em> is any non-empty string,
+and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
+
+<p>If the ID is omitted, then all groups are listed, e.g., to find out anything about everything,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/group/list'
+, requestID : '2'
+, options   : { depth: 'all' }
+}
+</code></pre>
+
+<h4>Perform Group</h4>
+
+<p>To perform the tasks associated with a group,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/group/perform/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>groupID</em> of the group having tasks to be performed,
+<em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/group/perform/9'
+, requestID : '3'
+}
+</code></pre>
+
+<h4>Delete Group</h4>
+
+<p>To define a group,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/group/delete/ID'
+, requestID : 'X'
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>groupID</em> of the group to be deleted, and <em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/group/delete/9'
+, requestID : '4'
+}
+</code></pre>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Bootstrapping the BeagleBone Rev.A6
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc" style="color:#f05687;">Installation</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Bootstrapping-on-OS-X.html" class="toc">Bootstrapping on OS X</a></li>
+					<li><a href="Bootstrapping-the-Raspberry-Pi.html" class="toc">Bootstrapping Raspberry Pi</a></li>
+					<li><a href="Bootstrapping-the-BeagleBone.html" class="select-toc">Bootstrapping BeagleBone</a></li>
+					<li><a href="Instructions-for-starting-the-Steward.html" class="toc">Starting the Steward</a></li>
+				</ol>			
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Bootstrapping the BeagleBone Rev.A6</h1>
+<p><em>NOTE: These instructions refer to the BeagleBone Rev.A6 (white) rather than the newer <a href="Bootstrapping-the-BeagleBone-Black.html">BeagleBone Black</a>. Please see the separate instructions for bootstrapping the newer board.</em></p>
+
+<p>Starting with a new board the first step is to plug the board into your laptop using the mini-USB cable provided. The BeagleBone has two USB ports, a full sized USB-A port, and a mini-USB port. The mini port is located on the reverse side of the board near the Ethernet jack.</p>
+
+<p>The board should boot and you should see a solid green light next to the 5V power jack. When startup is completed, a new mass storage device called BEAGLE_BONE should appear on your desktop.</p>
+
+<p>Open up the mass storage device and click on the START.htm file to open it in a browser. You should probably read through this file to familiarise yourself with the BeagleBone's capabilities.</p>
+
+<h2>Installing the Drivers</h2>
+
+<p>The BeagleBone Black comes with both Network and Serial drivers for Mac OS X. The first gives you network-over-USB access to your BeagleBone, the second direct serial access. You'll need both sets of drivers. </p>
+
+<h3>Installing the Network Driver</h3>
+
+<p>Go to <em>Step #2</em> in the <em>START.htm</em> file and grab the Network (HoRNDIS-rel4.pkg) driver file from the BeagleBone's mass storage device.</p>
+
+<p>Install the driver on your Mac by clicking on the <em>pkg</em> file and following the instructions. </p>
+
+<p>After installation you should at this point be able to access the onboard web server of the BeagleBone Black over the USB cable by going to <a href="http://192.168.7.2/">http://192.168.7.2/</a> in a browser.</p>
+
+<p><em>NOTE: Unfortunately we can't necessarily directly access the board using SSH at this point. There seems to be something in the stock image that causes some boards to fail to bring up the SSH server properly.</em></p>
+
+<h3>Installing the FTDI Serial Driver</h3>
+
+<p>It's possible that the Serial Driver (<em>FTDI</em>Ser.dmg_) file provided with the BeagleBone Black is not up to date or is just broken, however it does not install correctly. </p>
+
+<p>The solution is <a href="http://www.ftdichip.com/Drivers/VCP/MacOSX/FTDIUSBSerialDriver_v2_2_18.dmg">download the latest 2.2.18 drivers</a> and install the driver with support for OS X 10.4 - 10.7, and then hand edit a kernel extension configuration file.</p>
+
+<p>Open the /System/Library/Extensions/FTDIUSBSerialDriver.kext/Contents/Info.plist file in an editor, and inside the <IOKitPersonalities> dictionary add the following definitions,</p>
+
+<pre><code>    &lt;key&gt;BeagleBone XDS100v2 JTAG&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+        &lt;string&gt;com.FTDI.driver.FTDIUSBSerialDriver&lt;/string&gt;
+        &lt;key&gt;IOClass&lt;/key&gt;
+        &lt;string&gt;FTDIUSBSerialDriver&lt;/string&gt;
+        &lt;key&gt;IOProviderClass&lt;/key&gt;
+        &lt;string&gt;IOUSBInterface&lt;/string&gt;
+        &lt;key&gt;bConfigurationValue&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+        &lt;key&gt;bInterfaceNumber&lt;/key&gt;
+        &lt;integer&gt;0&lt;/integer&gt;
+        &lt;key&gt;idProduct&lt;/key&gt;
+        &lt;integer&gt;42704&lt;/integer&gt;
+        &lt;key&gt;idVendor&lt;/key&gt;
+        &lt;integer&gt;1027&lt;/integer&gt;
+    &lt;/dict&gt;
+    &lt;key&gt;BeagleBone XDS100v2 Serial&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+        &lt;string&gt;com.FTDI.driver.FTDIUSBSerialDriver&lt;/string&gt;
+        &lt;key&gt;IOClass&lt;/key&gt;
+        &lt;string&gt;FTDIUSBSerialDriver&lt;/string&gt;
+        &lt;key&gt;IOProviderClass&lt;/key&gt;
+        &lt;string&gt;IOUSBInterface&lt;/string&gt;
+        &lt;key&gt;bConfigurationValue&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+        &lt;key&gt;bInterfaceNumber&lt;/key&gt;
+        &lt;integer&gt;1&lt;/integer&gt;
+        &lt;key&gt;idProduct&lt;/key&gt;
+        &lt;integer&gt;42704&lt;/integer&gt;
+        &lt;key&gt;idVendor&lt;/key&gt;
+        &lt;integer&gt;1027&lt;/integer&gt;
+    &lt;/dict&gt;
+</code></pre>
+
+<p>While it's theoretically possible to go ahead and unload and reload the kernel extension using the following commends,</p>
+
+<pre><code>sudo kextunload -b com.FTDI.driver.FTDIUSBSerialDriver
+sudo kextload -b com.FTDI.driver.FTDIUSBSerialDriver
+</code></pre>
+
+<p>it's probably that the system isn't going to let you do that at this point,</p>
+
+<pre><code>(kernel) Can't unload kext com.FTDI.driver.FTDIUSBSerialDriver; classes have instances:
+(kernel)     Kext com.FTDI.driver.FTDIUSBSerialDriver class FTDIUSBSerialDriver has 2 instances.
+Failed to unload com.FTDI.driver.FTDIUSBSerialDriver - (libkern/kext) kext is in use or retained (cannot unload).
+</code></pre>
+
+<p>and you'll have to <em>reboot your Mac</em> to reload the driver.</p>
+
+<p>Once you've done so you enter,</p>
+
+<pre><code>kextstat -l | grep FTDI
+</code></pre>
+
+<p>in the terminal, you should see something like this,</p>
+
+<pre><code>125    0 0xffffff7f81b6c000 0x8000     0x8000     com.FTDI.driver.FTDIUSBSerialDriver (2.2.18) &lt;124 33 5 4 3 1&gt;
+</code></pre>
+
+<p>which indicates that the driver has loaded correctly.</p>
+
+<h2>Installing the Operating System</h2>
+
+<p>The main difference from the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a> for setup is that the BeagleBone ships with the Angstrom Linux distribution and boots from onboard flash memory. That means we don't have to up do an initial OS installation before talking to the board. However, it's advisable to go ahead and update the OS before continuing in any case.</p>
+
+<h3>Downloading the Operating System</h3>
+
+<p>Download the <a href="http://beagleboard.org/latest-images">latest image</a> of the Angstrom Distribution.</p>
+
+<p>--------- GOT HERE ----------</p>
+
+<p>From here you should probably go ahead and follow the <a href="Bootstrapping-the-Raspberry-Pi.html">instructions for the Raspberry Pi</a> bearing in mind that the BeagleBone uses <em>opkg</em> rather than <em>apt-get</em>.</p>
+
+<p>--------- GOT HERE ----------</p>
+
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

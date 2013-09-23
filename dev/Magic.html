@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Magic
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
+				<ol class="toc-nav">
+					<li><a href="Magic.html" class="select-toc">Magic</a> <span style="color: #f05687;">&rarr;</span></li>
+				</ol>			
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Magic</h1>
+<p>Our <a href="The-Thing-Philosophy.html">philosophy</a> is that things should work like magic. The more buttons, switches, dials and other interface elements that stand between the us and our thing doing what we expect it to do, when we expect it to, makes the thing harder to use-it increases the friction between us and our thing.</p>
+
+<p>There is very little point automating your home if you end up with a home that's harder to use afterwards than it was before. If your lights are harder to use, or you have to think about what state they're in before flipping a wall switch, you've not made your life simpler you've made it just a little bit harder.</p>
+
+<p>You don't want to have to think about that, you want it all to work like magic. That's our goal.</p>
+
+<h2>How to think about magic</h2>
+
+<p>The difference between magic, and <a href="Building-Simple-Clients.html">simple clients</a> is that in general magic doesn't have a user facing interface. Magic is essentially a number of expert systems which have solutions to problems, e.g. the CO<SUB>2</SUB> measured by the air quality sensor on your <a href="http://www.netatmo.com/">netatmo weather station</a> is too high in the room, so the <a href="http://nest.com">Nest thermostat</a> should be asked to turn on the fans to try and solve the problem. </p>
+
+<p>The magic monitors the steward &#8212; and the user &#8212; looking for patterns and keeping track of conditions. If they see something occurring regularly that shouldnt happen, say the the level of CO<SUB>2</SUB> rises consistently overnight in the bedroom. It knows how to solve this problem. It then implements a solution, in this case turn on the fan on the <a href="http://nest.com">Nest thermostat</a>, at an appropriate time every day to alleviate the condition without the user having to explicitly instruct the steward to do it. </p>
+
+<p>The steward is being pro-actively doing things for the user that theyd otherwise have to do themselves. It's about solving problems for the user without their intervention.</p>
+
+<p>Another example would be that a magic client could be built to learn the pattern of lights going on and off in the house. If the user is away from home and the Sun sets, then the magic would instruct the steward on how to automatically replicate the users normal pattern of behavior to deter burglars.</p>
+
+<h2>Developing magic</h2>
+
+<p>Magic is typically implemented server side, and clients that do magic &#8212; usually referred to as "apprentices" &#8212; may run on the same server running the <a href="Steward.html">steward</a> although they might also make use of a <a href="Node-Rendezvous.html">Node Rendezvous</a> service to run on a remote server.</p>
+
+<p>Technically speaking these apprentices are <a href="http://en.wikipedia.org/wiki/Intelligent_agent">intelligent agents</a> working in a <a href="http://en.wikipedia.org/wiki/Multi-agent_system">multi-agent system</a> with shared goals of making life more convenient for the user.</p>
+
+<p>More help on <a href="Implementing-Magic.html">developing magic</a> can be found elsewhere in the documentation.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

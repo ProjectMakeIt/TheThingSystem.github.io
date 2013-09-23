@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+The Security Model
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc" style="color:#f05687;">The Thing Architecture</a></li>
+				<ol class="toc-nav">
+					<li><a href="The-Security-Model.html" class="select-toc">The Security Model</a> <span style="color: #f05687;">&rarr;</span></li>
+				</ol>			
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>The Security Model</h1>
+<p>To speak plainly, there is a <em>wide range</em> of security properties with respect to the Internet of Things and home automation peripherals. Although there are some exceptions, the properties run the gamut from horrific to rather unfortunate.</p>
+
+<p>Bearing that firmly in the front of your mind, here are the basics:</p>
+
+<ul>
+<li><p>The <a href="Steward.html">steward</a> runs on either a <a href="Bootstrapping-on-OS-X.html">Mac</a> or a <a href="Bootstrapping-the-Raspberry-Pi.html">Linux</a> host. If we provided you with the machine, then it is hardened according to the box's specification; otherwise, hardening of the machine is outside of our scope.</p></li>
+<li><p>You should allow only persons whom you trust to have physical access to the machine running the <a href="Steward.html">steward</a>. Anyone who can physically access the machine is capable of defeating any security on it. This is true whether those persons wear black hats or diapers.</p></li>
+<li><p>If you connect to the steward via the loopbox interface, you have full administrative privileges.</p>
+
+<ul>
+<li><p>This is included as a failsafe feature. If you lose all access tokens &#8212; physical or virtual &#8212; you can still access the console applications via a browser running on the box.</p></li>
+<li><p>You may be tempted to provide a tunnel to the loopback interface. If you feel you must do so, please make it an ssh tunnel that requires public-key (not password) authentication. However we don't believe that this is a good idea and we'd advise you not to implement such a tunnel.</p></li>
+</ul></li>
+<li><p>If you connect to the steward via another interface, you must encrypt. The steward has a self-signed certificate that it used for authenticated traffic. However, once a client is registered with the steward,
+it downloads a <em>privacy package</em> containing keys specific to the steward/client pairing.</p></li>
+</ul>
+
+<p>Perhaps the best suggestion for securing your network is to run all your things on a closed network attached to the steward's host, and have the steward run an additional interface for talking to the rest of your home network, i.e. get a Mac mini or Linux box with two Ethernet interfaces and a Wi-Fi interface. </p>
+
+<p>In this scenario you would put all your wired things (e.g. Philips Hue lightbulbs) on the first Ethernet interface, put all your wireless things (e.g. the Netatmo weather station, Nest thermostat) on the Wi-Fi interface running with a hidden, randomly generated, 16-character SSID and a 16-character<SUP>*</SUP> WPA2 password. Then connect the second Ethernet interface to your home network, which is for your general purpose computing (e.g. your laptop, phones, tablets, and other devices). You will need to enable DHCP/NAT so that things like the Netatmo, Nest, etc., can upload and talk to their cloud back ends.</p>
+
+<p><em><SUP>*</SUP> 16 is the maximum password length supported by the Nest, in case you are wondering why we chose 16 characters as the maximum.</em></p>
+
+<h2>The Bootstrap</h2>
+
+<p>First, the client should be on a computer that's on the same network as the steward.</p>
+
+<p>Whenever a client connects to the steward for the first time, the client warns that the certificate being used by the steward is untrusted. At this point, two actions must be undertaken:</p>
+
+<p><img class="doc-image" src="images/certificate.verification.png" alt="Verifying the certificate" title=""></p>
+
+<ul>
+<li><p>look at the "details" of the certificate and record its "SHA1 fingerprint", which will look something like this:</p>
+
+<pre><code>9E DF 5F C4 17 E2 3E D3 88 E2 74 17 D6 93 91 8D 96 1D 9A E1
+</code></pre></li>
+<li><p>click the checkbox that says something like :</p>
+
+<pre><code>Always trust 'steward' when connecting to ...
+</code></pre></li>
+</ul>
+
+<p>Compare the fingerprint reported by the client with the fingerprint in the file:</p>
+
+<pre><code>sandbox/startup.sha1
+</code></pre>
+
+<p>on the machine running the steward, e.g.</p>
+
+<pre><code>steward% cat sandbox/server.sha1
+SHA1 Fingerprint=9E:DF:5F:C4:17:E2:3E:D3:88:E2:74:17:D6:93:91:8D:96:1D:9A:E1
+</code></pre>
+
+<p>If the two values match, then the client is talking directly to the steward; otherwise, there is another device on the network which is performing a man-in-the-middle attack. Find it and "fix" it as is appropriate.</p>
+
+<h2>Client (not user) Authentication</h2>
+
+<p>Clients authenticate to the steward, and the user associated with a client is authorized to invoke various API calls. There is a 1:N relationship between users and clients.</p>
+
+<p>If no users are configured on the steward, then an unauthenticated API call from a device on the same network as the steward may be used to create the initial user and client.</p>
+
+<h3>Authentication: Time-based OTP (TOTP)</h3>
+
+<p>When a client is created, the steward responds with TOTP information allowing the client to authenticate itself. The methods used by the TOTP algorithm are based on <a href="http://tools.ietf.org/html/rfc6238">RFC 6238</a>,
+so programs such as <a href="https://support.google.com/accounts/answer/1066447">Google Authenticator</a> can be used for web-based access.</p>
+
+<h3>Privacy: HTTPS or SSH</h3>
+
+<p>After a client is created, it may upload an SSH public key fingerprint and retrieve a <em>privacy package</em> from the steward containing:</p>
+
+<ul>
+<li><p>An SNI hostname; and,</p></li>
+<li><p>A self-signed public-key certificate;</p></li>
+<li><p>An ssh key fingerprint.</p></li>
+</ul>
+
+<p><strong>Note that at present, these steward ignores the SNI hostname and uses the same private keys for all clients. This will likely change in a future release.</strong></p>
+
+<h3>HTTPS access</h3>
+
+<p>Whenever the client connects to the steward for API access:</p>
+
+<ul>
+<li><p>The client uses the mDNS ("<em>wss.</em>tcp." ) to identify the IP address and port number of the steward.</p></li>
+<li><p>The client establishes a TCP connection, starts TLS over that connection, and then HTTPS.</p></li>
+<li><p>Once the HTTPS is negotiated, the client does an HTTP upgrade to WebSockets, and then authenticates itself.</p></li>
+</ul>
+
+<h3>SSH access</h3>
+
+<p><strong>Note that at present, <em>ssh</em> is not implemented; please use <em>https</em> instead.</strong></p>
+
+<p>Whenever the client connects to the steward for ssh access:</p>
+
+<ul>
+<li><p>The client uses the mDNS ("<em>ssh.</em>tcp." )  to identify the IP address and port number of the steward.</p></li>
+<li><p>The client starts an ssh client using its ssh private key.</p></li>
+<li><p>The client verifies that the fingerprint corresponding to the server matches the value provided in the <em>privacy package</em>, and then authenticates itself.</p></li>
+</ul>
+
+<h2>Authorization: Roles</h2>
+
+<p>A user has one of five roles:</p>
+
+<ul>
+<li><p><em>master</em>   - for unlimited access to the steward;</p></li>
+<li><p><em>resident</em> - for extended access to the steward;</p></li>
+<li><p><em>guest</em>    - for limited access to the steward;</p></li>
+<li><p><em>device</em>   - for devices implementing the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>; or,</p></li>
+<li><p><em>cloud</em>    - for services in the cloud</p></li>
+</ul>
+
+<h2>Security Roadmap</h2>
+
+<p>Security is everyone's problem. In the near future we intend to;</p>
+
+<ul>
+<li><p>Get external verification and audits of both the code base and the protocol and network interface design that is implemented in it &#8212; "given enough eyeballs, all bugs are shallow."</p></li>
+<li><p>In the same way your cable or ADSL modem provides a firewall for your, the steward can be used to provide a firewall for the Internet of Things. However to do so you need to your things to be on a separate network. We therefore will undertake development of a specification for, and software to support, implementing this &#8212; possibly along with reference hardware.</p></li>
+</ul>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

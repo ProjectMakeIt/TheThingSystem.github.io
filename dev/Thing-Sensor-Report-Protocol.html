@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Thing Sensor Report Protocol
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="select-toc">Things</a></li>
+						<ol class="toc-nav">
+							<li><a href="Simple-Thing-Protocol.html" class="toc">Simple Thing Protocol</a></li>
+							<li><a href="Thing-Sensor-Report-Protocol.html" class="toc" style="color: #f05687;">Thing Sensor Report Protocol</a> <span style="color: #f05687;">&rarr;</span></li>
+						</ol>					
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Thing Sensor Report Protocol</h1>
+<p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <em>Thing Sensor Reporting Protocol (TSRP)</em>. This is a simple multicast UDP based protocol. For things that need to both report back to the <a href="Steward.html">steward</a> and received requests to perform actions, or make measurements at certain times, you should look at the <a href="Simple Thing Protocol.html">Simple Thing Protocol</a> instead.</p>
+
+<h2>Operations</h2>
+
+<p>The basics:</p>
+
+<ul>
+<li><p>All transmissions are uni-directional, from the thing to the steward.</p></li>
+<li><p>All transmissions are via UDP to port 22601 on multicast address '224.192.32.19'.</p></li>
+<li><p>All messages are in JSON.</p></li>
+<li><p>All messages have a <em>requestID</em> parameter, which is a non-empty string. For design cleanliness, each <em>requestID</em> value should be distinct from the previous one.</p></li>
+<li><p>All messages have a <em>path</em> parameter, which is always '/api/v1/thing/reporting'.</p></li>
+</ul>
+
+<p>Here is an example:</p>
+
+<pre><code>{ path               : '/api/v1/thing/reporting'
+, requestID          : '1'
+, things             :
+  { '/device/A/B/C'  :
+    { prototype      :
+      { device       :
+        { name       : '...'
+        , maker      : '...'
+        , model      :
+          { name     : '...'
+          , descr    : '...'
+          , number   : '...'
+          }
+        }
+      , name         : true
+      , status       : [ 'present', 'absent', 'recent' ]
+      , properties   :
+        {
+        // other properties go here...
+        }
+      }
+    , instances      :
+      [ { name       : '...'
+        , status     : '...'
+        , unit       :
+          { serial   : '...'
+          , udn      : 'UID'
+          }
+        , info       :
+          {
+            // other property values go here...
+          }
+        , uptime     : milliseconds
+        }
+      ]
+    }
+
+    // other prototype/instance definitions go here...
+  }
+}
+</code></pre>
+
+<p>In most cases, there will be a single prototype/instance defined. However, for those cases where a device is acting as a concentrator for multiple things, they may be grouped according to make/model (the prototype) and then the values may be sent as an array (the instances). As a practical matter, a single message should be no greater than 1472 octets in length.</p>
+
+<p>Finally, note that there are no security 'enhancements' for this protocol. If you can do 'real' security with the thing in question, then you ought to be doing 'real' security using the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> instead of using the Reporting protocol.</p>
+
+<hr>
+
+<p><strong>Please Read This Carefully!</strong></p>
+
+<p>Observant readers will note that the message format above is a <em>mashup</em> of the <em>prototype</em>, <em>register</em>, and <em>update</em> messages from the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>.</p>
+
+<p>Accordingly before deciding how to construct a reporting message, you <strong>MUST</strong> read the section on <em>Taxonomy</em> of <a href="Devices.html">Devices</a>. Please pay particular attention to the section on <em>Measurement Properties</em>.</p>
+
+<p>It is also worthwhile to restate a caution from the documentation on the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>:
+<strong>It is imperative that the choice of the <em>udn</em> parameter be both globally-unique and specific to the thing being registered. For example, if the thing is a CO sensor with an <a href="http://en.wikipedia.org/wiki/Arduino#Shields">Arduino shield</a>, the <em>udn</em> parameter must uniquely identify the CO sensor, regardless of whatever shield is providing the network connectivity.</strong></p>
+
+<p>Think of the <em>udn</em> parameter as the serial number of the sensor, and not the MAC or IP address of the shield: the IP or MAC address of a thing may change, but its serial number never will.</p>
+
+<hr>
+
+<h2>Example Arduino Things</h2>
+
+<p>While there is more <a href="https://github.com/TheThingSystem/steward/tree/master/things/examples">example code in the repository</a>, including an <a href="https://github.com/TheThingSystem/steward/tree/master/things/examples/ios/TSRP">iOS example</a>, here are a couple of simple examples to show you how to use TSRP on the Arduino.</p>
+
+<h3>Weather Station</h3>
+
+<p>The following example thing is a simple weather station making use of a <a href="http://www.adafruit.com/products/385">DHT-22</a> temperature and humidity sensor connected to an <a href="http://arduino.cc/en/Main/arduinoBoardMega">Arduino Mega</a> with an <a href="http://arduino.cc/en/Main/ArduinoEthernetShield">Arduino Ethernet Shield</a>.</p>
+
+<p><img class="doc-image" src="images/dht-22.png" alt="Wiring Diagram" title=""></p>
+
+<p>Wiring up the DHT-22 as shown in the above diagram the following code will send a multicast TSRP packet every 2 seconds with the current temperature and humidity readings.</p>
+
+<pre><code>#include &lt;Dhcp.h&gt;
+#include &lt;Dns.h&gt;
+#include &lt;Ethernet.h&gt;
+#include &lt;EthernetClient.h&gt;
+#include &lt;EthernetServer.h&gt;
+#include &lt;EthernetUdp.h&gt;
+#include &lt;util.h&gt;
+
+#include &lt;SPI.h&gt;
+
+#include &lt;DHT.h&gt;
+#define DHTTYPE DHT22
+
+const int dhtPin = 2;
+DHT dht(dhtPin, DHTTYPE);
+
+int requestID = 1;
+
+byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x1A, 0x08 };  // Arduino MEGA
+
+char packetBuffer[512];
+
+PROGMEM prog_char *loopPacket1 = "{\"path\":\"/api/v1/thing/reporting\",\"requestID\":\"";
+PROGMEM prog_char *loopPacket2 = "\",\"things\":{\"/device/climate/arduino/sensor\":{\"prototype\":{\"device\":{\"name\":\"Arduino with DHT-22\",\"maker\":\"Arduino\"},\"name\":true,\"status\":[\"present\",\"absent\",\"recent\"],\"properties\":{\"temperature\":\"celsius\",\"humidity\":\"percentage\"}},\"instances\":[{\"name\":\"Weather Station\",\"status\":\"present\",\"unit\":{\"serial\":\"";
+PROGMEM prog_char *loopPacket3 = "\",\"udn\":\"195a42b0-ef6b-11e2-99d0-";
+PROGMEM prog_char *loopPacket4 = "-dnt-22\"},\"info\":{\"temperature\":";
+PROGMEM prog_char *loopPacket5 = ",\"humidity\":";
+PROGMEM prog_char *loopPacket6 = "},\"uptime\":";
+PROGMEM prog_char *loopPacket7 = "}]}}}";
+
+EthernetUDP udp;
+IPAddress ip(224,192,32,19);
+unsigned int port = 22601;   
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Starting...");
+  while(!Serial) { }
+
+  pinMode(dhtPin, INPUT);
+  Serial.println("Initialising the DHT sensor.");
+  dht.begin();
+
+  Serial.println("Waiting for DHCP address.");
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Error: Failed to configure Ethernet using DHCP");
+    while(1) {  }
+  } 
+
+  udp.beginMulti(ip,port);
+
+}
+
+void loop() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if ( isnan(t) || isnan(h) ) {
+    Serial.println("Error: Failed to read from DHT.");
+  } else {
+    requestID = requestID + 1;
+
+    Serial.print( "t = " );
+    Serial.print( t );
+    Serial.print( "C, h = ");
+    Serial.print( h );
+    Serial.println( "%" );
+
+    char buffer[12];
+
+    strcpy(packetBuffer,(char*)pgm_read_word(&amp;loopPacket1) );
+    strcat(packetBuffer, itoa( requestID, buffer, 10) );
+    strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket2) );
+    for (byte thisByte = 0; thisByte &lt; 6; thisByte++) {
+      sprintf(buffer, "%x", mac[thisByte] );
+      strcat(packetBuffer, buffer); 
+    }   
+    strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket3) );
+    for (byte thisByte = 0; thisByte &lt; 6; thisByte++) {
+      sprintf(buffer, "%x", mac[thisByte] );
+      strcat(packetBuffer, buffer); 
+    }   
+    strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket4) );
+    strcat(packetBuffer, dtostrf(t,4,2,buffer));
+    strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket5) );
+    strcat(packetBuffer, dtostrf(h,4,2,buffer));
+    strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket6) );
+    strcat(packetBuffer, itoa( millis(), buffer, 10) );
+    strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket7) );
+
+    Serial.println(packetBuffer); 
+    udp.beginPacket(udp.remoteIP(), udp.remotePort());
+    udp.write(packetBuffer);
+    udp.endPacket();
+
+  }
+  delay(2000);
+}
+</code></pre>
+
+<p>This example makes use of the <a href="https://github.com/adafruit/DHT-sensor-library">Adafruit DHT Sensor Library</a> which you'll need to install before using the sketch. After <a href="http://arduino.cc/en/Guide/Libraries">installing the library</a> you'll need to restart the Arduino IDE if you already have it open.</p>
+
+<p>Additionally, we make use of multicast UDP. Although supported by the underlying hardware this isn't supported by the stock Ethernet library distributed with the Arduino. You'll need to patch the Ethernet library as below. Add the following declaration to <em>EthernetUdp.h</em> directly after line 55,</p>
+
+<pre><code>// Initialize, start listening on specified port. Returns 1 if successful, 0 if there are no sockets available to use
+virtual uint8_t beginMulti(IPAddress, uint16_t);
+</code></pre>
+
+<p>then add the following code to the end of <em>EthernetUdp.cpp</em>,</p>
+
+<pre><code>/* Start EthernetUDP socket, listening at local port PORT */
+uint8_t EthernetUDP::beginMulti(IPAddress ip, uint16_t port) {
+    Serial.println("beginMulti()");
+    if (_sock != MAX_SOCK_NUM)
+        return 0;
+
+    for (int i = 0; i &lt; MAX_SOCK_NUM; i++) {
+        uint8_t s = W5100.readSnSR(i);
+        if (s == SnSR::CLOSED || s == SnSR::FIN_WAIT) {
+            _sock = i;
+            break;
+        }
+    }
+
+    if (_sock == MAX_SOCK_NUM)
+        return 0;
+
+
+    // Calculate MAC address from Multicast IP Address
+    byte mac[] = {  0x01, 0x00, 0x5E, 0x00, 0x00, 0x00 };
+
+    mac[3] = ip[1] &amp; 0x7F;
+    mac[4] = ip[2];
+    mac[5] = ip[3];
+
+    W5100.writeSnDIPR(_sock, rawIPAddress(ip));   //239.255.0.1
+    W5100.writeSnDPORT(_sock, port);
+    W5100.writeSnDHAR(_sock,mac);
+
+    _remaining = 0;
+
+    socket(_sock, SnMR::UDP, port, SnMR::MULTI);
+
+    return 1;
+}
+</code></pre>
+
+<p>you shouldn't need to restart the Arduino IDE, the changes will be included next time you compile a sketch.</p>
+
+<h3>The EggShield</h3>
+
+<p>The following example thing is a simple weather station making use of a Wicked Devices' <a href="http://aqe.wickeddevice.com/?page_id=12">Egg Shield</a> connected to an <a href="http://arduino.cc/en/Main/arduinoBoardMega">Arduino Mega</a> with an <a href="http://arduino.cc/en/Main/ArduinoEthernetShield">Arduino Ethernet Shield</a>.</p>
+
+<p><img class="doc-image" src="images/egg.shield.jpg" alt="Wiring Diagram" title=""></p>
+
+<p>The Wicked Device Sensor Shield was designed for an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Uno</a>-compatible board and the NO<SUB>2</SUB> and CO sensors onboard use an 12C interface. These are on pins A3 (SDA) and A4 (SCL) on an Uno. However because of the high overhead needed for the network stack we need to use a Mega where these pins are located elsewhere. We therefore need to jumper the pins from A3 and A4 to the SDA and SCL pins on the <a href="http://arduino.cc/en/Main/arduinoBoardMega">Mega</a> located on the other side of the board.</p>
+
+<pre><code>#include &lt;Wire.h&gt;
+
+#include &lt;Dhcp.h&gt;
+#include &lt;Dns.h&gt;
+#include &lt;Ethernet.h&gt;
+#include &lt;EthernetClient.h&gt;
+#include &lt;EthernetServer.h&gt;
+#include &lt;EthernetUdp.h&gt;
+#include &lt;util.h&gt;
+
+#include &lt;SPI.h&gt;
+
+#include &lt;DHT.h&gt;
+#include &lt;EggBus.h&gt;
+
+#define DHTPIN A3 //analog pin 3
+#define DHTTYPE DHT22  
+DHT dht(DHTPIN, DHTTYPE);
+EggBus eggBus;
+
+int requestID = 1;
+
+byte mac[] = { 0x90, 0xA2, 0xDA, 0x00, 0x17, 0x2D };  
+
+char packetBuffer[768];
+
+PROGMEM prog_char *loopPacket1 = "{\"path\":\"/api/v1/thing/reporting\",\"requestID\":\"";
+PROGMEM prog_char *loopPacket2 = "\",\"things\":{\"/device/climate/arduino/sensor\":{\"prototype\":{\"device\":{\"name\":\"Arduino with EggShield\",\"maker\":\"Arduino\"},\"name\":true,\"status\":[\"present\",\"absent\",\"recent\"],\"properties\":{\"no2\":\"ppm\",\"co\":\"ppm\",\"temperature\":\"celsius\",\"humidity\":\"percentage\"}},\"instances\":[{\"name\":\"Air Quality\",\"status\":\"present\",\"unit\":{\"serial\":\"";
+PROGMEM prog_char *loopPacket3 = "\",\"udn\":\"195a42b0-ef6b-11e2-99d0-";
+PROGMEM prog_char *loopPacket4 = "-egg-shield\"},\"info\":{\"no2\":";
+PROGMEM prog_char *loopPacket5 = ",\"co\":";
+PROGMEM prog_char *loopPacket6 = ",\"temperature\":";
+PROGMEM prog_char *loopPacket7 = ",\"humidity\":";
+PROGMEM prog_char *loopPacket8 = "},\"uptime\":";
+PROGMEM prog_char *loopPacket9 = "\"}]}}}";
+
+EthernetUDP udp;
+IPAddress ip(224,192,32,19);
+unsigned int port = 22601;   
+
+void setup() {
+  Serial.begin(9600);
+  while(!Serial) { }
+  Serial.println("Starting...");
+
+  pinMode(DHTPIN, INPUT);
+  Serial.println("Initialising the DHT sensor.");
+  dht.begin();
+
+  Serial.println("Waiting for DHCP address.");
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Error: Failed to configure Ethernet using DHCP");
+    while(1) {  }
+  } 
+
+  udp.beginMulti(ip,port);
+
+}
+
+void loop() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float no2 = 0.0;
+  float co = 0.0;
+
+  uint8_t egg_bus_address;
+  float i_scaler = 0.0;
+  uint32_t r0 = 0;
+  uint32_t measured_value = 0;
+
+  eggBus.init();
+
+  while((egg_bus_address = eggBus.next())){
+    uint8_t numSensors = eggBus.getNumSensors();
+    for(uint8_t ii = 0; ii &lt; numSensors; ii++){
+
+      i_scaler = eggBus.getIndependentScaler(ii);      
+      measured_value = eggBus.getSensorIndependentVariableMeasure(ii);
+      r0 = eggBus.getSensorR0(ii);
+
+      if (strcmp(eggBus.getSensorType(ii), "NO2")  == 0) {
+          no2 = measured_value * i_scaler * r0;
+      } else if (strcmp(eggBus.getSensorType(ii), "CO")  == 0) {
+          co = measured_value * i_scaler * r0;
+      }
+    } 
+  }
+  h = dht.readHumidity();
+  t = dht.readTemperature();
+  no2 = no2/1000;
+  co = co/1000;
+
+  Serial.print( "t = " );
+  Serial.print( t );
+  Serial.print( "C, h = ");
+  Serial.print( h );
+  Serial.print( "%, no2 = " );  
+  Serial.print( no2/1000 );
+  Serial.print( "ppm, co = " );  
+  Serial.print( co/1000 );
+  Serial.println( "ppm" );  
+
+  char buffer[24];
+  strcpy(packetBuffer,(char*)pgm_read_word(&amp;loopPacket1) );
+  strcat(packetBuffer, itoa( requestID, buffer, 10) );
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket2) );
+  for (byte thisByte = 0; thisByte &lt; 6; thisByte++) {
+      sprintf(buffer, "%x", mac[thisByte] );
+      strcat(packetBuffer, buffer); 
+  }   
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket3) );
+  for (byte thisByte = 0; thisByte &lt; 6; thisByte++) {
+      sprintf(buffer, "%x", mac[thisByte] );
+      strcat(packetBuffer, buffer); 
+  }   
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket4) );
+  strcat(packetBuffer, dtostrf(no2,12,4,buffer));
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket5) );
+  strcat(packetBuffer, dtostrf(co,12,4,buffer));
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket6) );
+  strcat(packetBuffer, dtostrf(t,4,2,buffer));
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket7) );
+  strcat(packetBuffer, dtostrf(h,4,2,buffer));
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket8) );
+  strcat(packetBuffer, itoa( millis(), buffer, 10) );
+  strcat(packetBuffer,(char*)pgm_read_word(&amp;loopPacket9) );
+
+  Serial.println(packetBuffer); 
+  udp.beginPacket(udp.remoteIP(), udp.remotePort());
+  udp.write(packetBuffer);
+  udp.endPacket(); 
+
+  requestID = requestID + 1;
+ delay(2500);
+
+}
+</code></pre>
+
+<p>This example makes use of the Wicked Devices' <a href="https://github.com/jmsaavedra/Air-Quality-Egg/tree/master/libraries/EggBus">EggBus library</a> which you'll need to install before using the sketch. After <a href="http://arduino.cc/en/Guide/Libraries">installing the library</a> you'll need to restart the Arduino IDE if you already have it open.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

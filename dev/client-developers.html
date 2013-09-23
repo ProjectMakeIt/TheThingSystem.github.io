@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; the thing system - For Implementors - Introduction</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+		<ul class="subnav">
+			<li><a href="makers.html" class="toc">Thing Makers</a></li>
+			<li><a href="integrators.html" class="toc">System Integrators</a></li>
+			<li><a href="client-developers.html" class="select-toc">Client Developers&nbsp;<span class="annotate">&rarr;</span></a></li>				
+		</ul>	
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+</ul>
+
+<div class="content">
+<h1>Client Developers</h1>
+
+<p>Let's start with the basics: just because your using open protocols to
+talk to the steward, doesn't mean that your client has to be open
+source. It can be 100% proprietary. The steward curators don't care!</p>
+
+<p>What we do care about is that client developers will write spectacular
+clients for home automation. What the steward does is provide a
+uniform method for accessing information about things and controlling
+those things. You &#8212; as the client developer &#8212; don't need to worry
+about the access protocol, the network technology, the bits or the
+bytes. What you do need to worry about is picking an automation
+category and writing the best freakin' application for management.</p>
+
+<p>If you've read the <a href="The-Thing-Philosophy.html" class="text">Philosophy</a> section, then you know that we think that
+the term "home automation" is being tragically misused in the
+industry. Yes, it's nice to be able to inventory the Home Internet of
+Things. But that's just "table stakes" (i.e., the minimum cost of
+entry), or if you prefer the first step of the journey. It is wicked sad
+that a lot of folks view that as the end game.</p>
+
+<p>The steward curators believe that having connected devices in the home
+should be frictionless. And that's where the magic comes in, and you, as
+the client developer, get to make the magic!</p>
+
+<p>The steward is pretty good at detecting devices as they are added to the
+home, and connecting different devices together in an observe-perform
+loop. As a client developer, your job is to define a set of tasks that
+provide real value to the user when multiple devices are present. In
+steward-speak, we call these clients apprentices, and here are some examples:
+</p>
+
+<ul class="text">
+<li>
+ When a water sensor detects a leak, it puts the home in alert
+ mode. Certain lights, speakers, and so on do things. And the things
+ that get done might vary based on solar time (e.g., don't light up the
+ nursery at night). And all of this should happen regardless of whether
+ the home has Internet connectivty when your water heater springs a leak.<br /> 
+<br />
+ For such an obvious example, you'd think there'd be a lot of systems
+ out there that can do this. We've seen exactly two, and they require
+ that all the gear (sensors, lights, etc.) come from the same
+ manufacturer. Sigh.<br /> 
+</li>
+
+<li>
+ When your sitting on the sofa watching TV and you stand up, the TV
+ should automatically mute, and the kitchen lights should go on. When
+ you sit down again, the TV and kitchen states should be restored.
+</li>
+
+<li>
+ When your air quality sensor tells you that the CO2 is over 1000ppm
+ (or just high), and the HVAC isn't running then turn on the HVAC fan
+ for 15 minutes to get the air moving.<br /> 
+<br />
+ Or, you could flash a light reminding you to get up, open the door to
+ your office, and get a triple expresso from the kitchen.
+</li>
+
+<li>
+ Over the course of time, an apprentice can observe when the lights go on
+ and off based on day of the week, day of the month, time of the day
+ and so on. When the user tells the apprentice that it's vacation time,
+ then the apprentice can emulate the user's behavior while the home is
+ empty.
+</li>
+
+<li>
+ If your car has a thing that reports its position to the steward
+ (e.g., either your smartphone or your Arduino GPS/GSM or you drive a
+ Tesla Motors vehicle), then an apprentice can determine when you're
+ returning home and change all the environmental controls from "Away"
+ to "Home".
+</li>
+</ul>
+
+<p>And this provides a great segue back to the conversation earlier
+about friction. Saving energy is good and having Home and Away modes to
+make that happen is also good. However, using a motion detector to
+determine Home and Away along with "heuristics" is not-good. Seriously,
+it's not-good. There are literally a dozen different BLE presence
+generators out there. The home should know whether anyone's there or
+not. And it should tell the connected things in the home whether it's
+Home time or Away time. And that's what the steward does: it enables
+magic, the magic made by your apprentices for user.</p>
+
+<p>If this seems "obvious" to you, great! It seemed obvious to us as well,
+which is why we wrote steward and curate the repository: because it was
+very clear to us that the market didn't get it and still doesn't get it.
+Fortunately, there's a <a href='https://plus.google.com/communities/113042377519941328693' class="text">Google+ community</a> that can
+provide lots of information and advice. We like talking about magic, and
+we love making magic happen (the examples above are actually running in
+the curators' homes).</p>
+
+<br />
+<p><span class="montserrat">Next section</span> &rarr; <a href="Home.html" class="purple select-purple">Documentation &nbsp;</a></p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

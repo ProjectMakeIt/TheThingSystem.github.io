@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Instructions for starting the Steward
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc" style="color:#f05687;">Installation</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Bootstrapping-on-OS-X.html" class="toc">Bootstrapping on OS X</a></li>
+					<li><a href="Bootstrapping-the-Raspberry-Pi.html" class="toc">Bootstrapping Raspberry Pi</a></li>
+					<li><a href="Bootstrapping-the-BeagleBone.html" class="toc">Bootstrapping BeagleBone</a></li>
+					<li><a href="Instructions-for-starting-the-Steward.html" class="select-toc">Starting the Steward</a> <span style="color: #f05687;">&rarr;</span></li>
+				</ol>			
+			<li><a href="Developer.html" class="toc">Developer</a></li>			
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Instructions for starting the Steward</h1>
+<p>In the <em>steward</em> directory type</p>
+
+<pre><code>sudo ./run.sh
+</code></pre>
+
+<p>When the <em>steward</em> starts, it will automatically discover devices via a variety of mechanisms:</p>
+
+<ul>
+<li><p>It will look on all attached networks for things via <a href="http://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol">SSDP</a>,
+<a href="http://en.wikipedia.org/wiki/Port_scanning#TCP_scanning">TCP port scanning</a>,
+and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MAC address prefixes</a>.</p></li>
+<li><p>It will look for <a href="http://en.wikipedia.org/wiki/Bluetooth_low_energy">Bluetooth low energy</a> things.</p></li>
+<li><p>It will look for USB things.</p></li>
+</ul>
+
+<p>The steward also needs your help.
+When the steward starts from scratch, it doesn't know it's physical location.
+In order to calculate solar events such as sunrise, it needs to know it's physical coordinates.</p>
+
+<p>Normally, when the first client does a successful <em>tap</em>, it will ask you for permission to configure the steward with location and other information. However, the <em>tap</em> isn't implemented yet; so, at least for now, you will need to configure the steward using the d3 example client to create a "place" <a href="Actor.html">actor</a> with this information.</p>
+
+<h3>What does the run.sh do?</h3>
+
+<p>The <em>run.sh</em> script does three things:</p>
+
+<ul>
+<li><p>The script changes the group/permissions for <em>/dev/bpf*</em> and flushes the arp caches. The steward runs libpcap in order to examine arp traffic. On most systems, the Berkeley Packet Filter (bpf) is used by <a href="http://www.tcpdump.org">libpcap</a> in order to capture network traffic. In turn, <em>libpcap</em> reads from devices named <em>/dev/bpf*</em> - so these files need to be readable by the steward. The <em>run.sh</em> script assumes that the steward is running under group <em>admin</em>, so that's what it changes the group to.</p></li>
+<li><p>The script reads the <em>nvm</em> initialization script in order to set the environment for <em>node.js</em>.</p></li>
+<li><p>The script runs the <em>node</em> program on the <em>index.js</em> file and the steward begins.</p></li>
+</ul>
+
+<p>You will probably want to customize this script for yourself. When the script starts, it will bring a lot of stuff on the console. Over time, the verbosity will decrease, but for now, it should give comfort...</p>
+
+<h2>Monitoring</h2>
+
+<p>When the steward starts, it will be listening for https traffic on port 8888 and http traffic on 8887. If you are using the loopback interface (e.g., on a desktop system such as your Mac), then start by visiting</p>
+
+<pre><code>    http://127.0.0.1:8887/
+</code></pre>
+
+<p>Otherwise, if you are using the LAN interface (e.g., on an embedded system such as your RPi), then start by visiting</p>
+
+<pre><code>    https://a.b.c.d:8888/
+</code></pre>
+
+<p><strong>If warned about the certificate as being untrusted, please be sure to "permanently accept" the certificate as valid for the associated IP address</strong></p>
+
+<p>Regardless of whether you are using http to the loopback address, or https to the LAN address, you will be presented with the d3 example client.</p>
+
+<p><img class="doc-image" src="images/d3.3.png" alt="d3 example client" title=""></p>
+
+<p><em>If you have Philips' Hue light bulbs, remember to push the pairing button on the hub at this point to advertise to allow the steward to talk to your light bulbs.</em></p>
+
+<p>From here you can click on individual things, like for instance a light bulb, and be offered some basic controls,</p>
+
+<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="">
+<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title=""></p>
+
+<p>to be clear the d3 client only exposes a small subset of the <a href="Steward.html">steward</a>'s abilities. You can take a more detailed look at what's going on by going to the console,</p>
+
+<pre><code>    http://127.0.0.1:8887/console.html
+</code></pre>
+
+<p>or</p>
+
+<pre><code>    https://a.b.c.d:8888/console.html
+</code></pre>
+
+<p><img class="doc-image" src="images/console.1.png" alt="steward console" title=""></p>
+
+<p>where a full list of the available things and reports from them can be found.</p>
+
+<p>For now at least if you want to control your things, you'll have to write your own <a href="Clients.html">clients</a> or use the example clients provided.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

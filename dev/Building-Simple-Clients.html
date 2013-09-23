@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Building Simple Clients
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="toc">Things</a></li>
+					<li><a href="Clients.html" class="select-toc">Clients</a></li>
+						<ol class="toc-nav">
+							<li><a href="Building-Simple-Clients.html" class="toc" style="color: #f05687;">Building Simple Clients</a> <span style="color: #f05687;">&rarr;</span></li>
+							<li><a href="Implementing-Magic.html" class="toc">Implementing Magic</a></li>
+						</ol>					
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+<div class="doc-content">
+<h1>Building Simple Clients</h1>
+<p>There is example code for the <a href="https://github.com/TheThingSystem/steward/tree/master/clients/examples">node.js, Arduino and iOS</a> platforms in our Git repository. Building simple clients is just that, simple.</p>
+
+<p><em>NB: Some of the example from the repository are <a href="Clients.html">discussed elsewhere in the documentation</a> where we say "Hello Lightbulbs".</em></p>
+
+<h3>Monitoring the event stream</h3>
+
+<p>If you want to monitor the event stream from the steward, for instance for weather changes reported by your weather station, or your Tesla finishing charging, you can do so by connecting to the <em>console</em> endpoint and watching for the relevant JSON message. </p>
+
+<p>The node.js snippet below will grab each message as it passes and print it to the screen,</p>
+
+<pre><code>var util = require("util");
+var WebSocket = require('ws');
+
+var ws = new WebSocket('ws://127.0.0.1:8887/console');
+console.log("Created websocket.");
+
+ws.onopen = function(event) {
+    console.log("Opened websocket to steward.");
+
+};
+
+ws.onmessage = function(event) {
+    var str = JSON.stringify(JSON.parse(event.data), null, 2);
+    console.log("Socket message: " + str);
+
+};
+
+ws.onclose = function(event) {
+    console.log("Socket closed: " + event.wasClean );
+
+};
+
+ws.onerror = function(event) {
+    console.log("Socket error: " + util.inspect(event, {depth: null}));
+    try { 
+        ws.close (); 
+        console.log("Closed websocket.");
+    } catch (ex) {}
+};
+</code></pre>
+
+<h3>Controlling devices</h3>
+
+<p>If you want to control a group of devices, for instance all the light bulbs, you can also do this via the <em>manage</em> end pint</p>
+
+<pre><code>var util = require("util");
+var WebSocket = require('ws');
+
+var ws = new WebSocket('ws://127.0.0.1:8887/manage');
+console.log("Created websocket.");
+
+ws.onopen = function(event) {
+    console.log("Opened websocket to steward.");
+    var json = JSON.stringify({ path      :'/api/v1/actor/perform/device/lighting', 
+                            requestID :'3', 
+                            perform   : 'on',
+                parameter : JSON.stringify({ 
+                            brightness: 100, 
+                                color: { model: 'rgb', rgb: { r: 255, g: 255, b: 255 }}}) });
+    ws.send(json);
+};
+
+ws.onmessage = function(event) {
+    var str = JSON.stringify(JSON.parse(event.data), null, 2);
+console.log("Socket message: " + str);
+    ws.close();
+};
+
+ws.onclose = function(event) {
+console.log("Socket closed: " + event.wasClean );
+};
+
+ws.onerror = function(event) {
+console.log("Socket error: " + util.inspect(event, {depth: null}));
+    try { 
+        ws.close (); 
+        console.log("Closed websocket.");
+    } catch (ex) {}
+};
+</code></pre>
+
+<h3>Figuring out what devices are available.</h3>
+
+<p>If you want to control a single device rather than a class of devices-like all the lightbulbs- then you'll need the <em>deviceID</em> of the device you want. You can do an actor list call to the steward to figure out what devices are available by connecting to the <em>manage</em> endpoint.</p>
+
+<pre><code>var util = require("util");
+var WebSocket = require('ws');
+
+var ws = new WebSocket('ws://127.0.0.1:8887/manage');
+console.log("Created websocket.");
+
+ws.onopen = function(event) {
+    console.log("Opened websocket to steward.");
+    var json = JSON.stringify({ path:'/api/v1/actor/list', 
+                                requestID :'1', 
+                                options   :{ depth: 'all'  }  });
+    ws.send(json);
+};
+
+ws.onmessage = function(event) {
+    var str = JSON.stringify(JSON.parse(event.data), null, 2);
+    console.log("Socket message: " + str);
+    ws.close();
+};
+
+ws.onclose = function(event) {
+    console.log("Socket closed: " + event.wasClean );
+};
+
+ws.onerror = function(event) {
+    console.log("Socket error: " + util.inspect(event, {depth: null}));
+    try { 
+        ws.close (); 
+        console.log("Closed websocket.");
+    } catch (ex) {}
+};
+</code></pre>
+
+<p>So if you wanted to manage the "Desk Lamp", the deviceID is '19' use </p>
+
+<pre><code>  /api/v1/device/foo/deviceID
+</code></pre>
+
+<p>where <em>foo</em> is 'list' or 'perform' or 'delete'. Beyond that control of a single device is similar to controlling multiple devices.</p>
+
+<h2>Implementing Magic</h2>
+
+<p>While simple clients usually require a lot of user interaction, effectively turning the steward into a sophisticated remote control for your devices, our philosophy is that more complicated clients probably shouldn't. They should effectively <a href="Magic.html">work like magic</a>.</p>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>

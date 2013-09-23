@@ -1,0 +1,685 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>&#x24E3; 
+Simple Thing Protocol
+</title>
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+</head>
+
+<body alink="#000" bgcolor="#fff" link="#666">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<ul class="nav">
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+		<ul class="subnav">
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
+			<li><a href="Installation.html" class="toc">Installation</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+				<ol class="toc-nav">
+					<li><a href="Steward.html" class="toc">Steward</a></li>
+					<li><a href="Things.html" class="select-toc">Things</a></li>
+						<ol class="toc-nav">
+							<li><a href="Simple-Thing-Protocol.html" class="toc" style="color: #f05687;">Simple Thing Protocol</a> <span style="color: #f05687;">&rarr;</span></li>
+							<li><a href="Thing-Sensor-Report-Protocol.html" class="toc">Thing Sensor Report Protocol</a></li>
+						</ol>					
+					<li><a href="Clients.html" class="toc">Clients</a></li>
+					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
+				</ol>				
+			<li><a href="Knapsack.html" class="toc">Knapsack</a></li>			
+		</ul>	
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li style="clear: both;"><a href="lots-of-things.html" class="select-blue">Lots of Things</a></li>
+	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="../index.html" class="green">&uarr;</a></li>
+</ul>
+
+
+<div class="doc-content">
+<h1>Simple Thing Protocol</h1>
+<p>For those things that are third-party programmable but lack an effective interface for steward management,
+the <em>Simple Thing</em> protocol provides a mechanism for adding steward management. For things that only need to report readings or measurements to the <a href="Steward.html">steward</a> you might want to look at the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol</a> instead as it is much simpler to implement.</p>
+
+<h2>Operations</h2>
+
+<p><img src="images/simple.thing.protocol.png" alt="Protocol Diagram" title=""></p>
+
+<p>The basics:</p>
+
+<ul>
+<li><p>All exchanges are via WebSockets.</p></li>
+<li><p>All messages are in JSON.</p></li>
+<li><p>All messages have a <em>requestID</em> parameter, which is a non-empty string.
+Within a message flow from one to peer to the other,
+a <em>requestID</em> value may not be reused until a completion response is received.</p></li>
+<li><p>All requests have a <em>path</em> parameter.</p></li>
+<li><p>There are four kinds of responses:</p>
+
+<ol>
+<li><p><em>Intermediate</em> responses (containing only a <em>requestID</em> parameter) indicating that the peer has received the message,
+but that processing may take a while.
+<strong>Note that version 1 of the <em>Simple Thing</em> protocol uses intermediate responses for the <em>pair</em> message.</strong></p></li>
+<li><p><em>Error</em> responses (containing a <em>requestID</em> and <em>error</em> parameter) indicating whether the failure is permanent and
+containing a textual diagnostic.</p></li>
+<li><p><em>Simple result</em> responses (containing a <em>requestID</em> and <em>result</em> parameter) indicating success and optionally containing
+additional information.</p></li>
+<li><p><em>Detailed result</em> responses (containing a <em>requestID</em> parameter and one of a <em>things</em>, <em>events</em>, or <em>tasks</em> parameter)
+indicating the success or failure of each action in the request.</p></li>
+</ol></li>
+</ul>
+
+<p>Here are some examples. A request:</p>
+
+<pre><code>{ path              : '/api/v1/thing/hello/1'
+, requestID         : '1'
+
+  // other parameters, if any, go here...
+}
+</code></pre>
+
+<p>An intermediate response:</p>
+
+<pre><code>{ requestID         : '1'
+}
+</code></pre>
+
+<p>An error response:</p>
+
+<pre><code>{ requestID         : '1'
+, error             :
+  { permanent       : false
+  , diagnostic      : '...'
+  }
+}
+</code></pre>
+
+<p>A simple result:</p>
+
+<pre><code>{ requestID         : '1'
+, result            :
+  { status          : 'success'
+
+  // other parameters, if any, go here...
+  }
+}
+</code></pre>
+
+<p>A detailed result:</p>
+
+<pre><code>{ requestID         : '10'
+, tasks             :
+  { 'taskID1'       :
+    { status        : 'success'
+    }
+  , 'taskID2'       :
+    { error         :
+      { permanent   : true
+      , diagnostic  : 'invalid parameter value for task performance'
+      }
+    }
+  }
+}
+</code></pre>
+
+<h2>Session Establishment</h2>
+
+<p>When an implementation detects a steward advertisement via multicast DNS,
+it establishes a WebSockets connection to the '/native' resources on the steward:</p>
+
+<pre><code>wss://IP:PORT/manage
+</code></pre>
+
+<p>After verifying the signature,
+the implementation sends a <em>pair</em> or <em>hello</em> message,
+depending on whether it has paired with the steward before.</p>
+
+<h3>Pair implementation to steward</h3>
+
+<p>The <em>pair</em> message is sent when the implementation has not paired with the steward before:</p>
+
+<pre><code>{ path              : '/api/v1/thing/pair/UUID'
+, requestID         : '1'
+, name              : '...'
+, pairingCode       : 'nnnnnn'
+}
+</code></pre>
+
+<p>If the steward is configured to require a 'pairing code',
+then an administrator queries the 'place' actor to ascertain the current code and enters that into the implementation,
+which in turn sends it as the 'pairingCode' parameter.</p>
+
+<p>When the steward receives the <em>pair</em> message,
+it sends a simple result containing information for future authentication:</p>
+
+<pre><code>{ requestID         : '1'
+, result            :
+  { status          : 'success'
+  , thingID         : '...'
+  , params          : { ... }
+  }
+}
+</code></pre>
+
+<p>The <em>thingID</em> and <em>params</em> parameters must be retained by the implementation.</p>
+
+<p>The implementation must now issue the <em>hello</em> message using those parameters.</p>
+
+<p>If the steward is configured to require a 'pairing code' and it does not match the 'pairingCode' parameter
+(or the parameter is not present),
+then an error response is returned:</p>
+
+<pre><code>{ requestID         : '1'
+, error             :
+  { permanent       : true
+  , diagnostic      : 'not authorized'
+  }
+}
+</code></pre>
+
+<h3>Implementation authenticates with steward</h3>
+
+<p>When the implementation has a <em>thingID/params</em> pairing,
+the <em>hello</em> message is sent to the steward:</p>
+
+<pre><code>{ path              : '/api/v1/thing/hello/thingID'
+, requestID         : '2'
+, response          : 'XXXXXX'
+}
+</code></pre>
+
+<p>where the 'thingID' suffix on the path was returned during pairing, and the 'params' parameter returned during pairing is used to generate the 'response' parameter. The 'response' parameter is a Time-Based One-Time Password (TOTP) generated according to <a href="http://tools.ietf.org/html/rfc6238">RFC 6238</a><SUP>*</SUP>.</p>
+
+<p><em><SUP>*</SUP>The steward using the <a href="https://github.com/TheThingSystem/speakeasy">Speakeasy</a> node.js implementation of this standard.</em></p>
+
+<p>When the steward receives the <em>hello</em> message, a simple result indicates that authentication is successful:</p>
+
+<pre><code>{ requestID         : '2'
+, result            :
+  { status          : 'success'
+  }
+}
+</code></pre>
+
+<p>Otherwise, an error response is returned:</p>
+
+<pre><code>{ requestID         : '2'
+, error             :
+  { permanent       : true
+  , diagnostic      : 'authentication failed'
+  }
+}
+</code></pre>
+
+<h2>Session Exchanges</h2>
+
+<p>When the implementation is successfully authenticated,
+it exchanges zero or more messages with the steward.
+<strong>Note that requests may be originated both by the implementation and the steward.</strong></p>
+
+<p>State is maintained over the duration of a session.
+If the underlying connection is broken,
+then any mappings of <em>thingIDs</em>, <em>eventIDs</em>, and <em>taskIDs</em> should be deleted by both peers.
+<strong>(Note that in version 1 of the <em>Simple Thing</em> protocol,
+<em>taskID</em> values have no significance outside of a single message exchange.</strong></p>
+
+<h3>Define Prototypes</h3>
+
+<p>In order to understand the properties which are used to describe the state of a thing,
+you <strong>MUST</strong> read the section on <em>Taxonomy</em> in <a href="../01_Devices.html">Devices</a>.</p>
+
+<p>The <em>prototype</em> message is sent by the implementation to the steward to define one or more thing prototypes:</p>
+
+<pre><code>{ path              : '/api/v1/thing/prototype'
+, requestID         : '3'
+, things            :
+  { '/device/A/B/C' :
+    { observe       : [ 'o1', 'o2', ..., 'oN' ]
+    , perform       : [ 'p1', 'p2', ..., 'pN' ]
+    , name          : true
+    , status        : [ 's1', 's2', ..., 'sN' ]
+    , properties    :
+      { 
+        // other properties go here...
+      }
+    , validate      :
+      { observe     : true
+      , perform     : true
+      }
+    }
+
+    // other prototype definitions, if any, go here...
+  }
+}
+</code></pre>
+
+<p>When the steward receives the <em>prototype</em> message,
+either a detailed result or error response is returned:</p>
+
+<pre><code>{ requestID         : '3'
+, things            :
+  { '/device/A/B/C' :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ requestID         : '3'
+, things            :
+  { '/device/A/B/C' :
+    { error         :
+      { permanent   : true
+      , diagnostic  : 'missing properties parameter'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<h3>Define Instances</h3>
+
+<p>The <em>register</em> message is sent by the implementation to the steward to register one or more things corresponding to a prototype:</p>
+
+<pre><code>{ path              : '/api/v1/thing/register'
+, requestID         : '4'
+, things            :
+  { 't1'            :
+    { devicetype    : '/device/A/B/C'
+    , name          : '...'
+    , status        : '...'
+    , device        :
+      { name        : '...'
+      , maker       : '...'
+      , model       :
+        { name      : '...'
+        , descr     : '...'
+        , number    : '...'
+        }
+      , unit        :
+        { serial    : '...'
+          udn       : 'UID'
+        }
+      }
+    , updated       : timestamp
+    , info          :
+      {
+      // per-instance properties values go here...
+      }
+    }
+
+    // other thing registrations, if any, go here...
+  }
+}
+</code></pre>
+
+<p><strong>READ CAREFULLY:</strong>
+It is imperative that the choice of the <em>udn</em> parameter be both globally-unique and specific to the thing being registered.
+For example,
+if the thing is a PTZ mount for a mobile device,
+the <em>udn</em> parameter must uniquely identify the PTZ mount,
+regardless of whatever mobile device is providing the implementation.
+(Think of the <em>udn</em> parameter as the serial number of the care function, and not the IP or MAC address of the platform:
+the IP or MAC address of a thing may change, but its serial number never will.)</p>
+
+<p>When the steward receives the <em>register</em> message,
+either a detailed result or error response is returned.
+If a result response is returned, it contains a <em>thingID</em> value for each thing,
+e.g.,</p>
+
+<pre><code>{ requestID         : '4'
+, things            :
+  { 't1'            :
+    { status        : 'success'
+      thingID       : 'thingID1'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ requestID         : '4'
+, things            :
+  { 't1'            :
+    { error         :
+      { permanent   : false
+      , diagnostic  : 'UDN is already registered'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>The <em>thingID</em> value is used by both the steward and implementation when referring to the thing for the duration of the session.</p>
+
+<h3>Update Properties</h3>
+
+<p>The <em>update</em> message is sent by the implementation to the steward to update the state of a thing:</p>
+
+<pre><code>{ path              : '/api/v1/thing/update'
+, requestID         : '5'
+, things            :
+  { 'thingID2'      :
+    { name          : '...'
+    , status        : '...'
+    , updated       : timestamp
+    , info          :
+      {
+      // the entire list of properties goes here...
+      }
+    }
+
+    // updates for other things, if any, go here...
+  }
+}
+</code></pre>
+
+<p>When the steward receives the <em>update</em> message,
+either a detailed result or error response is returned:</p>
+
+<pre><code>{ requestID         : '5'
+, things            :
+  { 'thingID2'      :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ requestID         : '5'
+, things            :
+  { 'thingID2'      :
+    { error         :
+      { permanent   : true
+      , diagnostic  : 'no such thingID'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p><strong>Note that if an implementation does not send an update for a thing at least every 60 seconds,
+then the steward will automatically change the thing's status to 'absent'.</strong></p>
+
+<h3>Observe and Report Events</h3>
+
+<p>The <em>observe</em> message is sent by the steward to the implementation to ask it to observe one or more events:</p>
+
+<pre><code>{ path              : '/api/v1/thing/observe'
+, requestID         : '6'
+, events            :
+  { 'eventID1'      :
+    { thingID       : 'thingID1'
+    , observe       : '...'
+    , parameter     : '...'
+    , testOnly      : false
+    }
+
+    // observation requests for other events, if any, go here...
+  }
+}
+</code></pre>
+
+<p>When the implementation receives the <em>observe</em> message,
+if the <em>testOnly</em> parameter is true,
+then the implementation evaluates the observation parameters, and
+either a detailed result or error response is returned:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '6'
+, events            :
+  { 'eventID1'      :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '6'
+, events            :
+  { 'eventID1'      :
+    { error         :
+      { permanent   : true
+      , diagnostic  : 'invalid parameter value for event observation'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>If the <em>testOnly</em> parameter is false,
+then the implementation immediately returns a detailed result or error response,
+and
+the <em>eventID</em> value is used by both the steward and implementation when referring to the thing for the duration of the session.</p>
+
+<p>Whenever any of the events occur in the future, will send an <em>report</em> message to the steward:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '7'
+, events            :
+  { 'eventID1'      :
+    { reason        : 'observe'
+    }
+
+    // observation reports for other events, if any, go here...
+  }
+}
+</code></pre>
+
+<p>and the steward responds with either a detailed result or error response:</p>
+
+<pre><code>{ requestID         : '7'
+, events            :
+  { 'eventID1'      :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ requestID         : '7'
+, events            :
+  { 'eventID1'      :
+    { error         :
+      { permanent   : true
+      , diagnostic  : 'invalid eventID'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<h4>Report Event Observation Failure</h4>
+
+<p>If the implementation is no longer able to observe an event:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '8'
+, events            :
+  { 'eventID1'      :
+    { reason        : 'failure'
+      permanent     : true
+      diagnostic    : '...'
+    }
+
+    // observation reports for other events, if any, go here...
+  }
+}
+</code></pre>
+
+<p>and the steward responds with a detailed result response:</p>
+
+<pre><code>{ requestID         : '8'
+, events            :
+  { 'eventID1'      :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<h4>Cancel Event Observation</h4>
+
+<p>If the steward no longer wishes for the implementation to observe an event:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '9'
+, events            :
+  { 'eventID1'      :
+    { reason        : 'cancel'
+    }
+  }
+}
+</code></pre>
+
+<p>and the implementation responds with either a detailed result or error response:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '9'
+, events            :
+  { 'eventID1'      :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '9'
+, events            :
+  { 'eventID1'      :
+    { error         :
+      { permanent   : false
+      , diagnostic  : 'database busy, please retry...'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<h3>Perform Tasks</h3>
+
+<p>The <em>perform</em> message is sent by the steward to the implementation to ask it to observe one or more tasks:</p>
+
+<pre><code>{ path              : '/api/v1/thing/perform'
+, requestID         : '10'
+, tasks             :
+  { 'taskID1'       :
+    { thingID       : 'thingID1'
+    , perform       : '...'
+    , parameter     : '...'
+    , testOnly      : false
+    }
+
+    // performance requests for other tasks, if any, go here...
+  }
+}
+</code></pre>
+
+<p>When the implementation receives the <em>perform</em> message,
+if the _testOnly parameter is true,
+then the implementation evaluates the performance parameters, and
+either a detailed result or error response is returned:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '10'
+, tasks             :
+  { 'taskID1'       :
+    { status        : 'success'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>or</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '10'
+, tasks             :
+  { 'taskID1'       :
+    { error         :
+      { permanent   : true
+      , diagnostic  : 'invalid parameter value for task performance'
+      }
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>If the <em>testOnly</em> parameter is false,
+then the implementation immediately returns a detailed result or error response,
+and then begins to perform the tasks.</p>
+
+<h2>Security</h2>
+
+<p>Security is based on these assumptions:</p>
+
+<ul>
+<li><p>An authorized person is responsible for pairing the implementation to the steward.</p></li>
+<li><p>Both the steward and the implementation keep the <em>thingID/params</em> pairing secure.</p></li>
+<li><p>The cryptographic algorithms used for the secure WebSockets connection are, in fact, secure.</p></li>
+</ul>
+
+</div>
+
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="smallprint"></div>
+
+</body>
+</html>
