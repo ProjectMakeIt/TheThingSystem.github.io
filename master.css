@@ -55,10 +55,10 @@ a.select-toc { background-color: #eee; color: #f05687; text-decoration: none; bo
 .footer-left  { float: left; }
 .footer-right { float: right; }
 
-.main-content { padding-left: 20px; font-family: 'OpenSans Regular', san serif; }
-.intro-text { padding-top: 30px; margin-right: 80px;}
-.content { padding-top: 10px; margin-right: 80px; margin-left: 300px; }
-.doc-content { padding-top: 10px; margin-right: 80px; margin-left: 300px; min-height: 460px; }
+.main-content { font-family: 'OpenSans Regular', san serif; padding-left: 20px; }
+.intro-text { font-family: 'OpenSans Regular', san serif; padding-top: 30px; margin-right: 80px;}
+.content { font-family: 'OpenSans Regular', san serif; padding-top: 10px; margin-right: 80px; margin-left: 300px; }
+.doc-content { font-family: 'OpenSans Regular', san serif; padding-top: 10px; margin-right: 80px; margin-left: 300px; min-height: 460px; }
 
 .content-column-left { width: 45%; float: left; padding-bottom: 40px; padding-right: 30px; }
 .content-column-right { width: 45%; float: right; padding-bottom: 40px; padding-right: 30px; }
