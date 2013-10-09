@@ -48,7 +48,7 @@ a.select-toc { background-color: #eee; color: #f05687; text-decoration: none; bo
 
 .header { font-size: 32px; line-height: 71px; background-color: #000; color: #fff; height: 80px; }
 .header-tall { font-size: 32px; line-height: 71px; background-color: #000; color: #fff; height: 130px; text-align: center; }
-.header img { width: 300px; padding-top: 16px; margin-left: 44px; }
+.header img { width: 300px; padding-top: 16px; margin-left: 44px; border: none; }
 .header-tall img { width: 300px; padding-top: 16px; }
 
 .footer { border-top: 1px dotted #ccc; margin-right: 100px; margin-left: 40px; margin-top: 60px; margin-bottom: 30px; clear: both;  }
