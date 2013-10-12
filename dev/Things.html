@@ -47,7 +47,7 @@ Things
 					<li><a href="Things.html" class="select-toc">Things</a> <span style="color: #f05687;">&rarr;</span></li>
 						<ol class="toc-nav">
 							<li><a href="Simple-Thing-Protocol.html" class="toc">Simple Thing Protocol</a></li>
-							<li><a href="Thing-Sensor-Report-Protocol.html" class="toc">Thing Sensor Report Protocol</a></li>
+							<li><a href="Thing-Sensor-Reporting-Protocol.html" class="toc">Thing Sensor Reporting Protocol</a></li>
 						</ol>					
 					<li><a href="Clients.html" class="toc">Clients</a></li>
 					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
@@ -64,13 +64,13 @@ Things
 <p>If you are a hardware developer interesting in adding an API to your device. The <a href="Steward.html">steward</a> supports two standard protocols which a device can choose to support and be "Thing System native."</p>
 
 <ul>
-<li><p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol</a>. This is a simple multicast UDP based protocol. The repository contains <a href="https://github.com/TheThingSystem/steward/tree/master/things/examples">example code for Arduino and iOS</a> to help developers add the Thing Sensor Report Protocol to their things.</p></li>
-<li><p>If a thing is capable not just of reporting sensor readings, or events, but also of performing actions then it can implement the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>. This protocol is more complex that the <a href="Thing-Sensor-Report-Protocol.html">reporting protocol</a>, and is a websocket based protocol, but allows the <a href="Steward.html">steward</a> to interact with the remote thing. Both to ask for sensor readings, instead of just passively waiting for them to be reported, but also to ask it to perform an action, e.g. turn a light on or off. These smart devices normally have a programmable environment. Examples of this sort of thing include smart phones, tablets, and the things that attach to them, such as Motrr's Galileo, Romotive's Romo, the Swivl, and so on. </p></li>
+<li><p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <a href="Thing-Sensor-Reporting-Protocol.html">Thing Sensor Reporting Protocol</a>. This is a simple multicast UDP based protocol. The repository contains <a href="https://github.com/TheThingSystem/steward/tree/master/things/examples">example code for Arduino and iOS</a> to help developers add the Thing Sensor Reporting Protocol to their things.</p></li>
+<li><p>If a thing is capable not just of reporting sensor readings, or events, but also of performing actions then it can implement the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a>. This protocol is more complex that the <a href="Thing-Sensor-Reporting-Protocol.html">reporting protocol</a>, and is a websocket based protocol, but allows the <a href="Steward.html">steward</a> to interact with the remote thing. Both to ask for sensor readings, instead of just passively waiting for them to be reported, but also to ask it to perform an action, e.g. turn a light on or off. These smart devices normally have a programmable environment. Examples of this sort of thing include smart phones, tablets, and the things that attach to them, such as Motrr's Galileo, Romotive's Romo, the Swivl, and so on. </p></li>
 </ul>
 
 <h2>Building TSRP Things</h2>
 
-<p>Building things using the <a href="Thing-Sensor-Report-Protocol.html">Thing Sensor Report Protocol</a> is fairly easy. Let's take a simple example of a pressure mat connected to an <a href="http://arduino.cc/en/Main/ArduinoBoardEthernet">Arduino Ethernet</a> board.</p>
+<p>Building things using the <a href="Thing-Sensor-Reporting-Protocol.html">Thing Sensor Reporting Protocol</a> is fairly easy. Let's take a simple example of a pressure mat connected to an <a href="http://arduino.cc/en/Main/ArduinoBoardEthernet">Arduino Ethernet</a> board.</p>
 
 <p><img class="doc-image" src="images/pressure.mat.png" alt="Wiring Diagram" title=""></p>
 
