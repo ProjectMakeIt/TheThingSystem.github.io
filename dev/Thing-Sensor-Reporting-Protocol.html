@@ -65,6 +65,8 @@
 <h1>Thing Sensor Reporting Protocol</h1>
 <p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <em>Thing Sensor Reporting Protocol (TSRP)</em>. This is a simple multicast UDP based protocol. For things that need to both report back to the <a href="Steward.html">steward</a> and received requests to perform actions, or make measurements at certain times, you should look at the <a href="Simple Thing Protocol.html">Simple Thing Protocol</a> instead.</p>
 
+<p><em><strong>Note:</strong> From <a href="https://plus.google.com/u/0/108036687109769665170/posts/Mbng7hewYZa">the 19th October 2013</a>, the multicast IP address used for TSRP has been changed from 224.192.32.19 to 224.192.32.20. The UDP port remains the same, 22601. If you are writing TSRP clients, then the next time you pull from the repository, please change the multicast IP address used by your client to 224.192.32.20.</em></p>
+
 <h2>Operations</h2>
 
 <p>The basics:</p>
