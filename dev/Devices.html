@@ -439,7 +439,7 @@ so a client must make a specific API call to the steward in order to create an i
 Examples of creatable actors include:</p>
 
 <ul>
-<li>/device/indicator/text/cosm</li>
+<li>/device/indicator/text/xively</li>
 </ul>
 
 <p>In general,
@@ -501,7 +501,7 @@ an authorized client sends:</p>
 }
 </code></pre>
 
-<p>where <em>ID</em> corresponds to the <em>deviceID</em> of the device to be defind,
+<p>where <em>ID</em> corresponds to the <em>deviceID</em> of the device to be defined,
 <em>X</em> is any non-empty string,
 and <em>DEPTH</em> is either 'flat', 'tree', or 'all'</p>
 
@@ -567,9 +567,9 @@ a given property may appear in any device prototype in which "it makes sense".</
 <ul>
 <li><em>percentage</em>    - [0 .. 100]</li>
 <li><em>degrees</em>       - [0 .. 360)</li>
-<li><em>mireds</em>        - [154 .. 500] (philips hue, aka 2000-6500K)</li>
+<li><em>mireds</em>        - [154 .. 500] (MK^-1, reciprocal mega-kelvins)</li>
 <li><em>meters/second</em> - [0 .. N]</li>
-<li><em>coordinates</em>   - [latitude, longitude] -or- [latitude, longitude, elevation]</li>
+<li><em>coordinates</em>   - [latitude, longitude] -or- [latitude, longitude, elevation] -or- [latitude, longitude, elevation, accuracy]</li>
 <li><em>meters</em>        - [0 .. N]</li>
 <li><em>kilometers</em>    - [0 .. N]</li>
 <li><em>milliseconds</em>  - [0 .. N]</li>
@@ -606,7 +606,18 @@ three properties must be present in all devices:</p>
 <li><p><em>present</em>, <em>absent</em>, or <em>recent</em> - for presence and sensors</p></li>
 <li><p><em>green</em>, <em>blue</em>, <em>orange</em>, or <em>red</em> - for reporting steward health</p></li>
 </ul></li>
-<li><p><em>updated</em> - a timestamp</p></li>
+<li><p><em>updated</em> - a <em>timestamp</em></p></li>
+</ul>
+
+<p>In addition, there are a few optional properties that might be supported by any device:</p>
+
+<ul>
+<li><p><em>location</em> - a <em>coordinates</em> array</p></li>
+<li><p><em>placement</em> - a string (e.g., "front yard")</p></li>
+<li><p><em>batteryLevel</em> - a <em>percentage</em></p></li>
+<li><p><em>lqi</em> - an <em>s8</em> value indicating proximity (higher is closer)</p></li>
+<li><p><em>nextSample</em> - a timestamp</p></li>
+<li><p><em>text</em> - a string</p></li>
 </ul>
 
 <h4>Measurement Properties</h4>
@@ -665,11 +676,17 @@ The naming pattern is:</p>
 <p>In addition, depending on the capabilities of the device, additional properties may be present:</p>
 
 <ul>
-<li><p><em>coordinates</em> - an array containing latitude (degrees), longitude (degrees), and optionally elevation (meters)</p></li>
 <li><p><em>humidity</em> - a percentage</p></li>
 <li><p><em>co2</em> - in parts-per-million</p></li>
 <li><p><em>noise</em> - in decibels</p></li>
 <li><p><em>pressure</em> - in millibars</p></li>
+<li><p><em>airQuality</em> - in sigmas</p></li>
+<li><p><em>smoke</em> - in sigmas</p></li>
+<li><p><em>co</em> - in sigmas</p></li>
+<li><p><em>no2</em> - in sigmas</p></li>
+<li><p><em>hcho</em> - in sigmas</p></li>
+<li><p><em>needs*</em> - <em>true</em> or <em>false</em></p></li>
+<li><p><em>advise*</em> - a string (e.g., "front yard")</p></li>
 </ul>
 
 <p>Please note that the <em>updated</em> and <em>lastSample</em> properties report different things:
@@ -678,6 +695,18 @@ whilst <em>updated</em> indicates the last change in state for the device
 (i.e., it is possible for <em>updated</em> to change regardless of whether <em>lastSample</em> changes;
 however, whenever <em>lastSample</em> changes to reflect a more recent measurement,
 <em>updated</em> will also change to the current time).</p>
+
+<p>Finally, control devices may have additional properties:</p>
+
+<p><em>away</em> - either <em>off</em> or <em>on</em></p>
+
+<p><em>hvac</em> - either <em>off</em>, <em>cool</em>, <em>heat</em>, or <em>fan</em></p>
+
+<p><em>fan</em> - either <em>on</em>, <em>auto</em>, or the number of milliseconds that it should run</p>
+
+<p><em>goalTemperature</em> - the desired temperature</p>
+
+<p><em>leaf</em> - either <em>off</em> or <em>on</em></p>
 
 <h3>Gateway</h3>
 
@@ -769,21 +798,26 @@ it is challenging to provide an abstraction which preserves the fidelity of the 
 
 <ul>
 <li><p><em>color.rgb</em> - with parameters <em>r</em>, <em>g</em>, and <em>b</em>, each a integer-value between 0 and 255</p></li>
+<li><p><em>color.rgb16</em> - with parameters <em>r</em>, <em>g</em>, and <em>b</em>, each a integer-value between 0 and 65535</p></li>
+<li><p><em>color.rgbow</em> - with parameters <em>r</em>, <em>g</em>, <em>b</em>, <em>o</em>, and <em>w</em>, each a integer-value between 0 and 255</p></li>
 <li><p><em>color.hue</em> - with parameters <em>hue</em> (in degrees) and <em>saturation</em> (as a percentage)</p></li>
 <li><p><em>color.temperature</em> - with parameter <em>temperature</em> expressed in mireds</p></li>
 <li><p><em>color.cie1931</em> - with parameters <em>x</em> and <em>y</em> expressed as a real-value between 0 and 1</p></li>
 </ul></li>
-<li><p><em>brightness</em> - an integer-value percentage of the bulb's possible output</p></li>
-<li><p><em>transition</em> - how many milliseconds should elapse as the bulb transitions to the new color and/or brightness</p></li>
-<li><p><em>interval</em> - whether the bulb should change and remain (<em>solid</em>),
-change and return (<em>once</em>),
-or change back and forth (<em>flash</em>)</p></li>
 </ul>
 
 <p>With respect to the color model,
 the list above is presented starting at the least-desirable (<em>rgb</em>) to the most-desirable (<em>cie1931</em>).
 Clueful clients that manage the lighting environment should take note of which models are supported by a device and use the
 most desirable.</p>
+
+<p>In addition, there are some optional properties:</p>
+
+<ul>
+<li><p><em>brightness</em> - an integer-value percentage of the bulb's possible output</p></li>
+<li><p><em>color.fixed</em> - <em>true</em> or <em>false</em> (if true, the color may not be changed)</p></li>
+<li><p><em>pps</em> - <em>u16</em> the number of pixels in a pixel strip</p></li>
+</ul>
 
 <h3>Media</h3>
 
@@ -827,9 +861,10 @@ The naming pattern is:</p>
 <pre><code>/device/motive/2d/XYZ
 /device/motive/3d/XYZ
 /device/motive/ptz/XYZ
+/device/motive/VENDOR/MODEL
 </code></pre>
 
-<p><strong>TBD</strong></p>
+<p><em>under review</em></p>
 
 <h3>Presence</h3>
 
@@ -837,6 +872,8 @@ The naming pattern is:</p>
 The naming pattern is:</p>
 
 <pre><code>/device/presence/fob/XYZ
+/device/presence/mobile/XYZ
+/device/presence//XYZ/tag
 </code></pre>
 
 <p>At a minimum, two properties must be present:</p>
@@ -849,7 +886,7 @@ The naming pattern is:</p>
 <li><p><em>absent</em> - the device is no longer detected</p></li>
 <li><p><em>recent</em> - the device was recently detected (to save device power, the steward does not continuously probe the device)</p></li>
 </ul></li>
-<li><p><em>rssi</em> - an integer-value between -127 and 128 indicating proximity</p></li>
+<li><p><em>lqi</em> - an integer-value between -127 and 128 indicating proximity (higher is closer)</p></li>
 </ul>
 
 <p>At a minimum, one task must be present:</p>

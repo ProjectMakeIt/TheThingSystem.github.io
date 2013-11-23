@@ -61,11 +61,11 @@
 <h1>Bootstrapping the Raspberry Pi</h1>
 <p>Starting from a new board and a blank 4GB (minimum) SD card. You will need a 5V power supply that is capable of supplying at least 750mA. Some USB supplies max out at 500mA and while things will apparently work, it can lead to the unit crashing and behaving oddly. The unit will not function correctly if plugged into a computer's USB socket. It won't supply enough power.</p>
 
-<p><strong>If you do not want to go through the manual installation steps below we supply a <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">disk image</a> for the Raspberry Pi. The disk image is the latest version of Raspbian with the steward and its dependancies already installed. The steward will auto-start when the Raspberry Pi is booted, although especially on the first boot it may take a few moments to start as it has to generate an RSA key on startup. <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">Download the disk image</a>, and install it as you would a normal version of the operating system.</strong></p>
+<p><strong>If you do not want to go through the manual installation steps below we supply a <a href="https://www.dropbox.com/sh/ytkhohsk1x91850/h3B43_qvFP">disk image</a> for the Raspberry Pi. The disk image is the latest version of Raspbian with the steward and its dependancies already installed. The steward will auto-start when the Raspberry Pi is booted, although especially on the first boot it may take a few moments to start as it has to generate an RSA key on startup. <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">Download the disk image</a>, and <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">install it</a> as you would a normal version of the operating system.</strong></p>
 
 <h2>Installing the OS</h2>
 
-<p>Download the <a href="http://www.raspberrypi.org/downloads">latest version of Raspbian</a>. At the time of writing it is "2013-05-25-wheezy-raspbian.img" and unzip the image by double clicking on it.</p>
+<p>Download the <a href="http://www.raspberrypi.org/downloads">latest version of Raspbian</a>. At the time of writing it is <strong>2013-09-25-wheezy-raspbian.img</strong> and unzip the image by double clicking on it.</p>
 
 <p>Insert your SD card into your Macbook. Open up a Terminal window and type <em>df -h</em>, remember the device name for your SD Card. In my case it's <em>/dev/disk1</em>. We'll need to use the raw device, <em>/dev/rdisk1</em>.</p>
 
@@ -84,7 +84,7 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 
 <p>rather than ejecting it by dragging it to the trash. Then in the Terminal change directory to your downloads folder and type</p>
 
-<pre><code>sudo dd bs=1m if=2013-05-25-wheezy-raspbian.img of=/dev/rdisk1
+<pre><code>sudo dd bs=1m if=2013-09-25-wheezy-raspbian.img of=/dev/rdisk1
 </code></pre>
 
 <p>if the above command report an error <em>"dd: bs: illegal numeric value"</em>, change <em>bs=1m</em> to <em>bs=1M</em>. The card should automatically remount when <em>dd</em> is done.</p>
@@ -243,27 +243,6 @@ sudo make install
 
 <p><em>NOTE: Current testing is using the <a href="http://www.iogear.com/product/GBU521/">IOGEAR GBU521 Adaptor</a>, however other adaptors have been tested and appear to work.</em></p>
 
-<h3>Fixing dbus permissions</h3>
-
-<p>There is a possible problem with dbus permissions which cause the bluetoothd daemon to fail to start,</p>
-
-<pre><code>bluetoothd[18198]: Bluetooth daemon 5.4
-D-Bus setup failed: Connection ":1.12" is not allowed to own the service "org.bluez" due to security policies in the configuration file
-bluetoothd[18198]: Unable to get on D-Bus
-</code></pre>
-
-<p>If this occurs for you,  the current work around is to edit /etc/dbus-1/system.d/bluetooth.conf and add the following line</p>
-
-<pre><code>    &lt;allow send_type="method_call"&gt;&lt;/allow&gt;
-</code></pre>
-
-<p>inside the <policy> ... </policy> block, and restarting dbus,</p>
-
-<pre><code> sudo /etc/init.d/dbus restart
-</code></pre>
-
-<p><em>NOTE: This has security implications. This fix allows a method call from all console users, even those calls unrelated to Bluetooth. This is a temporary and sub-optimal work-around to this problem. More research needed.</em></p>
-
 <h2>Installing the Steward</h2>
 
 <p>Check out the steward from its Git repository,</p>
@@ -280,17 +259,6 @@ npm install -l
 
 <p>This will take a while. Go make coffee.</p>
 
-<h4>Manual installation of noble</h4>
-
-<p>After building and installing the steward go into the <em>stewart/node</em>modules_ subdirectory and delete the <em>noble</em> directory. Then,</p>
-
-<pre><code>git clone git://github.com/sandeepmistry/noble.git
-cd noble
-npm install -l
-</code></pre>
-
-<p>to get the latest version which supports Linux.</p>
-
 <h3>No Bluetooth LE Dongle?</h3>
 
 <p>Right now there are still problems with the <em>noble</em> library which will crash the <em>steward</em> on startup with the following error if there is no Bluetooth LE adaptor present,</p>
@@ -306,27 +274,9 @@ npm install -l
 
 <p>the <em>steward</em> should start correctly after these changes without Bluetooth LE support.</p>
 
-<h2>Checking Bluetooth LE status</h2>
-
-<p>If you chose to install BlueZ 4.x via apt-get, and so long as your Bluetooth LE USB adaptor was plugged into your Pi when you installed BlueZ, the Pi will be automatically configured to start Bluetooth. Bluetooth should be running, type</p>
-
-<pre><code>hciconfig
-</code></pre>
-
-<p>at the prompt and you should see something like this,</p>
-
-<pre><code>hci0:   Type: BR/EDR  Bus: USB
-        BD Address: 00:02:72:3F:52:DC  ACL MTU: 1021:8  SCO MTU: 64:1
-    UP RUNNING PSCAN 
-    RX bytes:1289 acl:0 sco:0 events:51 errors:0
-    TX bytes:1194 acl:0 sco:0 commands:51 errors:0
-</code></pre>
-
-<p>if you don't you don't you have a problem, and may need to bail out to BlueZ 5.x, see the manual instructions above. However before doing this you should attempt to manually start the Bluetooth services as below.</p>
-
 <h3>Manually starting Bluetooth LE</h3>
 
-<p>Make sure your Bluetooth 4.0 USB adaptor is plugged into the Pi,  then type</p>
+<p>Make sure your Bluetooth LE USB adaptor is plugged into the Pi,  then type</p>
 
 <pre><code>hciconfig
 </code></pre>
@@ -383,14 +333,33 @@ npm install -l
 
 <p><em>NOTE: If you have installed BlueZ 5.x then bluetoothd is located in /usr/local/libexec/bluetooth/.</em></p>
 
+<h3>Fixing dbus permissions</h3>
+
+<p>There is a possible problem with dbus permissions which cause the bluetoothd daemon to fail to start,</p>
+
+<pre><code>bluetoothd[18198]: Bluetooth daemon 5.4
+D-Bus setup failed: Connection ":1.12" is not allowed to own the service "org.bluez" due to security policies in the configuration file
+bluetoothd[18198]: Unable to get on D-Bus
+</code></pre>
+
+<p>If this occurs for you,  the current work around is to edit /etc/dbus-1/system.d/bluetooth.conf and add the following line</p>
+
+<pre><code>    &lt;allow send_type="method_call"&gt;&lt;/allow&gt;
+</code></pre>
+
+<p>inside the <policy> ... </policy> block, and restarting dbus,</p>
+
+<pre><code> sudo /etc/init.d/dbus restart
+</code></pre>
+
+<p><em>NOTE: This has security implications. This fix allows a method call from all console users, even those calls unrelated to Bluetooth. This is a temporary and sub-optimal work-around to this problem. More research needed.</em></p>
+
 <h2>Instructions for starting the Steward</h2>
 
 <p>In the <em>steward</em> directory type</p>
 
-<pre><code>./run.sh
+<pre><code>sudo ./run.sh
 </code></pre>
-
-<p><em>NOTE: Unlike most modern Linux distributions /bin/bash and /bin/sh are different things on the Pi. So before starting the steward, you'll need to open up the run.sh script. Edit the #! line at the top to use bash rather than sh</em>.</p>
 
 <p>Then follow <a href="Instructions-for-starting-the-Steward.html">these instructions</a> for starting the steward.</p>
 
@@ -412,7 +381,9 @@ npm install -l
 ./run.sh: 27: /home/pi/.nvm/nvm.sh: Syntax error: "}" unexpected
 </code></pre>
 
-<p>in an editor and make sure you changed the #! line to be #!/bin/bash rather than #!/bin/sh.</p>
+<p>in an editor and make sure the #! line at the top is #!/bin/bash rather than #!/bin/sh.</p>
+
+<p><em>NOTE: Unlike most modern Linux distributions /bin/bash and /bin/sh are different things on the Pi</em>.</p>
 
 <p>2) If you get this error,</p>
 
@@ -465,13 +436,13 @@ npm install -l
 
 <h1>Appendix - Starting at boot time</h1>
 
-<p>If you installed BlueZ 4.100 or 4.101, copy the <em>steward</em>4x.sh_ from the <em>steward/init.d/</em> directory into <em>/etc/init.d</em>, </p>
+<p>If you installed BlueZ 4.100 or 4.101, copy the steward<em>4x.sh file from the _steward/platforms/raspberry</em>pi/init.d/_ directory into <em>/etc/init.d</em>, </p>
 
 <pre><code>sudo cp steward_4x.sh /etc/init.d/steward
 sudo chmod uog+rx /etc/init.d/steward
 </code></pre>
 
-<p>However if you installed BlueZ 5.x, copy the script <em>steward</em>5x.sh_ from the <em>steward/init.d/</em> directory into <em>/etc/init.d</em>, </p>
+<p>However if you installed BlueZ 5.x, copy the steward<em>5x.sh file from the _stewardplatforms/raspberry</em>pi/init.d/_ directory into <em>/etc/init.d</em>, </p>
 
 <pre><code>sudo cp steward_5x.sh /etc/init.d/steward
 sudo chmod uog+rx /etc/init.d/steward
@@ -531,7 +502,7 @@ sudo make install
 
 <p>This will take a while, although nothing like as long as the node.js installation.</p>
 
-<p><em>NOTE: Manual installation of BlueZ 5.x leaves a copy of the gatttool in the attrib/ directory. You can run this tool from there, or copy it into /usr/local/bin along with the other BlueZ utilities. It's not clear why it's not installed by default. However the noble library needs to have gatttool in the path at runtime.</em></p>
+<p><em>NOTE: Manual installation of BlueZ 5.x leaves a copy of the gatttool in the attrib/ directory. You can run this tool from there, but you should also manually copy it into /usr/local/bin along with the other BlueZ utilities. It's not clear why it's not installed by default. Some versions of the noble library needs to have gatttool in the path at runtime.</em></p>
 
 <h3>Fixing dbus permissions</h3>
 

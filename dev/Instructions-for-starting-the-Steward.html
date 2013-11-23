@@ -93,6 +93,15 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 
 <p>You will probably want to customize this script for yourself. When the script starts, it will bring a lot of stuff on the console. Over time, the verbosity will decrease, but for now, it should give comfort...</p>
 
+<h2>Authentication</h2>
+
+<p>The first time you start the steward you'll need to create a user account. Go to</p>
+
+<pre><code> http://a.b.c.d:8888/client.html
+</code></pre>
+
+<p>and follow the instructions to create a user account. You can then use this to authenticate to the steward in future.</p>
+
 <h2>Monitoring</h2>
 
 <p>When the steward starts, it will be listening for https traffic on port 8888 and http traffic on 8887. If you are using the loopback interface (e.g., on a desktop system such as your Mac), then start by visiting</p>
@@ -111,7 +120,9 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 
 <p><img class="doc-image" src="images/d3.3.png" alt="d3 example client" title=""></p>
 
-<p><em>If you have Philips' Hue light bulbs, remember to push the pairing button on the hub at this point to advertise to allow the steward to talk to your light bulbs.</em></p>
+<p><em>NOTE: If you have Philips' Hue light bulbs, remember to push the pairing button on the hub at this point to advertise to allow the steward to talk to your light bulbs. You should also go ahead and dismiss the red popup along the top of the client.</em></p>
+
+<p><em>NOTE: If you are not logged in to the steward on 127.0.0.1 (i.e. localhost) and instead you're logged on via the LAN you will initially be in read-only mode. You'll need to push the CHANGE LOGIN button at the top left to authenticate to the steward.</em></p>
 
 <p>From here you can click on individual things, like for instance a light bulb, and be offered some basic controls,</p>
 
