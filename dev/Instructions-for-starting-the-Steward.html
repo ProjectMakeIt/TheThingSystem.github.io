@@ -86,7 +86,7 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 <p>The <em>run.sh</em> script does three things:</p>
 
 <ul>
-<li><p>The script changes the group/permissions for <em>/dev/bpf*</em> and flushes the arp caches. The steward runs libpcap in order to examine arp traffic. On most systems, the Berkeley Packet Filter (bpf) is used by <a href="http://www.tcpdump.org/">libpcap</a> in order to capture network traffic. In turn, <em>libpcap</em> reads from devices named <em>/dev/bpf*</em> - so these files need to be readable by the steward. The <em>run.sh</em> script assumes that the steward is running under group <em>admin</em>, so that's what it changes the group to.</p></li>
+<li><p>The script changes the group/permissions for <em>/dev/bpf*</em> and flushes the arp caches. The steward runs libpcap in order to examine arp traffic. On most systems, the Berkeley Packet Filter (bpf) is used by <a href="http://www.tcpdump.org">libpcap</a> in order to capture network traffic. In turn, <em>libpcap</em> reads from devices named <em>/dev/bpf*</em> - so these files need to be readable by the steward. The <em>run.sh</em> script assumes that the steward is running under group <em>admin</em>, so that's what it changes the group to.</p></li>
 <li><p>The script reads the <em>nvm</em> initialization script in order to set the environment for <em>node.js</em>.</p></li>
 <li><p>The script runs the <em>node</em> program on the <em>index.js</em> file and the steward begins.</p></li>
 </ul>

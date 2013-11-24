@@ -68,20 +68,29 @@
 
 <ul>
 <li><p><a href="Bootstrapping-on-OS-X.html">OS X</a> on the Mac</p></li>
-<li><p>Linux on the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a></p></li>
+<li><p>Raspbian Wheezy on the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a></p></li>
+<li><p>Debian Wheezy on the <a href="Bootstrapping-the-BeagleBone-Black-(with-Debian">BeagleBone Black</a>.html) and original BeagleBone Rev.A6 (white)</p></li>
 </ul>
 
-<p>The <em>steward</em> is also mostly functional, but without <em>mdns</em> capability on the following platform,</p>
-
-<ul>
-<li><a href="Bootstrapping-the-BeagleBone-Black.html">BeagleBone Black</a></li>
-</ul>
+<p>We also have instructions on <a href="Bootstrapping-the-BeagleBone-Black.html">how to build the steward on the default Angstrom distribution</a> on the BeagleBone Black. However we do not advise this as the build suffers from mDNS and several other problems relating to third party library problems.</p>
 
 <h2>Disk images</h2>
 
-<p>There is a <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">raw disk disk image available for the Raspberry Pi</a> based around the latest version of Raspbian. You will need a 4GB SD card.</p>
+<p>There are raw disk disk images available <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">for the Raspberry Pi</a> and <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">the BeagleBone</a> based around the latest version of Debian Wheezy for these platforms. You will need a 4GB SD card.</p>
 
-<p>Go ahead and download the <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">latest version of our distribution</a>. Insert your SD card into your Macbook. Open up a Terminal window and type <em>df -h</em>, remember the device name for your SD Card. In my case it's <em>/dev/disk1</em>. We'll need to use the raw device, <em>/dev/rdisk1</em>.</p>
+<p>The latest release is <strong>version 1.2</strong> (23rd November 2013)</p>
+
+<p>The latest Raspberry Pi image is: <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">sdcard<em>rpi</em>1.2.img</a> 
+MD5 (sdcard<em>rpi</em>1.2.img) = a74fff781f52a9d71259a83d18de14ea</p>
+
+<p>The latest Beaglebone Black image is: <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">sdcard<em>bbb</em>1.2.img</a> 
+MD5 (sdcard<em>bbb</em>1.2.img) = cd29c8c0c5f0995dcb1274a772776ea3</p>
+
+<p>The Beaglebone Black disk image should also work with the original Beaglebone Rev.A6 (white) but has not been extensively tested.</p>
+
+<h3>Copying the Disk Image to an SD Card</h3>
+
+<p>Insert your SD card into your Macbook. Open up a Terminal window and type df -h, remember the device name for your SD Card. In my case it's /dev/disk1. We'll need to use the raw device, /dev/rdisk1.</p>
 
 <pre><code>Filesystem      Size   Used  Avail Capacity  iused    ifree %iused  Mounted on
 /dev/disk0s2   699Gi  367Gi  332Gi    53% 96214802 86992771   53%   /
@@ -96,37 +105,56 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 <pre><code>sudo diskutil unmount /dev/disk1s1
 </code></pre>
 
-<p>rather than ejecting it by dragging it to the trash. Then in the Terminal change directory to your downloads folder and type</p>
+<p>rather than ejecting it by dragging it to the trash. Then in the Terminal window change to the directory with your disk image in and type,</p>
 
-<pre><code>sudo dd bs=1m if=2013-05-25-wheezy-raspbian.img of=/dev/rdisk1
+<pre><code>sudo dd bs=1m if=sdcard.img of=/dev/rdisk1
 </code></pre>
 
-<p>if the above command report an error <em>"dd: bs: illegal numeric value"</em>, change <em>bs=1m</em> to <em>bs=1M</em>. The card should automatically remount when <em>dd</em> is done.</p>
+<p>if the above command report an error "dd: bs: illegal numeric value", change bs=1m to bs=1M. </p>
 
-<p>Eject the card with the command, </p>
+<p>The card should automatically remount when dd is done. Eject the card with the command,</p>
 
 <pre><code>sudo diskutil eject /dev/rdisk1
 </code></pre>
 
-<p>Insert the card in the Raspberry Pi, plug the Pi into the Ethernet, and then connect the power to start it booting. A red LED will initially come on, however the green ACT LED should start flashing, and the orange FDX and LNK LEDS should light up if the boot works correctly. If you run into problems you can <a href="http://elinux.org/R-Pi_Troubleshooting#Power_.2F_Start-up">troubleshoot</a>.</p>
+<h3>Instructions for the Raspberry Pi</h3>
 
-<p>The <em>steward</em> should automatically start at boot time.</p>
+<p>Insert the SD card in the board, plug in your Bluetooth LE dongle, plug the board into the Ethernet, and then connect the power to start it booting. A red LED will initially come on, however the green ACT LED should start flashing, and the orange FDX and LNK LEDS should light up if the boot works correctly.</p>
 
-<h2>Other platforms</h2>
+<p>When the board boots it should automatically bring up both Bluetooth LE and the Steward.</p>
 
-<p>The <em>steward</em> is currently being tested on the other platforms, including the <a href="Bootstrapping-the-BeagleBone.html">BeagleBone</a>. The <em>steward</em> is also mostly functional, but without <em>mdns</em> capability on,</p>
+<h3>Instructions for the Beaglebone Black</h3>
 
-<ul>
-<li><a href="Bootstrapping-the-BeagleBone-Black.html">BeagleBone Black</a></li>
-</ul>
+<p>Power the BeagleBone Black down and locate the "User Boot" button. It's located on the top side of the board, directly above the micro SD card slot which is located on the reverse side along with the mini and micro USB sockets.</p>
 
-<p>Additionally partial instructions for these new platforms exist but aren't guaranteed to work:</p>
+<p>The BeagleBone Black will try to boot the internal Angstrom image by default. To boot from our SD Card, you’ll need to hold down the User Boot button while powering-on the board. You should see two of the blue lights come on. At this point you can let go of the User Boot button.</p>
 
-<ul>
-<li><a href="Bootstrapping-the-BeagleBone-Rev.A6.html">BeagleBone</a> Rev.A6 (white)</li>
-</ul>
+<p>When the board boots it should automatically bring up both Bluetooth LE and the Steward.</p>
 
-<p><em>NB: These instructions are currently incomplete. Please see the instructions for the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a> for hints to how to carry through to completion on these platforms at this time.</em></p>
+<p>With the SD Card present in the microSD slot the Beaglebone Black will boot into Debian only if the User Boot button is held as the power is turned on. If you do not hold the User Boot button down on boot the into the default Angstrom distribution which is still present on the internal eMMC.</p>
+
+<p>This can get fairly tedious.You can replace the internal Angstrom image with a "default" Debian distribution—which does not contain the steward or #thethingsystem—but does know to check for the presence of an SD card before booting.</p>
+
+<p>To do this ssh into the Beaglebone—the username and password are both "debian"—and proceed as below,</p>
+
+<pre><code>cd ~
+sudo su
+wget http://s3.armhf.com/debian/wheezy/bone/debian-wheezy-7.2-armhf-3.8.13-bone30.img.xz
+xz -cd debian-wheezy-7.2-armhf-3.8.13-bone30.img.xz &gt; /dev/mmcblk1
+</code></pre>
+
+<p>this will take a while. When it is complete your command prompt will return, and the internal eMMC memory will have a default version of Wheezy installed. Since the image is pretty large you should delete it at this point</p>
+
+<pre><code>rm debian-wheezy-7.2-armhf-3.8.13-bone30.img.xz
+</code></pre>
+
+<p>To test it has worked you should un-plug the power supply, remove the microSD card and then connect the power again. It should boot back up into Debian.</p>
+
+<p>From this point, to boot from the SD card you simply need to place the card in the microSD slot and connect the power. No more holding down the User Boot button.</p>
+
+<h3>Accessing the steward</h3>
+
+<p>The steward will start automatically when your Raspberry Pi or Beaglebone boots, so after installation please see the documentation on <a href="https://github.com/TheThingSystem/steward/wiki/Instructions-for-starting-the-Steward#authentication">how to authenticate and login to the steward</a>. </p>
 
 <h2>Installation using Package Management</h2>
 

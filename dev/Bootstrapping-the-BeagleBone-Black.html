@@ -60,13 +60,17 @@
 
 <div class="doc-content">
 <h1>Bootstrapping the BeagleBone Black</h1>
+<p><strong>WARNING: These instructions will walk you through installing the steward on Angstrom Linux. The resulting system works, but is extremely fragile due to third party library problems. Instead of following these instructions we advise you to <a href="Bootstrapping-the-BeagleBone-Black-(with-Debian">build a Debian Wheezy distribution</a>.html) instead, and boot from the SD card rather than from the internal eMMC disk.</strong></p>
+
+<p><strong>If you do not want to go through the manual installation steps below we supply a <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">disk image</a> for the Beaglebone Black. The disk image is the latest version of Debian Wheezy with the steward and its dependancies already installed. The steward will auto-start when the Beaglebone is booted, although especially on the first boot it may take a few moments to start as it has to generate an RSA key on startup. <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">Download the disk image</a>, and <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">install it</a> as you would a normal version of the operating system.</strong></p>
+
 <p>Starting with a new board the first step is to plug the board into your laptop using the mini-USB cable provided. The BeagleBone has two USB ports, a full sized USB-A port, and a mini-USB port. The mini port is located on the reverse side of the board near the Ethernet jack.</p>
 
 <p>The board should boot and you should see a solid blue light next to the 5V power jack. When startup is completed, a new mass storage device called <em>BEAGLEBONE</em> should appear on your desktop.</p>
 
 <p>Open up the mass storage device and click on the <em>START.htm</em> file to open it in a browser. You should probably read through this file to familiarise yourself with the BeagleBone's capabilities.</p>
 
-<p><em>NOTE: Despite appearing similar the port on the opposite side of the board from the full sized USB-A jack is a mini-HDMI port, not a micro USB port as it might appear at first glance. You should use the mini USB port on the underside of the board to connect the BeagleBone to your computer.</em></p>
+<p><em>NOTE: You should use the mini USB port on the underside of the board to connect the BeagleBone to your computer, this is located on the underside of the board to the left of the Ethernet jack.</em></p>
 
 <p><em>NOTE: The board uses the same power supply as the previous BeagleBone. 5VDC, 1A, 2.1mm, center positive. The power supply is not supplied with the board. However if you are going to configure the board to use a WiFi adaptor you should use a supply with a 2A rating otherwise you'll get intermittent crashes due to brown outs.</em></p>
 
@@ -76,11 +80,11 @@
 
 <h3>Downloading the Operating System</h3>
 
-<p>Download the <a href="http://beagleboard.org/latest-images">latest image</a> of the Angstrom Distribution. You want the latest image for the BeagleBone Black, marked as eMMC flasher. </p>
+<p>Download the <a href="http://downloads.angstrom-distribution.org/demo/beaglebone/">latest image</a> of the Angstrom Distribution, currently that's <a href="https://s3.amazonaws.com/angstrom/demo/beaglebone/BBB-eMMC-flasher-2013.09.04.img.xz">BBB-eMMC-flasher-2013.09.04.img.xz</a>.</p>
 
 <p>The image comes as a .xz file. You can install the <a href="http://tukaani.org/xz/">XZ Utils</a> which will let you unzip the compressed archive by using <a href="http://www.macports.org">MacPorts</a> or <a href="http://brew.sh">Homebrew</a>.</p>
 
-<pre><code>xz -d BBB-eMMC-flasher-2013.06.20.img.xz
+<pre><code>xz -d BBB-eMMC-flasher-2013.09.04.img.xz
 </code></pre>
 
 <p>After decompression is should be around 3.4GB, so you will need a micro SD card at least 4GB in size to handle the image. Go ahead and insert the microSD card in its adaptor into your Macbook. </p>
@@ -102,7 +106,7 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 
 <p>rather than ejecting it by dragging it to the trash. Then in the Terminal change directory to your downloads folder and type</p>
 
-<pre><code>sudo dd bs=1m if=BBB-eMMC-flasher-2013.06.20.img of=/dev/rdisk1
+<pre><code>sudo dd bs=1m if=BBB-eMMC-flasher-2013.09.04.img of=/dev/rdisk1
 </code></pre>
 
 <p>if the above command report an error <em>"dd: bs: illegal numeric value"</em>, change <em>bs=1m</em> to <em>bs=1M</em>. The card should automatically remount when <em>dd</em> is done.</p>
@@ -248,7 +252,7 @@ opkg -t /home/root/tmp upgrade
 
 <p>This will take some time. You might want to go make a cup of coffee and maybe another grilled cheese sandwich. After the upgrade is finished <em>reboot the BeagleBone</em> before proceeding, and reconnect.</p>
 
-<p><em>NOTE: The BeagleBone Black is still under heavy development and as a result the repositories can be somewhat unstable. This stage can therefore sometimes generate a lot of errors depending on the state of the repositories.</em></p>
+<p><em>NOTE: The BeagleBone Black is still under heavy development and as a result the repositories can be somewhat unstable. This stage can therefore sometimes generate a lot of errors depending on the state of the repositories. As a result you *MAY WISH TO SKIP THIS STEP* and not attempt to upgrade the OS at this time.</em></p>
 
 <h2>Enabling NTP</h2>
 
@@ -312,6 +316,7 @@ systemctl enable ntpd.service
 <p>to read</p>
 
 <pre><code>ExecStart=/usr/bin/ntpd -q -g -x
+ExecStart=/sbin/hwclock --systohc
 </code></pre>
 
 <p>since the BeagleBone doesn't have a time-of-year (TOY) chip to maintain the time during periods when the power is off, and if we don't do this <em>ntp</em> would assume something is terribly wrong and shuts itself down.</p>
@@ -342,6 +347,11 @@ git config --global http.sslCApath /etc/ssl/certs/ca-certificates.crt
 <p>The BeagleBone doesn't come with the Python compiler, which is need for Node to build, so</p>
 
 <pre><code>opkg install python-compiler
+opkg install python-misc
+opkg install python-multiprocessing
+opkg install python-distutils
+opkg install python-setuptools
+opkg install python-simplejson
 </code></pre>
 
 <p>before continuing.</p>
@@ -416,7 +426,57 @@ opkg install sqlite3
 
 <p><em>NOTE: You may get an post install error for the "bonescript" package. We can probably ignore this problem for now as we aren't using bonescript.</em></p>
 
+<h2>Manually Installing avahi-compat</h2>
+
+<p>The <em>avahi daemon</em> distributed with Angstrom Linux comes without any support for <em>avahi-compat</em> which is needed by the node <em>mdns</em> package.</p>
+
+<p><em>NOTE: See <a href="https://github.com/agnat/node_mdns/issues/73">this discussion of the issues with the avahi-compat package</a> for further details.</em></p>
+
+<h3>Installing libdaemon</h3>
+
+<p>Avahi depends on <em>libdaemon</em> which doesn't appear to be available as a package under Angstrom, we need to download, build and install it from source.</p>
+
+<pre><code>opkg install texinfo
+git clone git://git.0pointer.de/libdaemon
+cd libdaemon
+autoreconf -i
+autoconf configure.ac &gt; configure
+chmod uog+x configure
+./configure
+make
+make install
+</code></pre>
+
+<h3>Rebuiling Avahi</h3>
+
+<p>We therefore have to recompile <em>avahi</em> from scratch and copy the relevant compat libraries into the existing <em>avahi</em> distribution.</p>
+
+<pre><code>cd ~
+mkdir avahi
+cd avahi
+wget http://avahi.org/download/avahi-0.6.31.tar.gz
+tar -zxvf avahi-0.6.31.tar.gz
+cd avahi-0.6.31
+export PTHREAD_CFLAGS='-lpthread'
+opkg install libssp-dev
+opkg install intltool
+export LIBDAEMON_CFLAGS=-I/usr/local/include
+export LIBDAEMON_LIBS=-L/usr/local/lib
+./configure --disable-static --disable-mono --disable-monodoc --disable-gtk3 --disable-gtk --disable-qt3 --disable-python --disable-qt4 --disable-core-docs --enable-compat-libdns_sd --disable-tests --with-distro=none
+make
+</code></pre>
+
+<p><em>NOTE: Do not run "make install" as we want to copy the relevant files into the existing distribution rather than attempting to replace it.</em></p>
+
+<pre><code>cd avahi-compat-libdns_sd/.libs/
+cp libdns_sd.so /usr/lib
+cd ..
+cp dns_sd.h /usr/include
+</code></pre>
+
 <h2>Installing the Steward</h2>
+
+<p><em>NOTE: We're extremely tight for space on the internal eMMC, you should go ahead and clean up all of the source code and build directories in the root home directory before proceeding at this point.</em></p>
 
 <p>Check out the steward from its Git repository,</p>
 
@@ -429,30 +489,12 @@ cd steward/steward
 <pre><code>rm -rf node_modules
 </code></pre>
 
-<p>As the node.js <em>mdns</em> package currently doesn't build on the BeagleBone Black due to <a href="https://github.com/agnat/node_mdns/issues/73">issues with the <em>avahi-compat</em> package</a>. Go ahead and edit the <em>package.json</em> file in your favourite editor and remove the lines that says,</p>
-
-<pre><code>    , "mdns"                : "git://github.com/TheThingSystem/node_mdns.git"
-    , "eureka-dongle"       : "git://github.com/TheThingSystem/eureka-dongle.git"
-    , "airplay"             : "git://github.com/TheThingSystem/node-airplay.git"
-</code></pre>
-
-<p>this is the <em>mdns</em> package itself, and the packages for the <a href="https://github.com/TheThingSystem/eureka-dongle">Chromecast</a> and the <a href="https://github.com/benvanik/node-airplay">Apple TV</a> which need <em>mdns</em> to function correctly.</p>
-
-<p>However <em>mdns</em> support removes some other third party modules that would normally be installed as dependences but that are also needed by the steward to run, you'll therefore need to add in the following lines into the <em>package.json</em> file,</p>
-
-<pre><code>    , "pkginfo"             : "0.3.0"
-    , "underscore"          : "1.5.1"
-    , "cycle"               : "1.0.2"
-    , "colors"              : "0.6.2"
-    , "async"               : "0.2.9"
-</code></pre>
-
-<p>The go ahead and build and install the libraries,</p>
+<p>Then go ahead and build and install the libraries,</p>
 
 <pre><code>npm install -l
 </code></pre>
 
-<p><em>NOTE: If you get an error "dns</em>sd.h: No such file or directory" error at this stage you have forgotten to  remove the mdns module from the package.json file._</p>
+<p><em>NOTE: If you get an error</em> "dns<em>sd.h: No such file or directory" _error at this stage see above for how to rebuild the avahi daemon.</em></p>
 
 <p>This will definitely take a while. Go make coffee.</p>
 
@@ -467,15 +509,7 @@ make
 npm install -l
 </code></pre>
 
-<p><em>NOTE: If you don't rebuild sqlite3 by hand you'll get a "Error: Cannot find module '../build/Release/node</em>sqlite3.node'" error when the steward starts._</p>
-
-<h3>Disabling Chromecast and AppleTV</h3>
-
-<p>Since we've disabled <em>mdns</em> and removed support for both the Apple TV and Chromecast from the steward we have to go ahead and disable the drivers for these devices. Add the following lines at the top of both <em>devices/devices-media/media-video-appletv.js</em> and <em>devices/devices-media/media-video-chromecast.js</em></p>
-
-<pre><code>exports.start = function() {};
-return;
-</code></pre>
+<p><em>NOTE: If you don't rebuild sqlite3 by hand you'll get a</em> "Error: Cannot find module '../build/Release/node<em>sqlite3.node'" _error when the steward starts.</em></p>
 
 <h3>Starting Bluetooth LE</h3>
 
@@ -483,11 +517,9 @@ return;
 
 <pre><code>[global]
 Timeservers=0.angstrom.pool.ntp.org;1.angstrom.pool.ntp.org;2.angstrom.pool.ntp.org;3.angstrom.pool.ntp.org
-</code></pre>
+OfflineMode=false
 
-<p>OfflineMode=false</p>
-
-<pre><code>[Wired]
+[Wired]
 Enable=true
 
 [WiFi]
@@ -504,6 +536,8 @@ Enable=true
 
 <p>or alternatively reboot your BeagleBone to restart the service.</p>
 
+<p><em>NOTE: In some cases restarting the connman.service can cause the BeagleBone to freeze, in which case you'll have to power cycle the board.</em></p>
+
 <h4>Manually starting the bluetooth deamon</h4>
 
 <p>Make sure your Bluetooth 4.0 USB adaptor is plugged into the Pi, then type</p>
@@ -513,7 +547,7 @@ Enable=true
 
 <p>you should see something like this,</p>
 
-<pre><code>hci0:   Type: BR/EDR  Bus: USB
+<pre><code>hci0:    Type: BR/EDR  Bus: USB
          BD Address: 00:1A:7D:DA:71:0C  ACL MTU: 310:10  SCO MTU: 64:8
      DOWN 
      RX bytes:467 acl:0 sco:0 events:18 errors:0
@@ -522,7 +556,7 @@ Enable=true
 
 <p>This shows that the device is in a down state. To bring it up you can issue the following command,</p>
 
-<pre><code>sudo hciconfig hci0 up
+<pre><code>hciconfig hci0 up
 </code></pre>
 
 <p>then type</p>
@@ -534,14 +568,14 @@ Enable=true
 
 <pre><code>hci0:   Type: BR/EDR  Bus: USB
     BD Address: 00:1A:7D:DA:71:0C  ACL MTU: 310:10  SCO MTU: 64:8
-    UP RUNNING PSCAN 
+    UP RUNNING 
     RX bytes:979 acl:0 sco:0 events:43 errors:0
     TX bytes:910 acl:0 sco:0 commands:43 errors:0
 </code></pre>
 
 <p>Just to check things are working correctly type,</p>
 
-<pre><code>sudo hcitool lescan
+<pre><code>hcitool lescan
 </code></pre>
 
 <p>and you should see any Bluetooth LE peripherals that are within range, e.g. </p>

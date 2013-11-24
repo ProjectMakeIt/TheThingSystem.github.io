@@ -114,14 +114,14 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 
 <h2>Expanding the Disk</h2>
 
-<p>By default the Wheezy image will create a 2GB root partition, which only leaves around 165MB of free space in the root file system, which isn't enough for us to work in. You can either go ahead and create a separate /home or a data partition, or expand the root partition. I don't see a reason at this point not to just expand the root partition to fill the SD Card. </p>
+<p>By default the Wheezy image will create a 4GB root partition. If you're using a larger SD card than this you can either go ahead and create a separate /home or a data partition, or expand the root partition. I don't see a reason at this point not to just expand the root partition to fill the SD Card. </p>
 
 <p>When logged into the Pi type the following at the prompt,</p>
 
 <pre><code>sudo raspi-config
 </code></pre>
 
-<p>This will open the configuration manager. The first option down is <em>expand</em>rootfs<em>. This will automagically expand the size of the root partition. If you reboot the Pi and log back in, and look at _df</em> you'll see that the partition has been resized to fill the card.</p>
+<p>This will open the configuration manager. The first option down is <em>Expand Filesystem</em>. This will automagically expand the size of the root partition. If you reboot the Pi and log back in, and look at <em>df</em> you'll see that the partition has been resized to fill the card.</p>
 
 <h3>Other configuration</h3>
 
@@ -131,9 +131,10 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 
 <p>The default package served by <em>apt-get</em> on the current version of Whezzy is Node.js 0.6.19~dfsg1-6. Which is horribly out of date. We're going to have to build from the GitHub repository. </p>
 
-<p>We'll need Git to check it out from the repository. The easiest way to install that is using <em>apt-get</em>, however first of all we'll need to update the list of repositories, before grabbing Git itself,</p>
+<p>We'll need Git to check it out from the repository. The easiest way to install that is using <em>apt-get</em>, however first of all we'll need to update the list of repositories—and upgrade to the latest packages—, before grabbing Git itself,</p>
 
 <pre><code>sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install git-core build-essential
 </code></pre>
 
@@ -251,7 +252,7 @@ sudo make install
 cd steward/steward
 </code></pre>
 
-<p>Delete the <em>node</em>modules_ directory if it exists, as the depending on the last build these may be for OS X, and go ahead and install the libraries,</p>
+<p>Delete the node_modules directory if it exists, as the depending on the last build these may be for OS X, and go ahead and install the libraries,</p>
 
 <pre><code>rm -rf node_modules
 npm install -l

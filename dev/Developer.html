@@ -65,19 +65,19 @@
 
 <p>If you need to add a support for a consumer equipment talking some kind of industry, or manufacturer-specific protocol, which the steward <a href="The-Thing-Architecture.html">terms a native protocol</a>. Then you'll need to <a href="Steward.html">understand how the steward</a> handles <a href="Devices.html">devices</a>. New devices speaking native protocols (rather than <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> or <a href="Thing-Sensor-Reporting-Protocol.html">Thing Sensor Reporting Protocol (TSRP)</a> can be added to the <a href="Steward.html">steward</a> by <a href="Devices.html">creating a module</a> with a path and name that conform to the <a href="Devices.html">Device Taxonomy</a>. This module is detected and loaded by the steward during startup. </p>
 
-<img src="images/ios.lightbulbs.png" alt="Screen shot" title="" style="float: right; padding: 0px 0px 20px 20px; width: 200px;">
-
 <h2>Developing clients</h2>
 
 <p>Building <a href="Clients.html">clients</a> which talk to the <a href="Steward.html">steward</a> is <a href="Building-Simple-Clients.html">pretty simple</a> using <a href="http://en.wikipedia.org/wiki/WebSocket">Websockets</a>. The steward provides two main API endpoints accessible using secure web socket protocol on port 8888, advertising this service via zero-configuration networking (<a href="http://en.wikipedia.org/wiki/Multicast_DNS">mDNS</a>).</p>
+
+<p><img class="doc-image" src="images/ios.lightbulbs.png" alt="Screen shot" title=""></p>
 
 <p>Using these two end points you can both <a href="Building-Simple-Clients.html">monitor what is happening</a> with your things &#8212; for instance changes in the weather or your front door opening &#8212; or send commands to <a href="Building-Simple-Clients.html">perform actions</a>, for instance to <a href="Clients.html">turn all the lights in your house on or off</a>.</p>
 
 <h2>Developing things</h2>
 
-<p>Developing simple things which talk to the steward can be done in two ways. Either using the bi-directionally using the websocket based <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> to provide control, or if you need to report readings only using the much simpler multicast UDP based <a href="Thing-Sensor-Reporting-Protocol.html">Thing Sensor Reporting Protocol (TSRP)</a>.</p>
-
 <p><img class="doc-image" src="images/dht-22.png" alt="Wiring Diagram" title=""></p>
+
+<p>Developing simple things which talk to the steward can be done in two ways. Either using the bi-directionally using the websocket based <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> to provide control, or if you need to report readings only using the much simpler multicast UDP based <a href="Thing-Sensor-Reporting-Protocol.html">Thing Sensor Reporting Protocol (TSRP)</a>.</p>
 
 </div>
 
