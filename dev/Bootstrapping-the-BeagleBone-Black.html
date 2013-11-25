@@ -76,7 +76,7 @@
 
 <h2>Installing the Operating System</h2>
 
-<p>The main difference from the <a href="Bootstrapping the Raspberry Pi.html">Raspberry Pi</a> for setup is that the BeagleBone ships with the Angstrom Linux distribution and boots from onboard flash memory. That means we don't have to up do an initial OS installation before talking to the board. However, it's advisable to go ahead and update the OS before continuing in any case.</p>
+<p>The main difference from the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a> for setup is that the BeagleBone ships with the Angstrom Linux distribution and boots from onboard flash memory. That means we don't have to up do an initial OS installation before talking to the board. However, it's advisable to go ahead and update the OS before continuing in any case.</p>
 
 <h3>Downloading the Operating System</h3>
 
@@ -422,7 +422,7 @@ npm install -g node-gyp
 opkg install sqlite3
 </code></pre>
 
-<p>Unlike the <a href="Bootstrapping the Raspberry Pi.html">Raspberry Pi</a>, the stock BlueZ installed on the BeagleBone is 4.101. This is the version we need for the <a href="https://github.com/sandeepmistry/noble">noble</a> library used by the steward, so no special steps are needed to install BlueZ on the BeagleBone</p>
+<p>Unlike the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a>, the stock BlueZ installed on the BeagleBone is 4.101. This is the version we need for the <a href="https://github.com/sandeepmistry/noble">noble</a> library used by the steward, so no special steps are needed to install BlueZ on the BeagleBone</p>
 
 <p><em>NOTE: You may get an post install error for the "bonescript" package. We can probably ignore this problem for now as we aren't using bonescript.</em></p>
 
@@ -513,7 +513,7 @@ npm install -l
 
 <h3>Starting Bluetooth LE</h3>
 
-<p>Unlike the <a href="Bootstrapping the Raspberry Pi.html">Raspberry Pi</a> the BeagleBone Black comes with BlueZ 4.101 installed. However by default the <em>connman</em> service on the BeagleBone is set up to stop you bringing your Bluetooth device up, you'll need to edit the <em>/var/lib/connman/settings</em> file to enable Bluetooth,</p>
+<p>Unlike the <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a> the BeagleBone Black comes with BlueZ 4.101 installed. However by default the <em>connman</em> service on the BeagleBone is set up to stop you bringing your Bluetooth device up, you'll need to edit the <em>/var/lib/connman/settings</em> file to enable Bluetooth,</p>
 
 <pre><code>[global]
 Timeservers=0.angstrom.pool.ntp.org;1.angstrom.pool.ntp.org;2.angstrom.pool.ntp.org;3.angstrom.pool.ntp.org
