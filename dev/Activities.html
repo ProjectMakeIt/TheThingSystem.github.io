@@ -483,6 +483,28 @@ an authorized client sends:</p>
 }
 </code></pre>
 
+<h4>Modify Activity</h4>
+
+<p>To modify a activity,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/activity/modify/ID'
+, requestID : 'X'
+...
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>activityID</em> of the activity to be modified,
+<em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/activity/modify/8'
+, requestID : '3'
+, armed     : false
+}
+</code></pre>
+
+<p>Any or all of the <em>name</em>, <em>armed</em>, <em>event</em>, <em>task</em>, and <em>comments</em> fields may be provided.</p>
+
 <h4>Perform Activity</h4>
 
 <p>To perform a activity,
@@ -583,6 +605,25 @@ an authorized client sends:</p>
 <pre><code>{ path      : '/api/v1/group/list'
 , requestID : '2'
 , options   : { depth: 'all' }
+}
+</code></pre>
+
+<h4>Modify Group</h4>
+
+<p>To modify a group,
+an authorized client sends:</p>
+
+<pre><code>{ path      : '/api/v1/group/modify/ID'
+, requestID : 'X'
+...
+}
+</code></pre>
+
+<p>where <em>ID</em> corresponds to the <em>groupID</em> of the group having tasks to be modified,
+<em>X</em> is any non-empty string, e.g.,</p>
+
+<pre><code>{ path      : '/api/v1/group/perform/9'
+, requestID : '3'
 }
 </code></pre>
 

@@ -424,8 +424,8 @@ and the module for that gateway then discovers "interesting" devices.
 Examples of these kinds of actors include things like:</p>
 
 <ul>
-<li><p>/device/gateway/insteon/hub and /device/switch/insteon/dimmer, etc.</p></li>
-<li><p>/device/gateway/netatmo/cloud and device/climate/netatmo/sensor</p></li>
+<li><p>/device/gateway/insteon/9761 and /device/switch/insteon/dimmer, etc.</p></li>
+<li><p>/device/gateway/netatmo/cloud and device/climate/netatmo/meteo</p></li>
 </ul>
 
 <p>When a gateway actor discovers an "interesting" device,
@@ -659,8 +659,7 @@ The valid values for the <em>type</em> field are:</p>
 <p>These are devices that monitor or control the "breathable environment".
 The naming pattern is:</p>
 
-<pre><code>/device/climate/XYZ/control
-/device/climate/XYZ/monitor
+<pre><code>/device/climate/XYZ/QUALITY
 </code></pre>
 
 <p>depending on whether control functions are available.</p>
@@ -748,7 +747,7 @@ which is typically set using either the</p>
 "media environment".
 The naming pattern is:</p>
 
-<pre><code>/dev/indicator/MEDIA/XYZ
+<pre><code>/dev/indicator/XYZ/MEDIA
 </code></pre>
 
 <p>where MEDIA is usually <em>text</em>.</p>
@@ -768,10 +767,12 @@ these devices are almost entirely uninteresting to the user.</p>
 <p>These are devices that control the "lighting environment".
 The naming pattern is:</p>
 
-<pre><code>/device/lighting/XYZ/cfl
+<pre><code>/device/lighting/XYZ/bulb
+/device/lighting/XYZ/cfl
+/device/lighting/XYZ/downlight
 /device/lighting/XYZ/led
-/device/lighting/XYZ/fluorescent
-/device/lighting/XYZ/incandescent
+/device/lighting/XYZ/lightstrip
+/device/lighting/XYZ/uplight
 </code></pre>
 
 <p>Given the range of physical properties,
@@ -823,8 +824,9 @@ most desirable.</p>
 <p>These are devices that control the "media environment".
 The naming pattern is:</p>
 
-<pre><code>/device/media/audio/XYZ
-/device/media/video/XYZ
+<pre><code>/device/media/XYZ/audio
+/device/media/XYZ/netcam
+/device/media/XYZ/video
 </code></pre>
 
 <p>At a minimum, these properties must be present:</p>
@@ -857,10 +859,10 @@ The naming pattern is:</p>
 <p>These are devices that have some movement capability: either rotational or mobile.
 The naming pattern is:</p>
 
-<pre><code>/device/motive/2d/XYZ
-/device/motive/3d/XYZ
-/device/motive/ptz/XYZ
-/device/motive/VENDOR/MODEL
+<pre><code>/device/motive/XYZ/2d
+/device/motive/XYZ/3d
+/device/motive/XYZ/ptz
+/device/motive/XYZ/automobile
 </code></pre>
 
 <p><em>under review</em></p>
@@ -870,9 +872,8 @@ The naming pattern is:</p>
 <p>These are devices that report presence.
 The naming pattern is:</p>
 
-<pre><code>/device/presence/fob/XYZ
-/device/presence/mobile/XYZ
-/device/presence//XYZ/tag
+<pre><code>/device/presence/XYZ/fob
+/device/presence/XYZ/mobile
 </code></pre>
 
 <p>At a minimum, two properties must be present:</p>
@@ -914,11 +915,14 @@ The naming pattern is:</p>
 
 <h3>Switch</h3>
 
-<p>These are devices that control power either in binary (<em>onoff</em>) or contiguously (<em>dimmer</em>).
+<p>These are devices that control power either in binary (<em>onoff</em>), contiguously (<em>dimmer</em>), or as a group (<em>strip</em>).
+In addition, this category also includes devices that monitor power (<em>meter</em>).
 The naming pattern is:</p>
 
-<pre><code>/device/switch/XYZ/onoff
-/device/switch/XYZ/dimmer
+<pre><code>/device/switch/XYZ/dimmer
+/device/switch/XYZ/meter
+/device/switch/XYZ/onoff
+/device/switch/XYZ/strip
 </code></pre>
 
 <p>The <em>status</em> property may be the only property present:</p>
@@ -927,7 +931,9 @@ The naming pattern is:</p>
 <li><em>status</em> - <em>on</em>, <em>off</em>, <em>busy</em>, or <em>waiting</em></li>
 </ul>
 
-<p>At a minimum, two tasks must be available:</p>
+<p>For devices that control power,
+at a minimum,
+two tasks must be available:</p>
 
 <ul>
 <li><p><em>on</em> - turns the power on</p>
@@ -943,7 +949,7 @@ The naming pattern is:</p>
 <p>These are devices that are similar to fob devices, but meant to be more personal.
 The naming pattern is:</p>
 
-<pre><code>/device/wearable/watch/XYZ
+<pre><code>/device/wearable/XYZ/watch
 </code></pre>
 
 <p>Please consult the section on <em>Presence</em> devices for further details.
