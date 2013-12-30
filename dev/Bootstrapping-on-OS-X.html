@@ -142,6 +142,22 @@ sudo make install
 
 <p><em>before proceeding as normal.</em></p>
 
+<h2>Installing the Steward</h2>
+
+<p>Check out the steward from its Git repository,</p>
+
+<pre><code>git clone https://github.com/TheThingSystem/steward.git
+cd steward/steward
+</code></pre>
+
+<p>Delete the node_modules directory if it exists, as the depending on the last build these may be for OS X, and go ahead and install the libraries,</p>
+
+<pre><code>rm -rf node_modules
+npm install -l
+</code></pre>
+
+<p>This will take a while. Go make coffee.</p>
+
 <h3>If you have problems building the steward</h3>
 
 <p>If you have problems at the npm install stage when building the steward, you should clean up your environment and try again,</p>

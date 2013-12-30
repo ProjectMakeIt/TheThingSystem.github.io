@@ -259,21 +259,6 @@ npm install -l
 
 <p>This will take a while. Go make coffee.</p>
 
-<h3>No Bluetooth LE Dongle?</h3>
-
-<p>Right now there are still problems with the <em>noble</em> library which will crash the <em>steward</em> on startup with the following error if there is no Bluetooth LE adaptor present,</p>
-
-<pre><code>/home/pi/steward/node_modules/noble/lib/linux-bindings.js:24
-    objectManagerInterface.on('InterfacesAdded', function(object, interfaces)
-</code></pre>
-
-<p>For now if you don't have a Bluetooth LE dongle attached to your Pi go ahead and edit <em>discovery/discovery-ble.js</em> to and comment out the require statement for the library,</p>
-
-<pre><code>noble = require('noble');
-</code></pre>
-
-<p>the <em>steward</em> should start correctly after these changes without Bluetooth LE support.</p>
-
 <h3>Manually starting Bluetooth LE</h3>
 
 <p>Make sure your Bluetooth LE USB adaptor is plugged into the Pi,  then type</p>
