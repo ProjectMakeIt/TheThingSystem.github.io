@@ -61,6 +61,28 @@
 <h1>Installation</h1>
 <p>There are a number of different ways to install the <em>steward</em> software. After installation please see the documentation <a href="Instructions-for-starting-the-Steward.html">on how to start the Steward</a>.</p>
 
+<h2>Quick Start</h2>
+
+<p>If you already have node.js running on your system, you should only need to download the steward. Go ahead and,</p>
+
+<pre><code>git clone https://github.com/TheThingSystem/steward.git
+cd steward/steward
+npm install -l
+</code></pre>
+
+<p>and then you're <a href="Instructions-for-starting-the-Steward.html">ready to start the Steward</a>. Although if you're running on a Linux platform you might want to take a look at the instructions for <a href="Bootstrapping-the-Raspberry-Pi.html">building from source on the Raspberry Pi</a> to check if you have all the third party dependencies before attempting to run the steward.</p>
+
+<p>If you ever need to upgrade to the latest version of the steward, go ahead and shut down the steward process and,</p>
+
+<pre><code>cd steward    # the top-level directory
+git pull
+cd steward
+rm -rf node_modules
+npm install -l
+</code></pre>
+
+<p>and then <a href="Instructions-for-starting-the-Steward.html">restart the steward</a>.</p>
+
 <h2>Installation from source</h2>
 
 <p>If you want to install the <em>steward</em> from source you should follow the appropriate instructions for your platform:</p>
