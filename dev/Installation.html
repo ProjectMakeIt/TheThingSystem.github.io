@@ -13,8 +13,10 @@
 	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
 
 <script type="text/javascript">
-
   var _gaq = _gaq || [];
+  var pluginUrl =
+  '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);  
   _gaq.push(['_setAccount', 'UA-44378714-1']);
   _gaq.push(['_trackPageview']);
 
@@ -23,7 +25,18 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+   function trackOutboundLink(link, category, action) 
+        { 
+            try 
+            { 
+                _gaq.push(['_trackEvent', category , action]); 
+            } catch(err){}
 
+            setTimeout(function() 
+            {
+                document.location.href = link.href;
+            }, 100);
+        }
 </script>
 
 </head>
@@ -60,7 +73,7 @@
 <div class="doc-content">
 <h1>Installation</h1>
 
-There are a number of different ways to install the steward software. After installation please see the documentation <a href="Instructions-for-starting-the-Steward.html">on how to start the Steward</a>. For most users we recommend using the supplied disk images for the <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">Raspberry Pi</a> and the <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">BeagleBone</a> based around the latest version of Debian Wheezy.
+There are a number of different ways to install the steward software. After installation please see the documentation <a href="Instructions-for-starting-the-Steward.html">on how to start the Steward</a>. For most users we recommend using the supplied disk images for the <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing" onclick="trackOutboundLink(this, 'Outbound Links', 'Disk Image'); return false;">Raspberry Pi</a> and the <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing" onclick="trackOutboundLink(this, 'Outbound Links', 'Disk Image'); return false;">BeagleBone</a> based around the latest version of Debian Wheezy.
 
 <h2>Quick Start</h2>
 
