@@ -10,46 +10,21 @@
 
 /*styles for 300 and up @ 16px!*/
 /* The max-width declaration below blocks this from ever working */
-@media only screen and (min-width: 18.75em) and (max-width: 31em) {
+@media only screen and (min-width: 18.75em) and (max-width: 40em) {
 	body.short { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; background-image:none; background-color: white; }
 	.header img.logo { margin-left: 0px; width: 265px; }
 	.main-content .intro-text { padding-left: 10px; margin-right: 40px;}
 	.main-content .intro-text h1.home { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; line-height: 34px; color: #333; padding-top: 0px; }
+	.footer { display: none; }
 	.footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	.footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
-	.main-content .content { padding-left: 10px; margin-right: 40px; position: absolute; top: 255px; }
+	.main-content .content { padding-left: 10px; margin-right: 40px; position: absolute; top: 75px; padding-bottom: 80px; }
 	.main-content .content h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 36px; color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 0px; padding-top: 10px; }
-	.main-content .nav-noscroll { position: absolute; top: 44px; background-color: #eee; width: 100%; margin-left: -30px; padding-left: 105px; padding-top: 10px; padding-bottom: 10px;}
+	.main-content .nav-noscroll { margin-left: -20px; position: fixed; bottom: -140px; background-color: #eee; width: 100%; padding-top: 10px; padding-bottom: 10px; z-index: 1;}
 	.main-content .content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 20px; margin-left: 10px; }
 	.main-content .doc-content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 20px; margin-left: 10px; min-height: 460px; }
-
 	}
 
-
-/*styles for 480px - 620px @ 16px!*/
-@media screen and (min-width: 31em) and (max-width: 50em) {
-	body.short { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; background-image:none; background-color: white; }
-	.main-content .intro-text { padding-left: 30px; margin-right: 40px; }
-	.main-content img.client { display: inline; width: 250px; margin: 20px 20px 0px 25px; float: left; padding-bottom: 20px; }
-	.footer .footer-left {float: left; }
-	.footer .footer-right {float: right;  clear: none; margin-left: 0px; font-size: 16px; margin-top: 10px;  }
-	.main-content .content { padding-left: 10px; margin-right: 40px; position: absolute; top: 255px; }
-	.main-content .content h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 42px; color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 0px; padding-top: 10px; }
-	.main-content .nav-noscroll { position: absolute; top: 44px; background-color: #eee; width: 100%; margin-left: -30px; padding-left: 105px; padding-top: 10px; padding-bottom: 10px;}
-	.main-content .content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 20px; margin-left: 10px; }
-	.main-content .doc-content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 20px; margin-left: 10px; min-height: 460px; }
-}
-
-
-/*styles for 800px and up @ 16px!*/
-@media screen and (min-width: 50em) and (max-width: 68.75em) {
-	body.short { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; background-image:none; background-color: white; }
-	.main-content .intro-text { padding-left: 30px; margin-right: 40px; }
-	.main-content img.client {  display: inline; width: 400px; margin: 20px 30px 0px 10px; float: left; padding-bottom: 20px; }
-	.main-content .intro-text h1.home { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 42px; line-height: 46px; color: #333; padding-top: 0px; }
-	.footer .footer-left {float: left; }
-	.footer .footer-right {float: right;  clear: none; margin-left: 0px; font-size: 16px; margin-top: 10px;  }
-}
 
 
 /*styles for 1100px and up @ 16px!*/
