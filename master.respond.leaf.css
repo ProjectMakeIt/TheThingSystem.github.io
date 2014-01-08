@@ -16,11 +16,12 @@
 	.main-content .intro-text { padding-left: 10px; margin-right: 40px;}
 	.main-content .intro-text h1.home { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; line-height: 34px; color: #333; padding-top: 0px; }
 	.footer { display: none; }
+	.pulldown { display: block; margin-left: -20px; position: fixed; bottom: 0px; background-color: #eee; width: 100%; padding-top: 10px; padding-bottom: 10px; z-index: 1; }
 	.footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	.footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
 	.main-content .content { padding-left: 10px; margin-right: 40px; position: absolute; top: 75px; padding-bottom: 80px; }
 	.main-content .content h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 36px; color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 0px; padding-top: 10px; }
-	.main-content .nav-noscroll { margin-left: -20px; position: fixed; bottom: -140px; background-color: #eee; width: 100%; padding-top: 10px; padding-bottom: 10px; z-index: 1;}
+	.main-content .nav-noscroll { display: none; }
 	.main-content .content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 20px; margin-left: 10px; }
 	.main-content .doc-content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 20px; margin-left: 10px; min-height: 460px; }
 	}
@@ -33,6 +34,7 @@
 	.main-content .intro-text { padding-left: 30px; margin-right: 40px; }
 	.main-content img.client {  display: inline; width: 500px; margin: 0px 30px 0px 50px; float: left; padding-bottom: 20px; }
 	.main-content .intro-text h1.home {  font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 58px; line-height: 54px; color: #333; }
+	.pulldown { display: none; }
 	.footer .footer-left {float: left; }
 	.footer .footer-right {float: right;  clear: none; margin-left: 0px; font-size: 16px; margin-top: 10px;  }
 }
@@ -137,3 +139,15 @@ code { font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; 
 
 p {font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; }
 
+form { margin-left: 20px; }
+
+select {
+    border:0;
+    background: transparent;
+    color: #fff;
+    height:32px;
+    width:350px;
+    -webkit-appearance: none;
+	font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 16px; 
+	padding: 5px 12px;
+}
