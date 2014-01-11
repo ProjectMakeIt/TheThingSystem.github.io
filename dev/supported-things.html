@@ -878,7 +878,16 @@ href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/"
 	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
 </div>
 
-<div class="smallprint"></div>
-
+<div class="pulldown styled-select" style="background-color: #6bbf56;">
+<form method="get">
+<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+  <option value="../things/index.html">The Trouble With Things</option>
+  <option value="../dev/index.html">For Implementors</option>
+  <option value="https://github.com/TheThingSystem/steward/wiki">Documentation</option>
+  <option value="../dev/supported-things.html" selected>Supported Things</option>
+  <option value="../code/index.html">Get The Code</option>
+</select> 
+</form>
+</div>
 </body>
 </html>

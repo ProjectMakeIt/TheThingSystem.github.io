@@ -19,6 +19,8 @@
 	.footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	.footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
 	ul.nav-noscroll { margin-left: -20px; }
+	p, blockquote, ol, ul, .content ul.text li, li { font-size: 10.5pt; line-height: 14pt; }
+	body.short .main-content .intro-text ul.nav-noscroll li { font-size: 16px;}
 	}
 
 
@@ -154,3 +156,28 @@ code { font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; 
 
 p {font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; }
 
+form { margin-left: 20px; }
+
+select {
+    border:0;
+    background: transparent;
+    color: #fff;
+    height:32px;
+    width:350px;
+    -webkit-appearance: none;
+	font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 16px; 
+	padding: 5px 12px;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';	
+}
+
+
+.styled-select select {
+   width: 95%;
+   background: transparent;
+   height: 34px;
+   overflow: hidden;
+   background: url(images/select.svg) no-repeat right;
+   border: 1px dotted #fff;
+   }

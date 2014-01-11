@@ -28,7 +28,7 @@
 
 </head>
 
-<body alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -71,7 +71,7 @@ help out.</p>
 <p>A few words about interpreting the "Status" column on the <a href="../dev/supported-things.html" class="text">"Lots of
 Things"</a> page:</p>
 
-<ul style="margin: 10px 100px 10px 40px;">
+<ul>
  <li style="margin-bottom: 12px;"><span class="montserrat">acquisition wait</span><br /> cool things we have on order and would love to
    write the steward driver for (unless someone (maybe you?) beats us
    to the punch</li>
@@ -116,7 +116,24 @@ you're interested in making a contribution.</p>
 	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
 </div>
 
-<div class="smallprint"></div>
+<div class="pulldown styled-select" style="background-color: #fca34c;">
+<form method="get">
+<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+  <option value="../things/index.html">The Trouble With Things</option>
+  <option value="../dev/index.html">For Implementors</option>
+  <option value="../dev/supported-things.html">Supported Things</option>
+  <option value="../code/index.html">Get The Code</option>
+	  <option value="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">Get The Disk Image</option>
+	  <option value="https://github.com/TheThingSystem/steward">&nbsp;&nbsp;&nbsp;Contribute To The Repo</option>
+	  <option value="../code/integrators.html" selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- System Integrators</option>
+	  <option value="../code/developers.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Client Developers</option>
+	  <option value="../code/node.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Node Gurus</option>
+	  <option value="../code/enhancements.html">&nbsp;&nbsp;&nbsp;Third-Party Enhancements</option>
+  <option value="../dev/Installation.html">Quick Start</option>
+  <option value="../meet/index.html">About Us</option>
+</select> 
+</form>
+</div>
 
 </body>
 </html>

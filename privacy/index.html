@@ -28,7 +28,7 @@
 
 </head>
 
-<body alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -123,7 +123,17 @@
 	<div class="footer-right"><a href="../privacy/index.html" class="yellow">privacy policy</a></div>
 </div>
 
-<div class="smallprint"></div>
-
+<div class="pulldown styled-select" style="background-color: #fff491;">
+<form method="get">
+<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)" style="color: #000; border: 1px dotted #000;">
+  <option value="../things/index.html">The Trouble With Things</option>
+  <option value="../dev/index.html">For Implementors</option>
+  <option value="../dev/supported-things.html">Supported Things</option>
+  <option value="../code/index.html">Get The Code</option>
+  <option value="../dev/Installation.html">Quick Start</option>
+  <option value="../meet/index.html">About Us</option>
+</select> 
+</form>
+</div>
 </body>
 </html>
