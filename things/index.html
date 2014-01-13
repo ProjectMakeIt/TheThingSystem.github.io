@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="short leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="short leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -36,10 +36,11 @@
 
 <div class="main-content">
 <ul class="nav-noscroll">
-	<li><a href="../things/index.html" class="select-red">The Trouble With Things</a></li>
+	<li><a href="../things/index.html" class="select-red">The Trouble With Things</a>
 		<ul class="subnav">
-			<li><span style="color: #f0043e;">&rarr;</span> <a href="../dev/The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><span style="color: #f0043e;">&rarr;</span> <a href="../dev/The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
 		</ul>	
+	</li>
 	<li><a href="../dev/index.html" class="purple">For Implementors</a></li>
 	<li><a href="../dev/supported-things.html" class="green">Supported Things</a></li>
 	<li><a href="../code/index.html" class="orange">Get The Code</a></li>
@@ -49,7 +50,7 @@
 <div class="content">
 <h1 style="padding-bottom: 0px; margin-bottom: 20px;">The Trouble With Things</h1>
 
-<iframe width="640" height="360" src="http://www.youtube.com/embed/b-D2Gh2y0vM" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="360" src="http://www.youtube.com/embed/b-D2Gh2y0vM" frameborder="0"></iframe>
 
 <p>The Thing System is a set of software components and network protocols that changes that. Our steward software is written in node.js making it both portable and easily extensible. It can run on your laptop, or fit onto a small single board computer like the Raspberry Pi.</p>
 
@@ -66,8 +67,8 @@
 
 <div class="pulldown styled-select" style="background-color: #f0043e;">
 <form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
-  <option value="index.html" selected>The Trouble With Things</option>
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
+  <option value="selected">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
@@ -75,6 +76,7 @@
   <option value="../meet/index.html">About Us</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>
