@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,19 +38,21 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
 			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
-			<li><a href="Installation.html" class="toc" style="color:#f05687;">Installation</a></li>		
+			<li><a href="Installation.html" class="toc" style="color:#f05687;">Installation</a>
 				<ol class="toc-nav">
 					<li><a href="Bootstrapping-on-OS-X.html" class="toc">Bootstrapping on OS X</a></li>
 					<li><a href="Bootstrapping-the-Raspberry-Pi.html" class="toc">Bootstrapping Raspberry Pi</a></li>
 					<li><a href="Bootstrapping-the-BeagleBone.html" class="select-toc">Bootstrapping BeagleBone</a> <span style="color: #f05687;">&rarr;</span></li>
 					<li><a href="Instructions-for-starting-the-Steward.html" class="toc">Starting the Steward</a></li>
 				</ol>			
+			</li>		
 			<li><a href="Developer.html" class="toc">Developer</a></li>			
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -117,7 +119,7 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 
 <h3>Flashing the BeagleBone Black</h3>
 
-<p><img class="doc-image" src="images/beaglebone.black.jpg" alt="BeagleBone Black" title=""></p>
+<p><img class="doc-image" src="images/beaglebone.black.jpg" alt="BeagleBone Black" title="" /></p>
 
 <p>Power the BeagleBone Black down and <a href="http://learn.adafruit.com/system/assets/assets/000/008/680/medium800/BeagleBoneBlack.jpeg">locate the "User Boot" button</a>. It's located on the top side of the board, directly above the micro SD card slot which is located on the reverse side along with the mini and micro USB sockets.</p>
 
@@ -155,7 +157,7 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 
 <p>Several <em>/dev/tty.usbmodem*</em> devices should be present when the board is plugged in via the mini-USB cable.</p>
 
-<p><img class="doc-image" src="images/cool.term.1.png" alt="Cool Term" title=""></p>
+<p><img class="doc-image" src="images/cool.term.1.png" alt="Cool Term" title="" /></p>
 
 <p>Open up <a href="http://freeware.the-meiers.org/CoolTermMac.zip">CoolTerm</a> or a similar program and you can connect to your board at 115,200 8-N-1 (Local Echo should be off) on one of these ttys offered by the board. Of the five offered by the board,</p>
 
@@ -168,7 +170,7 @@ crw-rw-rw-  1 root  wheel   18,  18  4 Sep 20:14 /dev/tty.usbmodem9
 
 <p>only <em>/dev/tty.usbmodem1d113</em> connected for me. Your milage may vary at this point.</p>
 
-<p><img class="doc-image" src="images/cool.term.2.png" alt="Cool Term" title=""></p>
+<p><img class="doc-image" src="images/cool.term.2.png" alt="Cool Term" title="" /></p>
 
 <h3>Connecting via FTDI Serial</h3>
 
@@ -612,15 +614,16 @@ Enable=true
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

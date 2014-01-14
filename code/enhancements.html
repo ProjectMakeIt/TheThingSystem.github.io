@@ -27,7 +27,7 @@
 </script>
 </head>
 
-<body class="leaf" class="short" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf short">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,12 +38,13 @@
 	<li><a href="../things/index.html" class="red">The Trouble With Things</a></li>
 	<li><a href="../dev/index.html" class="purple">For Implementors</a></li>
 	<li><a href="../dev/supported-things.html" class="green">Supported Things</a></li>
-	<li><a href="index.html" class="select-orange">Get The Code</a></li>
+	<li><a href="index.html" class="select-orange">Get The Code</a>
 		<ol class="toc-nav">
 			<li><a href="integrators.html" class="toc">System Integrators</a></li>
 			<li><a href="developers.html" class="toc">Client Developers</a></li>
 			<li><a href="node.html" class="toc">Node Gurus</a></li>		
-		</ol>			
+		</ol>		
+	</li>
 	<li><a href="../meet/index.html" class="blue">About Us</a></li>
 </ul>
 
@@ -51,7 +52,7 @@
 
 <h1>Third-Party Enhancements</h1>
 
-<p>Kudos to our developer community for building these third-party enhancements for The Thing System.
+<p>Kudos to our developer community for building these third-party enhancements for The Thing System.</p>
 
 <ul>
 <li><span class="montserrat">Don Coleman and Ninja Blocks:</span><br />
@@ -68,7 +69,7 @@
 
 <li style="padding-top: 20px;">
 <span class="montserrat">Doyle S and installation on Ubuntu 12.04:</span><br />
-&rarr;  Read more at <a href="http://docs.google.com/file/d/0B2YWtHIxyEmmQldBNTVSWFM3NXM/edit?hl=en-GB&forcehl=1" class="text">Google Docs</a>
+&rarr;  Read more at <a href="http://docs.google.com/file/d/0B2YWtHIxyEmmQldBNTVSWFM3NXM/edit?hl=en-GB&amp;forcehl=1" class="text">Google Docs</a>
 </li>
 </ul>
 
@@ -80,22 +81,23 @@
 </div>
 
 <div class="pulldown styled-select" style="background-color: #fca34c;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
-	  <option value="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&usp=sharing">Get The Disk Image</option>
+	  <option value="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">Get The Disk Image</option>
 	  <option value="https://github.com/TheThingSystem/steward">&nbsp;&nbsp;&nbsp;Contribute To The Repo</option>
 	  <option value="../code/integrators.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- System Integrators</option>
 	  <option value="../code/developers.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Client Developers</option>
 	  <option value="../code/node.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Node Gurus</option>
-	  <option value="../code/enhancements.html" selected>&nbsp;&nbsp;&nbsp;Third-Party Enhancements</option>
+	  <option value="selected">&nbsp;&nbsp;&nbsp;Third-Party Enhancements</option>
   <option value="../dev/Installation.html">Quick Start</option>
   <option value="../meet/index.html">About Us</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

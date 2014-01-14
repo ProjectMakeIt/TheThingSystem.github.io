@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,16 +38,18 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
-			<li><a href="The-Thing-Architecture.html" class="toc" style="color:#f05687;">The Thing Architecture</a></li>
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
+			<li><a href="The-Thing-Architecture.html" class="toc" style="color:#f05687;">The Thing Architecture</a>
 				<ol class="toc-nav">
 					<li><a href="The-Security-Model.html" class="select-toc">The Security Model</a> <span style="color: #f05687;">&rarr;</span></li>
 				</ol>			
+			</li>
 			<li><a href="Installation.html" class="toc">Installation</a></li>		
 			<li><a href="Developer.html" class="toc">Developer</a></li>			
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -74,9 +76,9 @@ it downloads a <em>privacy package</em> containing keys specific to the steward/
 
 <p>Perhaps the best suggestion for securing your network is to run all your things on a closed network attached to the steward's host, and have the steward run an additional interface for talking to the rest of your home network, i.e. get a Mac mini or Linux box with two Ethernet interfaces and a Wi-Fi interface. </p>
 
-<p>In this scenario you would put all your wired things (e.g. Philips Hue lightbulbs) on the first Ethernet interface, put all your wireless things (e.g. the Netatmo weather station, Nest thermostat) on the Wi-Fi interface running with a hidden, randomly generated, 16-character SSID and a 16-character<SUP>*</SUP> WPA2 password. Then connect the second Ethernet interface to your home network, which is for your general purpose computing (e.g. your laptop, phones, tablets, and other devices). You will need to enable DHCP/NAT so that things like the Netatmo, Nest, etc., can upload and talk to their cloud back ends.</p>
+<p>In this scenario you would put all your wired things (e.g. Philips Hue lightbulbs) on the first Ethernet interface, put all your wireless things (e.g. the Netatmo weather station, Nest thermostat) on the Wi-Fi interface running with a hidden, randomly generated, 16-character SSID and a 16-character<sup>*</sup> WPA2 password. Then connect the second Ethernet interface to your home network, which is for your general purpose computing (e.g. your laptop, phones, tablets, and other devices). You will need to enable DHCP/NAT so that things like the Netatmo, Nest, etc., can upload and talk to their cloud back ends.</p>
 
-<p><em><SUP>*</SUP> 16 is the maximum password length supported by the Nest, in case you are wondering why we chose 16 characters as the maximum.</em></p>
+<p><em><sup>*</sup> 16 is the maximum password length supported by the Nest, in case you are wondering why we chose 16 characters as the maximum.</em></p>
 
 <h2>The Bootstrap</h2>
 
@@ -84,7 +86,7 @@ it downloads a <em>privacy package</em> containing keys specific to the steward/
 
 <p>Whenever a client connects to the steward for the first time, the client warns that the certificate being used by the steward is untrusted. At this point, two actions must be undertaken:</p>
 
-<p><img class="doc-image" src="images/certificate.verification.png" alt="Verifying the certificate" title=""></p>
+<p><img class="doc-image" src="images/certificate.verification.png" alt="Verifying the certificate" title="" /></p>
 
 <ul>
 <li><p>look at the "details" of the certificate and record its "SHA1 fingerprint", which will look something like this:</p>
@@ -185,15 +187,16 @@ so programs such as <a href="https://support.google.com/accounts/answer/1066447"
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

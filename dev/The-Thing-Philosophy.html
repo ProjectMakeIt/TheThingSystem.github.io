@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,16 +38,18 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="select-toc">Philosophy</a> <span style="color: #f05687;">&rarr;</span></li>
+			<li><a href="The-Thing-Philosophy.html" class="select-toc">Philosophy</a> <span style="color: #f05687;">&rarr;</span>
 				<ol class="toc-nav">
 					<li><a href="Magic.html" class="toc">Magic</a></li>
 				</ol>			
+			</li>
 			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
 			<li><a href="Installation.html" class="toc">Installation</a></li>		
 			<li><a href="Developer.html" class="toc">Developer</a></li>			
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -56,7 +58,7 @@
 <div class="doc-content">
 <h1>Philosophy</h1>
 
-<p><a href="http://www.youtube.com/watch?v=b-D2Gh2y0vM"><img src="images/video.static.png" alt="The Trouble with Things" title=""></a></p>
+<p><a href="http://www.youtube.com/watch?v=b-D2Gh2y0vM"><img src="images/video.static.png" alt="The Trouble with Things" title="" /></a></p>
 
 <p>Most systems today are built around the notion of a person being one of the participants in a conversation with the system.
 For example: tap a button and the lights go on.
@@ -306,7 +308,7 @@ The steward philosophy is to make it as simple as possible to do that.</p>
 the steward supports a wide range of various sensors for climate, motion, presence, and so on.
 These measurements are captured to a database on the steward.
 However, 
-perhaps you want to upload a subset of your sensor data to <a href="http://en.wikipedia.org/wiki/Cosm_(Internet_of_Things)">Xively</a>).
+perhaps you want to upload a subset of your sensor data to <a href="http://en.wikipedia.org/wiki/Xively">Xively</a>).
 Although there's a module that does that,
 it's up to you to decide whether to turn it on and which sensors to feed to it.</p>
 
@@ -379,15 +381,16 @@ and consumers can define useful rules for HA in their homes.</p>
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

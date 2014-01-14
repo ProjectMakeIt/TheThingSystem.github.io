@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -37,12 +37,13 @@
 
 <div class="main-content">
 <ul class="nav">
-	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a>
 		<ul class="subnav">
-			<li><a href="makers.html" class="toc">Thing Makers</li>
+			<li><a href="makers.html" class="toc">Thing Makers</a></li>
 			<li><a href="integrators.html" class="toc">System Integrators</a></li>
 			<li><a href="client-developers.html" class="toc">Client Developers</a></li>			
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
@@ -63,8 +64,8 @@
 </div>
 
 <div class="content mobile-hide" style="white-space: nowrap; width: 1020px;">
-	<div class="content-column-left" style="text-align: center; width: 375px;"><a href="thing.architecture.chart.pdf" class="logo"><img src="thing.architecture.chart.outline.svg" style="height: 500px; border: none;" /></a><br /><span class="annotate">&uarr; Click to download as PDF <span style="color: #666">&#8212; Revised 11.25.13</span></span><br />The Thing System &#8212; Architecture Diagram</div>
-	<div class="content-column-left" style="text-align: center; width: 625px; margin-right: 0px;  margin-left: -42px;"><a href="client.chart.pdf" class="logo"><img src="client.chart.svg" style="margin-top: 9px; height: 483px; border: none;" /></a><br /> <span class="annotate">&uarr; Click to download as PDF <span style="color: #666">&#8212; Revised 11.25.13</span></span><br />The Thing System &#8212; Steward Diagram</div>
+	<div class="content-column-left" style="text-align: center; width: 375px;"><a href="thing.architecture.chart.pdf" class="logo"><img src="thing.architecture.chart.outline.svg" style="height: 500px; border: none;" alt="Thing Architecture" /></a><br /><span class="annotate">&uarr; Click to download as PDF <span style="color: #666">&#8212; Revised 11.25.13</span></span><br />The Thing System &#8212; Architecture Diagram</div>
+	<div class="content-column-left" style="text-align: center; width: 625px; margin-right: 0px;  margin-left: -42px;"><a href="client.chart.pdf" class="logo"><img src="client.chart.svg" style="margin-top: 9px; height: 483px; border: none;" alt="Client Chart" /></a><br /> <span class="annotate">&uarr; Click to download as PDF <span style="color: #666">&#8212; Revised 11.25.13</span></span><br />The Thing System &#8212; Steward Diagram</div>
 </div>
 
 
@@ -74,10 +75,10 @@
 </div>
 
 <div class="pulldown styled-select" style="background-color: #8b3e93;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
-  <option value="../dev/index.html" selected>For Implementors</option>
+  <option value="selected">For Implementors</option>
 	  <option value="../dev/makers.html">&nbsp;&nbsp;&nbsp;Thing Makers</option>
 	  <option value="../dev/integrators.html">&nbsp;&nbsp;&nbsp;System Integrators</option>
 	  <option value="../dev/client-developers.html">&nbsp;&nbsp;&nbsp;Client Developers</option>
@@ -87,5 +88,7 @@
 </select> 
 </form>
 </div>
+</div>
+
 </body>
 </html>

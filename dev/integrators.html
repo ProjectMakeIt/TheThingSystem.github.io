@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -37,12 +37,13 @@
 
 <div class="main-content">
 <ul class="nav">
-	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
+	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a>
 		<ul class="subnav">
-			<li><a href="makers.html" class="toc">Thing Makers</li>
-			<li><a href="integrators.html" class="select-toc">System Integrators&nbsp;<span class="annotate">&rarr;</span></a></a></li>
+			<li><a href="makers.html" class="toc">Thing Makers</a></li>
+			<li><a href="integrators.html" class="select-toc">System Integrators&nbsp;<span class="annotate">&rarr;</span></a></li>
 			<li><a href="client-developers.html" class="toc">Client Developers</a></li>
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
@@ -93,18 +94,19 @@ steward curators hang out along with the League of Early Adopters.</p>
 </div>
 
 <div class="pulldown styled-select" style="background-color: #8b3e93;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
 	  <option value="../dev/makers.html">&nbsp;&nbsp;&nbsp;Thing Makers</option>
-	  <option value="../dev/integrators.html" selected>&nbsp;&nbsp;&nbsp;System Integrators</option>
+	  <option value="selected">&nbsp;&nbsp;&nbsp;System Integrators</option>
 	  <option value="../dev/client-developers.html">&nbsp;&nbsp;&nbsp;Client Developers</option>
   <option value="https://github.com/TheThingSystem/steward/wiki">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

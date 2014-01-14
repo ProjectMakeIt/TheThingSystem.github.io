@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,19 +38,21 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
 			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
-			<li><a href="Installation.html" class="toc" style="color:#f05687;">Installation</a></li>		
+			<li><a href="Installation.html" class="toc" style="color:#f05687;">Installation</a>
 				<ol class="toc-nav">
 					<li><a href="Bootstrapping-on-OS-X.html" class="toc">Bootstrapping on OS X</a></li>
 					<li><a href="Bootstrapping-the-Raspberry-Pi.html" class="toc">Bootstrapping Raspberry Pi</a></li>
 					<li><a href="Bootstrapping-the-BeagleBone.html" class="toc">Bootstrapping BeagleBone</a></li>
 					<li><a href="Instructions-for-starting-the-Steward.html" class="select-toc">Starting the Steward</a> <span style="color: #f05687;">&rarr;</span></li>
 				</ol>			
+			</li>		
 			<li><a href="Developer.html" class="toc">Developer</a></li>			
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -117,7 +119,7 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 
 <p>Regardless of whether you are using http to the loopback address, or https to the LAN address, you will be presented with the d3 example client.</p>
 
-<p><img class="doc-image" src="images/d3.3.png" alt="d3 example client" title=""></p>
+<p><img class="doc-image" src="images/d3.3.png" alt="d3 example client" title="" /></p>
 
 <p><em>NOTE: If you have Philips' Hue light bulbs, remember to push the pairing button on the hub at this point to advertise to allow the steward to talk to your light bulbs. You should also go ahead and dismiss the red popup along the top of the client.</em></p>
 
@@ -125,8 +127,8 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 
 <p>From here you can click on individual things, like for instance a light bulb, and be offered some basic controls,</p>
 
-<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="">
-<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title=""></p>
+<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="" />
+<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title="" /></p>
 
 <p>to be clear the d3 client only exposes a small subset of the <a href="Steward.html">steward</a>'s abilities. You can take a more detailed look at what's going on by going to the console,</p>
 
@@ -138,7 +140,7 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 <pre><code>    https://steward.local:8888/console.html
 </code></pre>
 
-<p><img class="doc-image" src="images/console.1.png" alt="steward console" title=""></p>
+<p><img class="doc-image" src="images/console.1.png" alt="steward console" title="" /></p>
 
 <p>where a full list of the available things and reports from them can be found.</p>
 
@@ -153,15 +155,16 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

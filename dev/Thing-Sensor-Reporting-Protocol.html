@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,23 +38,26 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
 			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
 			<li><a href="Installation.html" class="toc">Installation</a></li>		
-			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a>
 				<ol class="toc-nav">
 					<li><a href="Steward.html" class="toc">Steward</a></li>
-					<li><a href="Things.html" class="select-toc">Things</a></li>
+					<li><a href="Things.html" class="select-toc">Things</a>
 						<ol class="toc-nav">
 							<li><a href="Simple-Thing-Protocol.html" class="toc">Simple Thing Protocol</a></li>
 							<li><a href="Thing-Sensor-Reporting-Protocol.html" class="toc" style="color: #f05687;">Thing Sensor Reporting Protocol</a> <span style="color: #f05687;">&rarr;</span></li>
 						</ol>					
+					</li>
 					<li><a href="Clients.html" class="toc">Clients</a></li>
 					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
 				</ol>				
+			</li>		
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -126,7 +129,7 @@
 
 <p>Finally, note that there are no security 'enhancements' for this protocol. If you can do 'real' security with the thing in question, then you ought to be doing 'real' security using the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> instead of using the Reporting protocol.</p>
 
-<hr>
+<hr />
 
 <p><strong>Please Read This Carefully!</strong></p>
 
@@ -139,7 +142,7 @@
 
 <p>Think of the <em>udn</em> parameter as the serial number of the sensor, and not the MAC or IP address of the shield: the IP or MAC address of a thing may change, but its serial number never will.</p>
 
-<hr>
+<hr />
 
 <h2>Example Arduino Things</h2>
 
@@ -149,7 +152,7 @@
 
 <p>The following example thing is a simple weather station making use of a <a href="http://www.adafruit.com/products/385">DHT-22</a> temperature and humidity sensor connected to an <a href="http://arduino.cc/en/Main/arduinoBoardMega">Arduino Mega</a> with an <a href="http://arduino.cc/en/Main/ArduinoEthernetShield">Arduino Ethernet Shield</a>.</p>
 
-<p><img class="doc-image" src="images/dht-22.png" alt="Wiring Diagram" title=""></p>
+<p><img class="doc-image" src="images/dht-22.png" alt="Wiring Diagram" title="" /></p>
 
 <p>Wiring up the DHT-22 as shown in the above diagram the following code will send a multicast TSRP packet every 2 seconds with the current temperature and humidity readings.</p>
 
@@ -306,9 +309,9 @@ uint8_t EthernetUDP::beginMulti(IPAddress ip, uint16_t port) {
 
 <p>The following example thing is a simple weather station making use of a Wicked Devices' <a href="http://aqe.wickeddevice.com/?page_id=12">Egg Shield</a> connected to an <a href="http://arduino.cc/en/Main/arduinoBoardMega">Arduino Mega</a> with an <a href="http://arduino.cc/en/Main/ArduinoEthernetShield">Arduino Ethernet Shield</a>.</p>
 
-<p><img class="doc-image" src="images/egg.shield.jpg" alt="Wiring Diagram" title=""></p>
+<p><img class="doc-image" src="images/egg.shield.jpg" alt="Wiring Diagram" title="" /></p>
 
-<p>The Wicked Device Sensor Shield was designed for an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Uno</a>-compatible board and the NO<SUB>2</SUB> and CO sensors onboard use an 12C interface. These are on pins A3 (SDA) and A4 (SCL) on an Uno. However because of the high overhead needed for the network stack we need to use a Mega where these pins are located elsewhere. We therefore need to jumper the pins from A3 and A4 to the SDA and SCL pins on the <a href="http://arduino.cc/en/Main/arduinoBoardMega">Mega</a> located on the other side of the board.</p>
+<p>The Wicked Device Sensor Shield was designed for an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Uno</a>-compatible board and the NO<sub>2</sub> and CO sensors onboard use an 12C interface. These are on pins A3 (SDA) and A4 (SCL) on an Uno. However because of the high overhead needed for the network stack we need to use a Mega where these pins are located elsewhere. We therefore need to jumper the pins from A3 and A4 to the SDA and SCL pins on the <a href="http://arduino.cc/en/Main/arduinoBoardMega">Mega</a> located on the other side of the board.</p>
 
 <pre><code>#include &lt;Wire.h&gt;
 
@@ -459,15 +462,16 @@ void loop() {
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

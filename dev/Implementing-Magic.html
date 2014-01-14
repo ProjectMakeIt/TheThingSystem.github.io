@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,23 +38,26 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</li>
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
 			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
 			<li><a href="Installation.html" class="toc">Installation</a></li>		
-			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a></li>		
+			<li><a href="Developer.html" class="toc" style="color:#f05687;">Developer</a>
 				<ol class="toc-nav">
 					<li><a href="Steward.html" class="toc">Steward</a></li>
 					<li><a href="Things.html" class="toc">Things</a></li>
-					<li><a href="Clients.html" class="select-toc">Clients</a></li>
+					<li><a href="Clients.html" class="select-toc">Clients</a>
 						<ol class="toc-nav">
 							<li><a href="Building-Simple-Clients.html" class="toc">Building Simple Clients</a></li>
 							<li><a href="Implementing-Magic.html" class="toc" style="color: #f05687;">Implementing Magic</a> <span style="color: #f05687;">&rarr;</span></li>
 						</ol>					
+					</li>
 					<li><a href="Node-Rendezvous.html" class="toc">Node Rendezvous</a></li>
 				</ol>				
+			</li>		
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -79,7 +82,7 @@
 
 <p>The above means that we can write as much, or as little, magic as we like. We can add magic at any time without affecting the core system, and the magic can be turned off and on without affecting the core system. It can also spectacularly crash and so long as the steward is still up, then the user doesn't seem a difference in controlling their hardware directly. Interestingly, it can also be anywhere in the cloud, on a different server, on the user's phone. It doesn't have to run on the same machine as the steward, it can, but it doesn't have to necessarily.</p>
 
-<p><img src="images/reflex.agent.png" alt="Reflex Agent" title="" style="float: right; margin: 0px 0px 20px 20px;"></p>
+<p><img src="images/reflex.agent.png" alt="Reflex Agent" title="" style="float: right; margin: 0px 0px 20px 20px;" /></p>
 
 <p>Apprentices are <a href="http://en.wikipedia.org/wiki/Intelligent_agent">intelligent agents</a> working in a <a href="http://en.wikipedia.org/wiki/Multi-agent_system">multi-agent system</a> with shared goals of making life more convenient for the user. In the simplest case these can be reflex agents that evaluate current conditions against a set of fixed rules and then perform actions based on those rules.</p>
 
@@ -100,15 +103,16 @@
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>

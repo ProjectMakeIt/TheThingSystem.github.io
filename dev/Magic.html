@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="leaf" alink="#000" bgcolor="#fff" link="#666">
+<body class="leaf">
 
 <div class="header">
 	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
@@ -38,16 +38,18 @@
 <div class="main-content">
 <ul class="nav">
 	<li><a href="../dev/index.html" class="purple select-purple">For Implementors</a></li>
-	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a></li>
+	<li style="clear: both;"><a href="Home.html" class="select-pink">Documentation</a>
 		<ul class="subnav">
-			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a></li>
+			<li><a href="The-Thing-Philosophy.html" class="toc">Philosophy</a>
 				<ol class="toc-nav">
 					<li><a href="Magic.html" class="select-toc">Magic</a> <span style="color: #f05687;">&rarr;</span></li>
 				</ol>			
+			</li>
 			<li><a href="The-Thing-Architecture.html" class="toc">The Thing Architecture</a></li>
 			<li><a href="Installation.html" class="toc">Installation</a></li>		
 			<li><a href="Developer.html" class="toc">Developer</a></li>			
 		</ul>	
+	</li>
 	<li style="clear: both;"><a href="supported-things.html" class="purple select-green">Supported Things</a></li>
 	<li style="clear: both;"><a href="../code/index.html" class="select-orange">Get The Code</a></li>
 	<li><a href="../index.html" class="green">&uarr;</a></li>
@@ -64,9 +66,9 @@
 
 <h2>How to think about magic</h2>
 
-<p>The difference between magic, and <a href="Building-Simple-Clients.html">simple clients</a> is that in general magic doesn't have a user facing interface. Magic is essentially a number of expert systems which have solutions to problems, e.g. the CO<SUB>2</SUB> measured by the air quality sensor on your <a href="http://www.netatmo.com/">netatmo weather station</a> is too high in the room, so the <a href="http://nest.com">Nest thermostat</a> should be asked to turn on the fans to try and solve the problem. </p>
+<p>The difference between magic, and <a href="Building-Simple-Clients.html">simple clients</a> is that in general magic doesn't have a user facing interface. Magic is essentially a number of expert systems which have solutions to problems, e.g. the CO<sub>2</sub> measured by the air quality sensor on your <a href="http://www.netatmo.com/">netatmo weather station</a> is too high in the room, so the <a href="http://nest.com">Nest thermostat</a> should be asked to turn on the fans to try and solve the problem. </p>
 
-<p>The magic monitors the steward &#8212; and the user &#8212; looking for patterns and keeping track of conditions. If they see something occurring regularly that shouldnt happen, say the the level of CO<SUB>2</SUB> rises consistently overnight in the bedroom. It knows how to solve this problem. It then implements a solution, in this case turn on the fan on the <a href="http://nest.com">Nest thermostat</a>, at an appropriate time every day to alleviate the condition without the user having to explicitly instruct the steward to do it. </p>
+<p>The magic monitors the steward &#8212; and the user &#8212; looking for patterns and keeping track of conditions. If they see something occurring regularly that shouldnt happen, say the the level of CO<sub>2</sub> rises consistently overnight in the bedroom. It knows how to solve this problem. It then implements a solution, in this case turn on the fan on the <a href="http://nest.com">Nest thermostat</a>, at an appropriate time every day to alleviate the condition without the user having to explicitly instruct the steward to do it. </p>
 
 <p>The steward is being pro-actively doing things for the user that theyd otherwise have to do themselves. It's about solving problems for the user without their intervention.</p>
 
@@ -89,15 +91,16 @@
 </div>
 
 <div class="pulldown styled-select" style="background-color: #f05687;">
-<form method="get">
-<select name="primary" onChange="parent.location=(this.options[this.selectedIndex].value)">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
   <option value="../things/index.html">The Trouble With Things</option>
   <option value="../dev/index.html">For Implementors</option>
-  <option value="https://github.com/TheThingSystem/steward/wiki" selected>Documentation</option>
+  <option value="selected">Documentation</option>
   <option value="../dev/supported-things.html">Supported Things</option>
   <option value="../code/index.html">Get The Code</option>
 </select> 
 </form>
+</div>
 </div>
 
 </body>
