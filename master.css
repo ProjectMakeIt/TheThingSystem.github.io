@@ -192,3 +192,42 @@ select {
    background: url(images/select.svg) no-repeat right;
    border: 1px dotted #fff;
    }
+
+
+/* thank you, CloCkWeRX! */
+
+#download-splash {
+text-align: center;
+}
+#download-splash .faux-table h2 {
+font-size: 100%; margin-top: -42px;
+}
+ 
+#download-splash .faux-table .faux-cell ul {
+padding-left: 0; margin-top: 5px;
+}
+#download-splash ul li {
+list-style: none;
+font-size: 85%;
+}
+ 
+.faux-table {
+display: table;
+margin: 0px auto 20px auto;
+background-color: #eee;
+}
+
+.faux-cell {
+display: table-cell;
+padding: 0em 1.0em;
+}
+ 
+#download-splash .logo {
+height:180px; 
+}
+#download-splash a.logo {
+text-decoration: none;
+}
+#download-splash a.logo:hover {
+background-color: white;
+}
