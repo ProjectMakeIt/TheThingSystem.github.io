@@ -8,7 +8,7 @@
   src: url(fonts/montserrat/Montserrat-Regular.ttf);
   }
 
-body { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; min-width: 1100px; background-image:url(images/white.t.png); background-repeat:no-repeat; background-attachment:fixed; background-color: #fff; }
+body { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; min-width: 1100px; background-repeat:no-repeat; background-attachment:fixed; background-color: #fff; }
 body.short { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; min-width: 1100px; background-image:none; background-color: #fff; }
 
 a { color: #999; padding: 2px 10px; text-decoration: none;  border-bottom: 1px dotted #666; }
@@ -57,24 +57,11 @@ a.select-toc { background-color: #eee; color: #f05687; text-decoration: none; bo
 
 .main-content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-left: 20px; }
 .intro-text { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 30px; margin-right: 80px;}
-.content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 80px; margin-left: 300px; }
-.doc-content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 80px; margin-left: 300px; min-height: 460px; }
+.content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 80px; margin-left: 0px; }
+.doc-content { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; padding-top: 10px; margin-right: 80px; margin-left: 0px; min-height: 460px; }
 
 .content-column-left { width: 45%; float: left; padding-bottom: 40px; padding-right: 30px; }
 .content-column-right { width: 45%; float: right; padding-bottom: 40px; padding-right: 30px; }
-
-ul { }
-ul.nav { font-family: 'Monsterrat Regular', san serif; list-style: none; white-space: nowrap; float: left; margin-top: 36px; position: fixed; }
-ul.nav-noscroll { font-family: 'Monsterrat Regular', san serif; list-style: none; white-space: nowrap; float: left; margin-top: 36px; }
-ul.subnav { font-family: 'Monsterrat Regular', san serif; list-style: none; white-space: nowrap; margin-top: 3px; margin-bottom: 6px; margin-left: -36px; }
-ul.subnav li { margin-left: 0px; padding-left: 0px; }
-ul.nav li { line-height: 32px; }
-ul.nav-noscroll li { line-height: 32px; }
-ul li { }
-ul.text { }
-ul.text li { line-height: 22px; padding-top: 9px; padding-bottom: 9px; }
-ol { font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin-left: 0px; margin-top: 8px; margin-bottom: 8px; list-style: none; }
-ol li { padding-bottom: 3px; }
 
 dl { font-size: 18px; background-color: #eeeded; padding: 18px; 
 		-moz-border-radius: 24px;
@@ -109,29 +96,8 @@ p {font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; }
 
 form { margin-left: 20px; }
 
-select {
-    border:0;
-    background: transparent;
-    color: #fff;
-    height:32px;
-    width:350px;
-    -webkit-appearance: none;
-	font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 16px; 
-	padding: 5px 12px;
-    -moz-appearance: none;
-    text-indent: 0.01px;
-    text-overflow: '';	
-}
-
-
-.styled-select select {
-   width: 95%;
-   background: transparent;
-   height: 34px;
-   overflow: hidden;
-   background: url(images/select.svg) no-repeat right;
-   border: 1px dotted #fff;
-   }
-
+ul, ul.nav, ul.nav-noscroll, ul.subnav, ol, ol li, #download-splash { display: none; }
 
 .pulldown { visibility: hidden; }
+
+.main-content img.client {  display: inline; width: 500px; margin: 0px 30px 0px 50px; float: left; padding-bottom: 20px; }
