@@ -48,6 +48,15 @@
 	body.leaf .main-content .doc-content code { font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; font-size: 9pt; }
 	body.leaf .main-content .doc-content pre { background-color: #d9f8c9; padding: 8px; border: 1px solid #90c077; white-space: pre-wrap; font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; }
 	body.leaf .mobile-hide { display: none; }
+	body.leaf .main-content .doc-content .download-splash { text-align: center; }
+	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell h2 { font-size: 90%; margin-top: -18px; white-space: nowrap; }
+ 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding: 0; margin-top: 5px 0px 0px 0px; }
+	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 75%; }
+ 	body.leaf .main-content .doc-content .faux-table { width: 100%; background-color: #eee; }
+	body.leaf .main-content .doc-content .faux-cell {  }
+ 	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:80px; margin: 0px; padding: 0px;  }
+	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo { text-decoration: none; }
+	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo:hover { background-color: #eee; }	
 }
 
 
@@ -196,38 +205,13 @@ select {
 
 /* thank you, CloCkWeRX! */
 
-#download-splash {
-text-align: center;
-}
-#download-splash .faux-table h2 {
-font-size: 100%; margin-top: -42px;
-}
- 
-#download-splash .faux-table .faux-cell ul {
-padding-left: 0; margin-top: 5px;
-}
-#download-splash ul li {
-list-style: none;
-font-size: 85%;
-}
- 
-.faux-table {
-display: table;
-margin: 0px auto 20px auto;
-background-color: #eee;
-}
+	body.leaf .main-content .doc-content .download-splash { text-align: center; }
+	body.leaf .main-content .doc-content .download-splash .faux-table h2 { font-size: 100%; margin-top: -42px; }
+ 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding-left: 0; margin-top: 5px; }
+	body.leaf .main-content .doc-content .download-splash ul li { list-style: none; font-size: 85%; }
+ 	body.leaf .main-content .doc-content .faux-table { display: table; margin: 0px auto 20px auto; background-color: #eee; }
+	body.leaf .main-content .doc-content .faux-cell { display: table-cell; padding: 0em 1.0em; }
+ 	body.leaf .main-content .doc-content .download-splash a.logo img { height:180px; }
+	body.leaf .main-content .doc-content .download-splash a.logo { text-decoration: none; }
+	body.leaf .main-content .doc-content .download-splash a.logo:hover { background-color: white; }	
 
-.faux-cell {
-display: table-cell;
-padding: 0em 1.0em;
-}
- 
-#download-splash .logo {
-height:180px; 
-}
-#download-splash a.logo {
-text-decoration: none;
-}
-#download-splash a.logo:hover {
-background-color: white;
-}
