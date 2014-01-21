@@ -68,7 +68,7 @@
 <h1>Thing Sensor Reporting Protocol</h1>
 <p>If a thing needs to report sensor readings, or an event happening, to the <a href="Steward.html">steward</a> it can implement the <em>Thing Sensor Reporting Protocol (TSRP)</em>. This is a simple multicast UDP based protocol. For things that need to both report back to the <a href="Steward.html">steward</a> and received requests to perform actions, or make measurements at certain times, you should look at the <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> instead.</p>
 
-<p><em><strong>Note:</strong> From <a href="https://plus.google.com/u/0/108036687109769665170/posts/Mbng7hewYZa">the 19th October 2013</a>, the multicast IP address used for TSRP has been changed from 224.192.32.19 to 224.192.32.20. The UDP port remains the same, 22601. If you are writing TSRP clients, then the next time you pull from the repository, please change the multicast IP address used by your client to 224.192.32.20.</em></p>
+<p><em><strong>Note:</strong> From <a href="https://plus.google.com/u/0/108036687109769665170/posts/Mbng7hewYZa">the 19th October 2013</a>, the multicast IP address used for TSRP has been changed from 224.192.32.19 to 224.0.9.1. The UDP port remains the same, 22601. If you are writing TSRP clients, then the next time you pull from the repository, please change the multicast IP address used by your client to 224.0.9.1.</em></p>
 
 <h2>Operations</h2>
 
@@ -76,7 +76,7 @@
 
 <ul>
 <li><p>All transmissions are uni-directional, from the thing to the steward.</p></li>
-<li><p>All transmissions are via UDP to port 22601 on multicast address '224.192.32.20'.</p></li>
+<li><p>All transmissions are via UDP to port 22601 on multicast address '224.0.9.1'.</p></li>
 <li><p>All messages are in JSON.</p></li>
 <li><p>All messages have a <em>requestID</em> parameter, which is a non-empty string. For design cleanliness, each <em>requestID</em> value should be distinct from the previous one.</p></li>
 <li><p>All messages have a <em>path</em> parameter, which is always '/api/v1/thing/reporting'.</p></li>
@@ -188,7 +188,7 @@ PROGMEM prog_char *loopPacket6 = "},\"uptime\":";
 PROGMEM prog_char *loopPacket7 = "}]}}}";
 
 EthernetUDP udp;
-IPAddress ip(224,192,32,20);
+IPAddress ip(224,0,9,1);
 unsigned int port = 22601;   
 
 void setup() {
@@ -351,7 +351,7 @@ PROGMEM prog_char *loopPacket8 = "},\"uptime\":";
 PROGMEM prog_char *loopPacket9 = "\"}]}}}";
 
 EthernetUDP udp;
-IPAddress ip(224,192,32,20);
+IPAddress ip(224,0,9,1);
 unsigned int port = 22601;   
 
 void setup() {
