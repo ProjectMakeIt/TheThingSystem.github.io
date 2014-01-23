@@ -11,10 +11,11 @@
 @media screen and (device-aspect-ratio: 40/71)  { 
 	body.short .header { height: 95px; }
 	body.short .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
+	body.short .main-content img.client {  display: none; }
+	body.short .main-content .intro-text h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 78px; line-height: 85px;  color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 20px; padding-top: 5px; }	
 	.nav-noscroll { width: 100%; } 
 	.footer .footer-left {float: left; display: none; }	
 	.footer .footer-right {float: left; }	
-	}
 	@media screen and (orientation:landscape)  {
 	body.leaf .header { display: none; }
 	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
@@ -27,7 +28,7 @@
 	body.short { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; background-image:none; background-color: white; }
 	.header img.logo { margin-left: 0px; width: 265px; }
 	.main-content .intro-text { padding-left: 10px; margin-right: 40px;}
-	.main-content img.client { display: none; }
+	body.short .main-content img.client { display: none; }
 	.main-content .intro-text h1.home { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; line-height: 34px; color: #333; padding-top: 0px; }
 	.footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	.footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
