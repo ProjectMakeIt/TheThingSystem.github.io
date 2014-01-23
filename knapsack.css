@@ -7,13 +7,14 @@
 	@media screen and (orientation:landscape)  {
 	body.short .header { display: none; }
 	body.short .main-content h2 { padding-left: 0px; margin-right: 40px; position: absolute; top: 0px; padding-bottom: 0px; }
+	body.short table.supported td.notes, body.short table.supported td.notes ul li { font-size: .5em; }
 }	
 }
 
 
 .supported td.things {background-color:#d9d9d9;font-weight:bold;text-transform:uppercase;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;border-right:1px solid #fff;}
 
-.supported td.notes, .supported td.notes ul li  {background-color:#eee;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;font-size: 10px; line-height: 12px; }
+.supported td.notes, .supported td.notes ul li  {background-color:#eee;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;font-size: 13px; line-height: 12px; }
 
 .supported td {font-size: 13px; padding:4px 8px;overflow:hidden;white-space:normal;letter-spacing:0;word-spacing:0;background-color:#fff;z-index:1;border-top:0px none;border-left:0px none;border-bottom:1px solid #eee;}
 
