@@ -8,6 +8,21 @@
   src: url(fonts/montserrat/Montserrat-Regular.ttf);
   }
 
+@media screen and (device-aspect-ratio: 2/3)  { 
+	body.short .header { height: 95px; }
+	body.short .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
+	body.short .main-content img.client {  display: none; }
+	body.short .main-content .intro-text h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 78px; line-height: 85px;  color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 20px; padding-top: 5px; }	
+	.nav-noscroll { width: 100%; } 
+	.footer .footer-left {float: left; display: none; }	
+	.footer .footer-right {float: left; }	
+	@media screen and (orientation:landscape)  {
+	body.leaf .header { display: none; }
+	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
+}	
+}
+
+
 @media screen and (device-aspect-ratio: 40/71)  { 
 	body.short .header { height: 95px; }
 	body.short .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
