@@ -62,12 +62,14 @@
 
 <div class="doc-content">
 <h1>Instructions for starting the Steward</h1>
-<p>In the <em>steward</em> directory type</p>
+<p>If you installed the steward using the the Raspberry Pi or Beaglebone Black <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">disk images</a> these have been configured to automatically start the steward on boot. You should jump directly to the section on <em>"What to do when you start the steward"</em>.</p>
+
+<p>Otherwise in the <em>steward</em> directory type</p>
 
 <pre><code>sudo ./run.sh
 </code></pre>
 
-<p>When the <em>steward</em> starts, it will automatically discover devices via a variety of mechanisms:</p>
+<p>to start the <em>steward</em> manually. When the <em>steward</em> starts, it will automatically discover devices via a variety of mechanisms:</p>
 
 <ul>
 <li><p>It will look on all attached networks for things via <a href="http://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol">SSDP</a>,
@@ -77,11 +79,7 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 <li><p>It will look for USB things.</p></li>
 </ul>
 
-<p>The steward also needs your help.
-When the steward starts from scratch, it doesn't know it's physical location.
-In order to calculate solar events such as sunrise, it needs to know it's physical coordinates.</p>
-
-<p>Normally, when the first client does a successful <em>tap</em>, it will ask you for permission to configure the steward with location and other information. However, the <em>tap</em> isn't implemented yet; so, at least for now, you will need to configure the steward using the d3 example client to create a "place" <a href="Actors.html">actor</a> with this information.</p>
+<p>The steward also needs your help. When the steward starts from scratch, it doesn't know it's physical location. In order to calculate solar events such as sunrise, it needs to know it's physical coordinates.</p>
 
 <h3>What does the run.sh do?</h3>
 
@@ -95,57 +93,139 @@ In order to calculate solar events such as sunrise, it needs to know it's physic
 
 <p>You will probably want to customize this script for yourself. When the script starts, it will bring a lot of stuff on the console. Over time, the verbosity will decrease, but for now, it should give comfort...</p>
 
-<h2>Authentication</h2>
+<h2>The first time you run the steward</h2>
 
-<p>The first time you start the steward you'll need to create a user account. Go to</p>
+<p>On startup the <em>steward</em> will bring up a web interface on port 8888.  If you're using the Raspberry Pi or Beaglebone Black <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">disk images</a> they have been configured to be reachable on your local network as <strong>steward.local</strong> using <a href="http://en.wikipedia.org/wiki/Multicast_DNS">mDNS</a>. Go to,</p>
 
-<pre><code> https://steward.local:8888/client.html
+<pre><code>https://steward.local:8888
 </code></pre>
 
-<p>and follow the instructions to create a user account. You can then use this to authenticate to the steward in future.</p>
+<p>Alternatively if you installed the the steward <a href="Installation.html">from source</a> either on a <a href="Bootstrapping-the-Raspberry-Pi.html">Raspberry Pi</a>, a <a href="Bootstrapping-the-BeagleBone-Black-with-Debian.html">Beaglebone Black</a>, or on an <a href="https://github.com/TheThingSystem/steward/wiki/Bootstrapping-on-OS-X.html">OS X</a> or <a href="https://docs.google.com/file/d/0B2YWtHIxyEmmQldBNTVSWFM3NXM/edit?hl=en-GB&amp;forcehl=1">Linux</a> machine then you should go to,</p>
 
-<h2>Monitoring</h2>
-
-<p>When the steward starts, it will be listening for https traffic on port 8888 and http traffic on 8887. If you are using the loopback interface (e.g., on a desktop system such as your Mac), then start by visiting</p>
-
-<pre><code>    http://127.0.0.1:8887/
+<pre><code>https://XXX.XXX.XXX.XXX:8888
 </code></pre>
 
-<p>Otherwise, if you are using the LAN interface (e.g., on an embedded system such as your RPi), then start by visiting</p>
+<p>where <em>XXX.XXX.XXX.XXX</em> is the IP address of the host you installed the steward onto. You will be presented with a drop down warning you about the steward's certificate not being trusted. Please be sure to <strong>"permanently accept"</strong> the certificate as valid for the associated IP address.</p>
 
-<pre><code>    https://steward.local:8888/
+<p><img class="doc-image" src="images/install.d3.0.png" alt="d3 example client" title=""></p>
+
+<p>If you do not do permanentaly accept the certificate then the web client will not function correctly.</p>
+
+<h1>###Installed on localhost?</h1>
+
+<p>If you installed the steward on your local machine—the machine that is also running the browser you intend to connect to the web client—you should <strong>not</strong> connect to the steward using https and port 8888. Instead go unecrypted to the locahost on port 8887.</p>
+
+<pre><code> http://127.0.0.1:8887
 </code></pre>
 
-<p><strong>If warned about the certificate as being untrusted, please be sure to "permanently accept" the certificate as valid for the associated IP address</strong></p>
+<p>In this case you will not be asked about certificates.</p>
 
-<p>Regardless of whether you are using http to the loopback address, or https to the LAN address, you will be presented with the d3 example client.</p>
+<h3>The d3 client</h3>
 
-<p><img class="doc-image" src="images/d3.3.png" alt="d3 example client" title="" /></p>
+<p>After connecting to the steward you should see the initial login screen for the steward's web client,</p>
+
+<p><img class="doc-image" src="images/install.d3.1.png" alt="d3 example client" title=""></p>
+
+<p>since this is the first time we have started the steward we need to <em>Create/Add Account</em>. Click on the button to be taken to the client authentication page where you can create the first account</p>
+
+<p><img class="doc-image" src="images/install.d3.2.png" alt="d3 authentication client" title=""></p>
+
+<p><em>Note: The next time you visit this page—after creating your first account—you will be presented with a login box which you must authenticate to add additional user accounts.</em></p>
+
+<p>The steward uses <a href="http://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">time-based one-time passwords</a> (TOTP) to allow you to authenticate. I[f you are on your home network you can create authentication credentials using a smart phone running <a href="https://support.google.com/accounts/answer/1066447">Google Authenticator</a> for iOS or Android, or <a href="https://itunes.apple.com/us/app/securitoken/id467479279?mt=12">SecuriToken</a> for the Mac. </p>
+
+<p>Please see also a comprehensive <a href="http://en.wikipedia.org/wiki/Google_Authenticator#Implementation">list of implementations</a>.</p>
+
+<h3>Creating a User Account</h3>
+
+<p>Scroll down and enter a short, and descriptive name for your first account,</p>
+
+<p><img class="doc-image" src="images/install.d3.3.png" alt="d3 authentication client" title=""></p>
+
+<p>here I've chosen "admin" and "Administrator." I've left the permissions for this account as "master."</p>
+
+<p>_Note: If you accidentally connect to the web client on localhost using https and port 8888 you will recieved a red "unauthorized" error message when you try and create a user account. When connected to localhost you should connect using http and port 8887.</p>
+
+<p><img class="doc-image" src="images/install.d3.4.png" alt="d3 authentication client" title=""></p>
+
+<p>However if the account is created successfully you will see a green "success" code along with a bar code. </p>
+
+<p><img class="doc-image" src="images/install.d3.5.png" alt="d3 authentication client" title=""></p>
+
+<p>This bar code can be read by the <a href="https://support.google.com/accounts/answer/1066447">Google Authenticator</a> application,</p>
+
+<p><img class="doc-image" src="images/install.iphone.0.png" alt="d3 authentication client" title=""></p>
+
+<p>which will generate the <a href="http://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">time-based one-time password</a> needed to connect to the steward. You can check that the account has been correctly created by using the TOTP generated by Google Authenticator application in the check form,</p>
+
+<p><img class="doc-image" src="images/install.d3.6.png" alt="d3 authentication client" title=""></p>
+
+<p>it should report "authorized by master". The new user will also be added to the Listing of Users and Clients at the bottom of the page.</p>
+
+<p><em>Note: After you created an account, did you notice the solidus ('/') and number appended to the short name? That number identifies the client that is now associated with the user. You will need to add the solidus and number to your short name when authenticating to the d3 client in future.</em></p>
+
+<p><em>Note: If you return to the Create/Add Account screen in future you will be asked to authenticate yourself. You will only be able to create a user without authentcating if no users are registered with the steward.</em></p>
+
+<h3>Connecting to the Steward</h3>
+
+<p>Now you have created a user account you should return to the main monitoring screen, and enter your account—remembering to postpend the solidus and number to the short name—and one time login code.</p>
+
+<p>If you incorrectly enter the clientID/response you will be authorised as "read only"</p>
+
+<p><img class="doc-image" src="images/monitor.d3.0.png" alt="d3 web client" title=""></p>
+
+<p>and recieve and error message. Otherwise you will be presented with the main screen of the d3 example client,</p>
+
+<p><img class="doc-image" src="images/monitor.d3.1.png" alt="d3 web client" title=""></p>
+
+<p>showing the devices which the steward has found.</p>
 
 <p><em>NOTE: If you have Philips' Hue light bulbs, remember to push the pairing button on the hub at this point to advertise to allow the steward to talk to your light bulbs. You should also go ahead and dismiss the red popup along the top of the client.</em></p>
 
-<p><em>NOTE: If you are not logged in to the steward on 127.0.0.1 (i.e. localhost) and instead you're logged on via the LAN you will initially be in read-only mode. You'll need to push the CHANGE LOGIN button at the top left to authenticate to the steward.</em></p>
-
 <p>From here you can click on individual things, like for instance a light bulb, and be offered some basic controls,</p>
 
-<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="" />
-<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title="" /></p>
+<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="">
+<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title=""></p>
 
-<p>to be clear the d3 client only exposes a small subset of the <a href="Steward.html">steward</a>'s abilities. You can take a more detailed look at what's going on by going to the console,</p>
+<h2>Configuring the steward</h2>
+
+<p>For now you  need to configure the steward using the d3 example client to create a <a href="Actors.html">"place" actor</a>. If you look at the d3 client home screen you'll see a small cog wheel in the top left hand corner—to the left of the "Change Login" button. Click on this, </p>
+
+<p><img class="doc-image" src="images/configure.d3.0.png" alt="d3 example client" title=""></p>
+
+<p>to bring up the configuration screen. This lets you do a number of things;</p>
+
+<ul>
+<li>Change the steward's name</li>
+<li>Enter a street address and latitude and longitude</li>
+<li>Change the units of measurement from metric to imperial and back again</li>
+<li>Turn security services of for client connections on the LAN</li>
+<li>Configure a number of Cloud Services including; Ecobee, Flower Power, Koubachi, MQTT, Nest, Netatmo, Prowl, Tesla, Wink, Xively</li>
+</ul>
+
+<p><em>Note: To add an Ecobee service to the steward you need to be an authorised developer. At least for now please <a href="https://github.com/thethingsystem/steward/issues?state=open">open a ticket</a> and we'll help you through the process.</em></p>
+
+<h2>Developer's Console</h2>
+
+<p>The d3 client we've seen so far is intended as an example client and it only exposes a small subset of the <a href="Steward.html">steward</a>'s abilities. You can take a more detailed look at what's going on by going to the developer console,</p>
 
 <pre><code>    http://127.0.0.1:8887/console.html
 </code></pre>
 
-<p>or</p>
+<p>if you're connecting to a steward which is running on the local host, or</p>
 
 <pre><code>    https://steward.local:8888/console.html
 </code></pre>
 
-<p><img class="doc-image" src="images/console.1.png" alt="steward console" title="" /></p>
+<p>if you're connecting to the steward over the LAN.</p>
 
-<p>where a full list of the available things and reports from them can be found.</p>
+<p><img class="doc-image" src="images/console.d3.0.png" alt="steward console" title=""></p>
 
-<p>For now at least if you want to control your things, you'll have to write your own <a href="Clients.html">clients</a> or use the example clients provided.</p>
+<p>where a full list of the available things, reports from these things, and other logging information can be found.</p>
+
+<p>If you want to go beyond the capabilities of the d3 example client, for instance to make use of our rule engine, or other advanced capabilities, for now at least you'll have to write your own <a href="Clients.html">clients</a> or use the other example clients provided.</p>
+
+<p><em>Note: More information about the steward can be found by looking at the log. If you're starting the steward using the command line this will scroll up on the console in front of you, if you're using the provided disk images the log can be found in /var/log/steward.log</em></p>
 
 </div>
 
