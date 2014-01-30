@@ -77,15 +77,15 @@
 /*iPhone 5*/
 @media screen and (device-aspect-ratio: 40/71)  {
 	body.leaf { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; background-image:none; background-color: white; min-width: 18.75em;  }
-	body.leaf .header { height: 95px; }
-	body.leaf .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
+	body.leaf .header { height: 140px; }
+	body.leaf .header a.logo img { margin-left: 10px; margin-top: 16px; width: 535px; }
 	body.leaf .main-content .intro-text { padding-left: 10px; margin-right: 40px;}
 	body.leaf .main-content .intro-text h1.home { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; line-height: 34px; color: #333; padding-top: 0px; }
 	body.leaf .footer { display: none; }
 	body.leaf .pulldown { display: block; margin-left: -20px; position: fixed; bottom: 0px; background-color: #eee; width: 100%; padding-top: 10px; padding-bottom: 10px; z-index: 1; height: 62px; }
 	body.leaf .footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	body.leaf .footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
-	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 125px; padding-bottom: 150px; }
+	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 185px; padding-bottom: 150px; }
 	body.leaf .main-content .content h1, body.leaf .main-content .doc-content h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 50px; line-height: 34px;  color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 0px; padding-top: 5px; }
 	body.leaf .main-content .doc-content h2, body.leaf .main-content .content h2  { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 50px; color: #333; margin-bottom: 0px; padding-bottom: 0px; margin-top: 0px; padding-top: 8px; }
 	body.leaf .main-content .doc-content h3 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 21px; color: #333; margin-bottom: 0px; padding-bottom: 0px; }
@@ -124,8 +124,11 @@
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo { text-decoration: none; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo:hover { background-color: #eee; }	
 	form { margin-left: 20px; }
-	body.leaf .main-content .pulldown select { border:0; background: transparent; color: #fff; width:350px; -webkit-appearance: none; font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 32px; padding: 5px 12px; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; height: 60px; }
-	body.leaf .main-content .pulldown.styled-select select { width: 95%; background: transparent; height: 60px; overflow: hidden; background: url(images/select.mobile.svg) no-repeat right;font-size: 32px;  }
+	
+	body.leaf .main-content .pulldown select { border:0; background: transparent; color: #fff; width:350px; -webkit-appearance: none; font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 32px; padding: 25px 12px; -moz-appearance: none; text-indent: 0.01px; text-overflow: '';}
+	body.leaf .main-content .pulldown.styled-select {  height: 120px; }
+	body.leaf .main-content .pulldown.styled-select select { width: 95%; background: transparent; overflow: hidden; background: url(images/select.mobile.svg) no-repeat right; font-size: 54px; bottom:0px; }
+	
 	body.short .supported td.notes, .supported td.notes ul li  	{background-color:#eee;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;}
 	@media screen and (orientation:landscape)  {
 	body.leaf .header { display: none; }
@@ -137,6 +140,9 @@
 	body.leaf .main-content .content-column-left .social-container, body.leaf .main-content .content-column-right .social-container  { float: right; margin-left: 15px; height: 24px; margin-top: -70px; }
 	body.leaf .main-content .doc-content .download-splash h1 { display: none; }
 	body.leaf .main-content .doc-content .download-splash { margin-top: -50px; }
+	body.leaf .main-content .pulldown select { border:0; background: transparent; color: #fff; width:350px; -webkit-appearance: none; font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 32px; padding: 5px 12px; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; height: 60px; }
+	body.leaf .main-content .pulldown.styled-select {  height: 60px; }
+	body.leaf .main-content .pulldown.styled-select select { width: 95%; background: transparent; height: 60px; overflow: hidden; background: url(images/select.mobile.svg) no-repeat right;font-size: 32px;  }
 }	
 }
 
