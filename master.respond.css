@@ -25,16 +25,25 @@
 
 
 @media screen and (device-aspect-ratio: 40/71)  { 
-	body.short .header { height: 95px; }
-	body.short .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
+	body.short .header { height: 140px; }
+	body.short .header a.logo img { margin-left: 10px; margin-top: 16px; width: 535px; }
 	body.short .main-content img.client {  display: none; }
 	body.short .main-content .intro-text h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 78px; line-height: 85px;  color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 20px; padding-top: 5px; }	
 	.nav-noscroll { width: 100%; } 
 	.footer .footer-left {float: left; display: none; }	
 	.footer .footer-right {float: left; }	
+	.footer .footer-right a.yellow { font-size: 24px; line-height: 0px; }	
+	body.short .main-content .intro-text ul.nav-noscroll { font-family: 'Monsterrat Regular', san serif; list-style: none; white-space: nowrap; float: left; margin-top: 36px; font-size: 40px; }
+	body.short .main-content .intro-text ul.nav-noscroll li a { padding: 10px 20px; }	
+	body.short .main-content .intro-text ul.nav-noscroll li { line-height: 80px; }
 	@media screen and (orientation:landscape)  {
-	body.leaf .header { display: none; }
-	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
+	body.short .header { height: 95px; }
+	body.short .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
+	body.short .main-content { margin-top: -20px; }
+	body.short .main-content .intro-text ul.nav-noscroll { font-family: 'Monsterrat Regular', san serif; list-style: none; white-space: nowrap; float: left; margin-top: 36px; font-size: 20px; }
+	body.short .main-content .intro-text ul.nav-noscroll li a { padding: 4px 20px; }	
+	body.short .main-content .intro-text ul.nav-noscroll li { line-height: 37px; }
+	body.short .footer {border: none; }	
 }	
 }
 
