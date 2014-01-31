@@ -349,12 +349,13 @@ p {font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; }
 /* thank you, CloCkWeRX! */
 
 	body.leaf .main-content .doc-content .download-splash { text-align: center; }
-	body.leaf .main-content .doc-content .download-splash .faux-table h2 { font-size: 100%; margin-top: -42px; }
- 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding-left: 0; margin-top: 5px; }
-	body.leaf .main-content .doc-content .download-splash ul li { list-style: none; font-size: 85%; }
- 	body.leaf .main-content .doc-content .faux-table { display: table; margin: 0px auto 20px auto; background-color: #eee; }
-	body.leaf .main-content .doc-content .faux-cell { display: table-cell; padding: 0em 1.0em; }
- 	body.leaf .main-content .doc-content .download-splash a.logo img { height:180px; }
+	body.leaf .main-content .content .download-splash { text-align: center; }
+	body.leaf .main-content .doc-content .download-splash .faux-table h2, body.leaf .main-content .content .download-splash .faux-table h2 { font-size: 100%; margin-top: -42px; }
+ 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul, body.leaf .main-content .content .download-splash .faux-table .faux-cell ul { padding-left: 0; margin-top: 5px; }
+	body.leaf .main-content .doc-content .download-splash ul li, body.leaf .main-content .content .download-splash ul li { list-style: none; font-size: 85%; }
+ 	body.leaf .main-content .doc-content .faux-table, body.leaf .main-content .content .faux-table { display: table; margin: 0px auto 20px auto; background-color: #eee; }
+	body.leaf .main-content .doc-content .faux-cell, body.leaf .main-content .content .faux-cell { display: table-cell; padding: 0em 1.0em; }
+ 	body.leaf .main-content .doc-content .download-splash a.logo img, body.leaf .main-content .content .download-splash a.logo img { height:180px; }
 	body.leaf .main-content .doc-content .download-splash a.logo { text-decoration: none; }
-	body.leaf .main-content .doc-content .download-splash a.logo:hover { background-color: white; }	
+	body.leaf .main-content .doc-content .download-splash a.logo:hover, body.leaf .main-content .content .download-splash a.logo:hover { background-color: white; }	
 
