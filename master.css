@@ -53,7 +53,7 @@
  	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding: 0; margin-top: 5px 0px 0px 0px; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 24px; line-height: 34px; }
  	body.leaf .main-content .doc-content .faux-table { width: 100%; background-color: #eee; }
-	body.leaf .main-content .doc-content .faux-cell {  }
+	body.leaf .main-content .doc-content .faux-cell { vertical-align: top; }
  	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:160px; margin: 0px; padding: 0px;  }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo { text-decoration: none; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo:hover { background-color: #eee; }	
@@ -85,7 +85,8 @@
 	body.leaf .pulldown { display: block; margin-left: -20px; position: fixed; bottom: 0px; background-color: #eee; width: 100%; padding-top: 10px; padding-bottom: 10px; z-index: 1; height: 62px; }
 	body.leaf .footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	body.leaf .footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
-	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 185px; padding-bottom: 150px; }
+	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 185px; padding-bottom: 200px; }
+	body.leaf .main-content .doc-content { padding-left: 0px; margin-right: 40px; position: absolute; top: 135px; padding-bottom: 200px; }	
 	body.leaf .main-content .content h1, body.leaf .main-content .doc-content h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 50px; line-height: 34px;  color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 0px; padding-top: 5px; }
 	body.leaf .main-content .doc-content h2, body.leaf .main-content .content h2  { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 50px; color: #333; margin-bottom: 0px; padding-bottom: 0px; margin-top: 0px; padding-top: 8px; }
 	body.leaf .main-content .doc-content h3 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 21px; color: #333; margin-bottom: 0px; padding-bottom: 0px; }
@@ -113,17 +114,20 @@
 	body.leaf .main-content .doc-content code { font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; font-size: 11pt; line-height: 13pt; }
 	body.leaf .main-content .doc-content pre { background-color: #d9f8c9; padding: 8px; border: 1px solid #90c077; white-space: pre-wrap; font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; margin-top: 20px; margin-bottom: 20px;  overflow: hidden; }
 	body.leaf .mobile-hide { display: none; }
-	body.leaf .main-content .doc-content .download-splash { text-align: center; }
+	body.leaf .main-content .doc-content .download-splash, body.leaf .main-content .doc-content .container { text-align: left; }
 	body.leaf .main-content .content .download-splash { width: 100%; margin-top: 20px; }
 	body.leaf .main-content .doc-content .download-splash h1 { margin-bottom: 20px;  }
+	body.leaf .main-content .doc-content .container .download-splash .faux-table { width: 900px; }
+	body.leaf .main-content .doc-content .container .download-splash .faux-table .faux-cell { vertical-align: top; }	
+	body.leaf .main-content .doc-content .container .download-splash .faux-table .faux-cell ul li { line-height: 56px; font-size: 32px;}	
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell h2 { font-size: 28px; margin-top: -18px; white-space: nowrap; }
 	body.leaf .main-content .content .download-splash .faux-table .faux-cell h2 { font-size: 32px; margin-top: -10px; white-space: nowrap; }
  	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding: 0; margin-top: 5px 0px 0px 0px; }
-	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 24px; line-height: 34px; }
+	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; line-height: 56px; font-size: 32px; }
 	body.leaf .main-content .content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 32px; line-height: 64px; }
  	body.leaf .main-content .doc-content .faux-table,  body.leaf .main-content .content .faux-table { width: 100%; background-color: #eee; }
-	body.leaf .main-content .doc-content .faux-cell {  }
- 	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:160px; margin: 0px 10px; padding: 0px;  }
+	body.leaf .main-content .doc-content .faux-cell { vertical-align: top; }
+ 	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:250px; margin: 0px 10px; padding: 0px;  }
  	body.leaf .main-content .content .download-splash a.logo img.arrow { height:260px; margin: -15px 10px; padding: 0px;  }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo { text-decoration: none; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo:hover { background-color: #eee; }	
@@ -134,7 +138,7 @@
 	body.short .supported td.notes, .supported td.notes ul li  	{background-color:#eee;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;}
 	@media screen and (orientation:landscape)  {
 	body.leaf .header { display: none; }
-	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
+	body.leaf .main-content .content, body.leaf .main-content .doc-content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
 	body.leaf .main-content .content-column-left h3, body.leaf .main-content .content-column-right h3 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; color: #333; margin-bottom: 0px; padding-bottom: 15px; }
 	body.leaf .main-content .content-column-left img, body.leaf .main-content .content-column-right img { display: block; width: 250px; float: left; padding-bottom: 10px; margin-bottom: 0px; margin-right: 20px; }
 	body.leaf .main-content .content-column-left a.social { line-height: 36px; font-size: 30px; }
@@ -355,7 +359,7 @@ p {font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; }
 	body.leaf .main-content .content .download-splash { text-align: center; }
 	body.leaf .main-content .doc-content .download-splash .faux-table h2, body.leaf .main-content .content .download-splash .faux-table h2 { font-size: 100%; margin-top: -42px; }
  	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul, body.leaf .main-content .content .download-splash .faux-table .faux-cell ul { padding-left: 0; margin-top: 5px; }
-	body.leaf .main-content .doc-content .download-splash ul li, body.leaf .main-content .content .download-splash ul li { list-style: none; font-size: 85%; }
+	body.leaf .main-content .doc-content .download-splash ul li, body.leaf .main-content .content .download-splash ul li { list-style: none; font-size: 18px; line-height: 40px; }
  	body.leaf .main-content .doc-content .faux-table, body.leaf .main-content .content .faux-table { display: table; margin: 0px auto 20px auto; background-color: #eee; }
 	body.leaf .main-content .doc-content .faux-cell, body.leaf .main-content .content .faux-cell { display: table-cell; padding: 0em 1.0em; }
  	body.leaf .main-content .doc-content .download-splash a.logo img, body.leaf .main-content .content .download-splash a.logo img { height:180px; }
