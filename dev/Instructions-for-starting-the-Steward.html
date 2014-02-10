@@ -61,12 +61,26 @@
 
 
 <div class="doc-content">
+    <div class="download-splash mobile-hide" style="width: 250px; float: right; margin: 30px 0px 5px 20px;">
+      <div class="faux-table">
+        <div class="faux-cell">
+          <a class="logo" href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing"><img src="../images/select.svg" class="arrow" alt="Download Reference Client" style="margin-left: -10px; margin-bottom: 5px;" /></a>
+          <h2>Download the Steward</h2>
+          <ul style="line-height: 29px;">
+            <li><a href="../dev/Installation.html#quick-start" class="select-pink" style="padding: 3px 10px;">quick start docs</a></li>
+            <li><a href="https://github.com/TheThingSystem/steward" class="select-orange" style="padding: 3px 10px;">github repo</a></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+
 <h1>Instructions for starting the Steward</h1>
+    
 <p>If you installed the steward using the the Raspberry Pi or Beaglebone Black <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">disk images</a> these have been configured to automatically start the steward on boot. You should jump directly to the section on <em>"What to do when you start the steward"</em>.</p>
 
 <p>Otherwise in the <em>steward</em> directory type</p>
 
-<pre><code>sudo ./run.sh
+<pre style="clear: both; "><code>sudo ./run.sh
 </code></pre>
 
 <p>to start the <em>steward</em> manually. When the <em>steward</em> starts, it will automatically discover devices via a variety of mechanisms:</p>
@@ -107,7 +121,7 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 
 <p>where <em>XXX.XXX.XXX.XXX</em> is the IP address of the host you installed the steward onto. You will be presented with a drop down warning you about the steward's certificate not being trusted. Please be sure to <strong>"permanently accept"</strong> the certificate as valid for the associated IP address.</p>
 
-<p><img class="doc-image" src="images/install.d3.0.png" alt="d3 example client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.0.png" alt="d3 example client" title="" /></p>
 
 <p>If you do not do permanentaly accept the certificate then the web client will not function correctly.</p>
 
@@ -124,11 +138,11 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 
 <p>After connecting to the steward you should see the initial login screen for the steward's web client,</p>
 
-<p><img class="doc-image" src="images/install.d3.1.png" alt="d3 example client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.1.png" alt="d3 example client" title="" /></p>
 
 <p>since this is the first time we have started the steward we need to <em>Create/Add Account</em>. Click on the button to be taken to the client authentication page where you can create the first account</p>
 
-<p><img class="doc-image" src="images/install.d3.2.png" alt="d3 authentication client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.2.png" alt="d3 authentication client" title="" /></p>
 
 <p><em>Note: The next time you visit this page—after creating your first account—you will be presented with a login box which you must authenticate to add additional user accounts.</em></p>
 
@@ -140,25 +154,25 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 
 <p>Scroll down and enter a short, and descriptive name for your first account,</p>
 
-<p><img class="doc-image" src="images/install.d3.3.png" alt="d3 authentication client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.3.png" alt="d3 authentication client" title="" /></p>
 
 <p>here I've chosen "admin" and "Administrator." I've left the permissions for this account as "master."</p>
 
 <p>_Note: If you accidentally connect to the web client on localhost using https and port 8888 you will recieved a red "unauthorized" error message when you try and create a user account. When connected to localhost you should connect using http and port 8887.</p>
 
-<p><img class="doc-image" src="images/install.d3.4.png" alt="d3 authentication client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.4.png" alt="d3 authentication client" title="" /></p>
 
 <p>However if the account is created successfully you will see a green "success" code along with a bar code. </p>
 
-<p><img class="doc-image" src="images/install.d3.5.png" alt="d3 authentication client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.5.png" alt="d3 authentication client" title="" /></p>
 
 <p>This bar code can be read by the <a href="https://support.google.com/accounts/answer/1066447">Google Authenticator</a> application,</p>
 
-<p><img class="doc-image" src="images/install.iphone.0.png" alt="d3 authentication client" title=""></p>
+<p><img class="doc-image" src="images/install.iphone.0.png" alt="d3 authentication client" title="" /></p>
 
 <p>which will generate the <a href="http://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">time-based one-time password</a> needed to connect to the steward. You can check that the account has been correctly created by using the TOTP generated by Google Authenticator application in the check form,</p>
 
-<p><img class="doc-image" src="images/install.d3.6.png" alt="d3 authentication client" title=""></p>
+<p><img class="doc-image" src="images/install.d3.6.png" alt="d3 authentication client" title="" /></p>
 
 <p>it should report "authorized by master". The new user will also be added to the Listing of Users and Clients at the bottom of the page.</p>
 
@@ -172,11 +186,11 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 
 <p>If you incorrectly enter the clientID/response you will be authorised as "read only"</p>
 
-<p><img class="doc-image" src="images/monitor.d3.0.png" alt="d3 web client" title=""></p>
+<p><img class="doc-image" src="images/monitor.d3.0.png" alt="d3 web client" title="" /></p>
 
 <p>and recieve and error message. Otherwise you will be presented with the main screen of the d3 example client,</p>
 
-<p><img class="doc-image" src="images/monitor.d3.1.png" alt="d3 web client" title=""></p>
+<p><img class="doc-image" src="images/monitor.d3.1.png" alt="d3 web client" title="" /></p>
 
 <p>showing the devices which the steward has found.</p>
 
@@ -184,14 +198,14 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 
 <p>From here you can click on individual things, like for instance a light bulb, and be offered some basic controls,</p>
 
-<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="">
-<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title=""></p>
+<p><img class="doc-image" src="images/d3.4.png" alt="d3 example client" title="" />
+<img class="doc-image" src="images/d3.5.png" alt="d3 example client" title="" /></p>
 
 <h2>Configuring the steward</h2>
 
 <p>For now you  need to configure the steward using the d3 example client to create a <a href="Actors.html">"place" actor</a>. If you look at the d3 client home screen you'll see a small cog wheel in the top left hand corner—to the left of the "Change Login" button. Click on this, </p>
 
-<p><img class="doc-image" src="images/configure.d3.0.png" alt="d3 example client" title=""></p>
+<p><img class="doc-image" src="images/configure.d3.0.png" alt="d3 example client" title="" /></p>
 
 <p>to bring up the configuration screen. This lets you do a number of things;</p>
 
@@ -219,7 +233,7 @@ and <a href="http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier">MA
 
 <p>if you're connecting to the steward over the LAN.</p>
 
-<p><img class="doc-image" src="images/console.d3.0.png" alt="steward console" title=""></p>
+<p><img class="doc-image" src="images/console.d3.0.png" alt="steward console" title="" /></p>
 
 <p>where a full list of the available things, reports from these things, and other logging information can be found.</p>
 

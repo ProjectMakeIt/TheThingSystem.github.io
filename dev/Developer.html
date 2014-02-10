@@ -61,11 +61,42 @@
 
 <div class="doc-content">
 <h1>Developer</h1>
-<p>You can develop for the <a href="Steward.html">steward</a>, <a href="Clients.html">clients</a> and <a href="Things.html">things</a>.</p>
 
-<p><img src="images/ios.lightbulbs.png" alt="Screen shot" title="" style="float: right; width: 250px; margin-left: 40px;" /></p>
 
-<h2>Developing for the steward</h2>
+<div class="container">
+<a href="https://github.com/TheThingSystem/steward-ios-library"><img src="images/ios.lightbulbs.png" alt="Screen shot" title="" style="float: left; width: 210px; margin-right: 30px;" class="mobile-hide" /></a>
+<p class="montserrat" style="padding-top: 20px;">You can develop for the <a href="Steward.html">steward</a>, <a href="Clients.html">clients</a> and <a href="Things.html">things</a>.</p>
+
+    <div class="download-splash" style="margin-top: 0px; margin-left: 0px; float: left;">
+      <table class="faux-table">
+      <tr>
+        <td class="faux-cell">
+          <a class="logo" href="https://github.com/TheThingSystem/steward-ios-library"><img src="../images/select.svg" class="arrow" alt="github repo" /></a>
+          <h2>Steward iOS Library</h2>
+          <ul style="line-height: 29px;">
+            <li><a href="https://github.com/TheThingSystem/steward-ios-library/blob/master/README.md" class="select-pink" style="padding: 3px 10px;">quick start docs</a></li>
+            <li><a href="https://github.com/TheThingSystem/steward-ios-library" class="select-orange" style="padding: 3px 10px;">github repo</a></li>
+          </ul>
+        </td>
+        <td class="faux-cell">
+          <a class="logo" href="https://github.com/TheThingSystem/node-taas-client"><img src="../images/select.svg"  class="arrow"   alt="Download Raspberry Pi" /></a>
+          <h2>node-taas-client</h2>
+          <ul style="line-height: 29px;">
+            <li><a href="https://github.com/TheThingSystem/node-taas-client/blob/master/README.md" class="select-pink" style="padding: 3px 10px;">quick start docs</a></li>
+            <li><a href="https://github.com/TheThingSystem/node-taas-client" class="select-orange" style="padding: 3px 10px;">github (client)</a></li>
+            <li><a href="https://github.com/TheThingSystem/taas-server" class="select-orange" style="padding: 3px 10px;">github (server)</a></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+    </div>
+
+<p class="montserrat" style="clear: both;">Check out our active development community at <a href="https://plus.google.com/communities/113042377519941328693">Google+</a>.</p>
+    
+</div>
+
+
+<h2 style="clear: both;">Developing for the steward</h2>
 
 <p>If you need to add a support for a consumer equipment talking some kind of industry, or manufacturer-specific protocol, which the steward <a href="The-Thing-Architecture.html">terms a native protocol</a>. Then you'll need to <a href="Steward.html">understand how the steward</a> handles <a href="Devices.html">devices</a>. New devices speaking native protocols (rather than <a href="Simple-Thing-Protocol.html">Simple Thing Protocol</a> or <a href="Thing-Sensor-Reporting-Protocol.html">Thing Sensor Reporting Protocol (TSRP)</a> can be added to the <a href="Steward.html">steward</a> by <a href="Devices.html">creating a module</a> with a path and name that conform to the <a href="Devices.html">Device Taxonomy</a>. This module is detected and loaded by the steward during startup. </p>
 

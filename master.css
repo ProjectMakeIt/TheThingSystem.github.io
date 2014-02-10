@@ -53,7 +53,7 @@
  	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding: 0; margin-top: 5px 0px 0px 0px; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 24px; line-height: 34px; }
  	body.leaf .main-content .doc-content .faux-table { width: 100%; background-color: #eee; }
-	body.leaf .main-content .doc-content .faux-cell {  }
+	body.leaf .main-content .doc-content .faux-cell { vertical-align: top; }
  	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:160px; margin: 0px; padding: 0px;  }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo { text-decoration: none; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo:hover { background-color: #eee; }	
@@ -77,15 +77,16 @@
 /*iPhone 5*/
 @media screen and (device-aspect-ratio: 40/71)  {
 	body.leaf { font-family: 'Monsterrat Regular', 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; margin: 0px 0px 80px 0px; padding: 0px; background-image:none; background-color: white; min-width: 18.75em;  }
-	body.leaf .header { height: 95px; }
-	body.leaf .header a.logo img { margin-left: 10px; margin-top: 0px; width: 435px; }
+	body.leaf .header { height: 140px; }
+	body.leaf .header a.logo img { margin-left: 10px; margin-top: 16px; width: 535px; }
 	body.leaf .main-content .intro-text { padding-left: 10px; margin-right: 40px;}
 	body.leaf .main-content .intro-text h1.home { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; line-height: 34px; color: #333; padding-top: 0px; }
 	body.leaf .footer { display: none; }
 	body.leaf .pulldown { display: block; margin-left: -20px; position: fixed; bottom: 0px; background-color: #eee; width: 100%; padding-top: 10px; padding-bottom: 10px; z-index: 1; height: 62px; }
 	body.leaf .footer .footer-left {margin-left: 0px; margin-top: 10px; white-space: nowrap; }
 	body.leaf .footer .footer-right {float: left; clear: both; margin-left: 33px; font-size: 12px; margin-top: 10px; }
-	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 125px; padding-bottom: 150px; }
+	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 185px; padding-bottom: 200px; }
+	body.leaf .main-content .doc-content { padding-left: 0px; margin-right: 40px; position: absolute; top: 135px; padding-bottom: 200px; }	
 	body.leaf .main-content .content h1, body.leaf .main-content .doc-content h1 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 50px; line-height: 34px;  color: #333; margin-bottom: 0px; padding-bottom: 10px; margin-top: 0px; padding-top: 5px; }
 	body.leaf .main-content .doc-content h2, body.leaf .main-content .content h2  { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 50px; color: #333; margin-bottom: 0px; padding-bottom: 0px; margin-top: 0px; padding-top: 8px; }
 	body.leaf .main-content .doc-content h3 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 21px; color: #333; margin-bottom: 0px; padding-bottom: 0px; }
@@ -113,23 +114,31 @@
 	body.leaf .main-content .doc-content code { font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; font-size: 11pt; line-height: 13pt; }
 	body.leaf .main-content .doc-content pre { background-color: #d9f8c9; padding: 8px; border: 1px solid #90c077; white-space: pre-wrap; font-family: 'Monaco'; 'Lucida Console', 'Lucida Typewriter', monospace; margin-top: 20px; margin-bottom: 20px;  overflow: hidden; }
 	body.leaf .mobile-hide { display: none; }
-	body.leaf .main-content .doc-content .download-splash { text-align: center; }
+	body.leaf .main-content .doc-content .download-splash, body.leaf .main-content .doc-content .container { text-align: left; }
+	body.leaf .main-content .content .download-splash { width: 100%; margin-top: 20px; }
 	body.leaf .main-content .doc-content .download-splash h1 { margin-bottom: 20px;  }
+	body.leaf .main-content .doc-content .container .download-splash .faux-table { width: 900px; }
+	body.leaf .main-content .doc-content .container .download-splash .faux-table .faux-cell { vertical-align: top; }	
+	body.leaf .main-content .doc-content .container .download-splash .faux-table .faux-cell ul li { line-height: 56px; font-size: 32px;}	
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell h2 { font-size: 28px; margin-top: -18px; white-space: nowrap; }
+	body.leaf .main-content .content .download-splash .faux-table .faux-cell h2 { font-size: 32px; margin-top: -10px; white-space: nowrap; }
  	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding: 0; margin-top: 5px 0px 0px 0px; }
-	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 24px; line-height: 34px; }
- 	body.leaf .main-content .doc-content .faux-table { width: 100%; background-color: #eee; }
-	body.leaf .main-content .doc-content .faux-cell {  }
- 	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:160px; margin: 0px; padding: 0px;  }
+	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul li { list-style: none; line-height: 56px; font-size: 32px; }
+	body.leaf .main-content .content .download-splash .faux-table .faux-cell ul li { list-style: none; font-size: 32px; line-height: 64px; }
+ 	body.leaf .main-content .doc-content .faux-table,  body.leaf .main-content .content .faux-table { width: 100%; background-color: #eee; }
+	body.leaf .main-content .doc-content .faux-cell { vertical-align: top; }
+ 	body.leaf .main-content .doc-content .download-splash a.logo img.arrow { height:250px; margin: 0px 10px; padding: 0px;  }
+ 	body.leaf .main-content .content .download-splash a.logo img.arrow { height:260px; margin: -15px 10px; padding: 0px;  }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo { text-decoration: none; }
 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell a.logo:hover { background-color: #eee; }	
 	form { margin-left: 20px; }
-	body.leaf .main-content .pulldown select { border:0; background: transparent; color: #fff; width:350px; -webkit-appearance: none; font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 32px; padding: 5px 12px; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; height: 60px; }
-	body.leaf .main-content .pulldown.styled-select select { width: 95%; background: transparent; height: 60px; overflow: hidden; background: url(images/select.mobile.svg) no-repeat right;font-size: 32px;  }
+	body.leaf .main-content .pulldown select { border:0; background: transparent; color: #fff; width:350px; -webkit-appearance: none; font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 32px; padding: 25px 12px; -moz-appearance: none; text-indent: 0.01px; text-overflow: '';}
+	body.leaf .main-content .pulldown.styled-select {  height: 120px; }
+	body.leaf .main-content .pulldown.styled-select select { width: 95%; background: transparent; overflow: hidden; background: url(images/select.mobile.svg) no-repeat right; font-size: 54px; bottom:0px; }
 	body.short .supported td.notes, .supported td.notes ul li  	{background-color:#eee;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;}
 	@media screen and (orientation:landscape)  {
 	body.leaf .header { display: none; }
-	body.leaf .main-content .content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
+	body.leaf .main-content .content, body.leaf .main-content .doc-content { padding-left: 0px; margin-right: 40px; position: absolute; top: 25px; padding-bottom: 0px; }
 	body.leaf .main-content .content-column-left h3, body.leaf .main-content .content-column-right h3 { font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 30px; color: #333; margin-bottom: 0px; padding-bottom: 15px; }
 	body.leaf .main-content .content-column-left img, body.leaf .main-content .content-column-right img { display: block; width: 250px; float: left; padding-bottom: 10px; margin-bottom: 0px; margin-right: 20px; }
 	body.leaf .main-content .content-column-left a.social { line-height: 36px; font-size: 30px; }
@@ -137,6 +146,9 @@
 	body.leaf .main-content .content-column-left .social-container, body.leaf .main-content .content-column-right .social-container  { float: right; margin-left: 15px; height: 24px; margin-top: -70px; }
 	body.leaf .main-content .doc-content .download-splash h1 { display: none; }
 	body.leaf .main-content .doc-content .download-splash { margin-top: -50px; }
+	body.leaf .main-content .pulldown select { border:0; background: transparent; color: #fff; width:350px; -webkit-appearance: none; font-family: 'Monsterrat Regular', san serif; font-weight: normal; font-size: 32px; padding: 5px 12px; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; height: 60px; }
+	body.leaf .main-content .pulldown.styled-select {  height: 60px; }
+	body.leaf .main-content .pulldown.styled-select select { width: 95%; background: transparent; height: 60px; overflow: hidden; background: url(images/select.mobile.svg) no-repeat right;font-size: 32px;  }
 }	
 }
 
@@ -262,14 +274,15 @@ a.toc:hover { color: #000; text-decoration: none; border-bottom: 1px dotted #666
 a.yellow { border-bottom: 0px dotted #000; }
 
 a.green:hover { background-color: #6bbf56; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
-a.orange:hover { background-color: #fca34c; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
+a.orange:hover, .doc-content ul li a.select-orange { background-color: #fca34c; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.red:hover { background-color: #f0043e; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.purple:hover { background-color: #8b3e93; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.blue:hover { background-color: #396caf; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.yellow:hover { background-color: #fff491; color: #000; text-decoration: none; border-bottom: 0px dotted #000; }
+a.orange:hover, .doc-content ul li a.select-pink { background-color: #f05687; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 
 a.select-green { background-color: #6bbf56; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
-a.select-orange { background-color: #fca34c; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
+a.select-orange, .doc-content ul li a.select-orange  { background-color: #fca34c; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.select-red { background-color: #f0043e; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.select-purple { background-color: #8b3e93; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
 a.select-blue { background-color: #396caf; color: #fff; text-decoration: none; border-bottom: 0px dotted #000; }
@@ -343,12 +356,13 @@ p {font-family: 'OpenSans Regular', 'Open Sans', 'Trebuchet MS', san serif; }
 /* thank you, CloCkWeRX! */
 
 	body.leaf .main-content .doc-content .download-splash { text-align: center; }
-	body.leaf .main-content .doc-content .download-splash .faux-table h2 { font-size: 100%; margin-top: -42px; }
- 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul { padding-left: 0; margin-top: 5px; }
-	body.leaf .main-content .doc-content .download-splash ul li { list-style: none; font-size: 85%; }
- 	body.leaf .main-content .doc-content .faux-table { display: table; margin: 0px auto 20px auto; background-color: #eee; }
-	body.leaf .main-content .doc-content .faux-cell { display: table-cell; padding: 0em 1.0em; }
- 	body.leaf .main-content .doc-content .download-splash a.logo img { height:180px; }
+	body.leaf .main-content .content .download-splash { text-align: center; }
+	body.leaf .main-content .doc-content .download-splash .faux-table h2, body.leaf .main-content .content .download-splash .faux-table h2 { font-size: 100%; margin-top: -42px; }
+ 	body.leaf .main-content .doc-content .download-splash .faux-table .faux-cell ul, body.leaf .main-content .content .download-splash .faux-table .faux-cell ul { padding-left: 0; margin-top: 5px; }
+	body.leaf .main-content .doc-content .download-splash ul li, body.leaf .main-content .content .download-splash ul li { list-style: none; font-size: 18px; line-height: 40px; }
+ 	body.leaf .main-content .doc-content .faux-table, body.leaf .main-content .content .faux-table { display: table; margin: 0px auto 20px auto; background-color: #eee; }
+	body.leaf .main-content .doc-content .faux-cell, body.leaf .main-content .content .faux-cell { display: table-cell; padding: 0em 1.0em; }
+ 	body.leaf .main-content .doc-content .download-splash a.logo img, body.leaf .main-content .content .download-splash a.logo img { height:180px; }
 	body.leaf .main-content .doc-content .download-splash a.logo { text-decoration: none; }
-	body.leaf .main-content .doc-content .download-splash a.logo:hover { background-color: white; }	
+	body.leaf .main-content .doc-content .download-splash a.logo:hover, body.leaf .main-content .content .download-splash a.logo:hover { background-color: white; }	
 
