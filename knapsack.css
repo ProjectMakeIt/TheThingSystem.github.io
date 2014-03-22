@@ -12,7 +12,9 @@
 }
 
 
-.supported td.things {background-color:#d9d9d9;font-weight:bold;text-transform:uppercase;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;border-right:1px solid #fff;}
+.supported th.things {background-color:#d9d9d9;font-weight:bold;text-transform:uppercase;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;border-right:1px solid #fff; font-size: 12px; padding: 4px; letter-spacing: .2em }
+
+.supported th.things a { border-bottom: none; }
 
 .supported td.notes, .supported td.notes ul li  {background-color:#eee;font-style:normal;color:#000000;text-decoration:none;text-align:left;vertical-align:middle;direction:auto-ltr;white-space:normal;overflow:hidden;font-size: 13px; line-height: 12px; }
 

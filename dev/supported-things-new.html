@@ -1,0 +1,893 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="Author" content="The Thing System" />
+	<meta name="Keywords" content="Internet of Things, iot, home automation, Thing Sensor Report Protocol, TRSP, Simple Thing Protocol, Cloud, API, steward, curators, Rendezvous Server, Rendezvous Protocol, The Trouble With Things," />
+	<meta name="Description" content="Welcome to The Thing System! Your life and your house went from one computer to an Internet of things. From tablets to lightbulbs, from sensors to media boxes, everybody gets their own Internet. Today, you have to fight your things. They don't talk to each other, the apps don't work, it's a tower of babel. Our solution is open source." />
+
+	<title>&#x24E3; the thing system - For Implementors - Lots of Things</title>
+
+	<link rel="stylesheet" href="../print.css" type="text/css" media="print" />
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../knapsack.css" type="text/css" media="all" />
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-44378714-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+	<script type="text/javascript" src="https://law.resource.org/js/sortable.js"></script>
+
+
+</head>
+
+<body class="short">
+
+<div class="header">
+	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
+</div>
+
+
+<div class="main-content">
+<div style="margin-left: 20px;">
+<ul class="nav-noscroll" style="margin-left: -20px; padding-left: 0px; margin-right: 0px; margin-top: 26px;">
+	<li><a href="javascript:history.go(-1)" style="border-bottom: none; margin-right: 1px;" class="green">&uarr;</a></li>
+</ul>
+
+
+<h2>Supported Things</h2>
+
+<div style="margin-top: 20px; float: left; margin-bottom: 0px; margin-right: 20px; margin-left: -12px;"><a href="things-at-a-glance.html" class="select-green">Things At-A-Glance</a></div>
+<div style="margin-top: 20px; float: left; margin-right: 20px;"><a href="things-at-a-glance.html" class="select-pink">Thing FAQ</a></div>
+<div style="margin-top: 20px; float: left; margin-right: 30px;"><a href="things-at-a-glance.html" class="select-purple">Thing Certification</a></div>
+<div style="margin-top: 20px; float: left; margin-right: 50px; margin-bottom: 30px;">&darr;&nbsp;&nbsp;Sort columns alphabetically below by clicking on the <img src="../images/arrows.png" /> arrows in the table header</div>
+
+<!-- Current "Lots of Things" Goes Here -->
+
+  <table class="sortable supported" id="anyid" border="0" cellpadding="0" cellspacing="0" style="width: 95%; margin-top: 20px;">
+	<colgroup><col class="make" /><col class="model" /><col class="status" /><col class="class" /><col class="device" /><col class="protocols" /><col class="clue" /></colgroup>
+    <thead>
+      <tr>
+        <th class="things" style="white-space: nowrap;"><a name="details"></a>Make</th>
+        <th class="things" style="white-space: nowrap;">Model</th>
+        <th class="things" style="white-space: nowrap;">Status</th>
+        <th class="things" style="white-space: nowrap;">Class</th>
+        <th class="things" style="white-space: nowrap;">Device</th>
+        <th class="things" style="white-space: nowrap;">Protocols</th>
+        <th class="things" style="white-space: nowrap;">Clue</th>
+      </tr>
+	</thead>
+	<tbody>
+      <tr>
+        <td>data sensing lab</td>
+        <td><a class="text" target="_blank" href="http://datasensinglab.com/dslstore/">Air Quality Mote</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>datasensinglab/air-quality</td>
+        <td>Arduino shield</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Ecobee</td>
+        <td><a class="text" target="_blank" href="http://www.ecobee.com/solutions/home/smart-si/">Smart Si Thermostat</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>ecobee/control</td>
+        <td>WiFi (cloud)</td>
+        <td>high, a bit complex</td>
+      </tr>
+      <tr>
+        <td>Parrot</td>
+        <td><a class="text" target="_blank" href="http://www.parrot.com/flowerpower/">Flower Power</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>flower-power/plant<br />flower-power/soil</td>
+        <td>BLE (cloud)</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Koubachi</td>
+        <td><a class="text" target="_blank" href="http://www.koubachi.com/">Koubachi</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>koubachi/plant<br />koubachi/soil</td>
+        <td>WiFi (cloud)</td>
+        <td>E.M.R.</td>
+      </tr>
+      <tr>
+        <td>Nest</td>
+        <td><a class="text" target="_blank" href="http://nest.com">Nest Thermostat</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>nest/control</td>
+        <td>WiFi (cloud)</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Netatmo</td>
+        <td><a class="text" target="_blank" href="http://www.netatmo.com/en-US/product">netatmo</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>netatmo/meteo</td>
+        <td>WiFi (cloud)</td>
+        <td>above average</td>
+      </tr>
+      <tr>
+        <td>Oregon Scientific</td>
+        <td><a class="text" target="_blank" href="http://www.oregonscientificstore.com">Oregon Scientific</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>oregon-scientific/meteo</td>
+        <td>RF 433.92</td>
+        <td>modest</td>
+      </tr>
+      <tr>
+        <td>2 Save Energy Limited</td>
+        <td><a class="text" target="_blank" href="http://www.theowl.com">OWL</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>owl/monitor<br />owl/meteo</td>
+        <td>IP Multicast</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Yoctopuce</td>
+        <td><a class="text" target="_blank" href="http://www.yoctopuce.com">Yoctopuce</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>yoctopuce/co2<br />yoctopuce/light<br />yoctopuce/meteo<br />yoctopuce/voc</td>
+        <td>USB</td>
+        <td>most excellent</td>
+      </tr>
+      <tr>
+        <td>Aeon Labs</td>
+        <td><a class="text" target="_blank" href="http://aeotec.com/z-wave-usb-stick">Z-Stick</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>aeotec/zstick-s2<br/ >aeotech/repeater</td>
+        <td>USB (Z-Wave)</td>
+        <td>good</td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/2242-222-insteon-hub.html">Hub</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>insteon/hub<br />insteon/smartlinc</td>
+        <td>Ethernet (Insteon)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/2413U-PowerLinc-USB.html">Hub</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>insteon/usb<br />insteon/powerlinc</td>
+        <td>USB or Ethernet</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>reelyActive</td>
+        <td><a class="text" target="_blank" href="http://reelyactive.com">Radio-sensor reels</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>reelyactive/hublet<br />reelyactive/reelceiver</td>
+        <td>Ethernet</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>RFXCOM</td>
+        <td><a class="text" target="_blank" href="http://www.rfxcom.com/receivers.htm">RFXrec433 / RFXtrx433</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>rfxcom/usb</td>
+        <td>RF 433.92/USB</td>
+        <td>above average</td>
+      </tr>
+      <tr>
+        <td>SONOS</td>
+        <td><a class="text" target="_blank" href="http://www.sonos.com/shop/products/bridge">Sonos Bridge</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>sonos/bridge</td>
+        <td>Ethernet (UPnP)</td>
+        <td>above average</td>
+      </tr>
+      <tr>
+        <td>Yoctopuce</td>
+        <td><a class="text" target="_blank" href="http://www.yoctopuce.com/EN/products/extensions-and-networking">Yoctopuce</a></td>
+        <td class="ready">ready</td>
+        <td>/device/gateway</td>
+        <td>yoctopuce/ethernet<br />yoctopuce/virtual<br />yoctopuce/wireless</td>
+        <td>Ethernet (JSON)</td>
+        <td>most excellent</td>
+      </tr>
+      <tr>
+        <td>Bug Labs, Inc.</td>
+        <td><a class="text" target="_blank" href="http://xively.com">dweetio.io</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>dweetio/sensor</td>
+        <td>n/a</td>
+        <td>above average</td>
+      </tr>
+      <tr>
+        <td>MQTT</td>
+        <td><a class="text" target="_blank" href="http://mqtt.org">MQTT</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>mqtt/text</td>
+        <td>n/a</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>NMA</td>
+        <td><a class="text" target="_blank" href="http://www.notifymyandroid.com/">Notify My Android</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>nma/text</td>
+        <td>n/a</td>
+        <td>medium</td>
+      </tr>
+      <tr>
+        <td>Zachary West</td>
+        <td><a class="text" target="_blank" href="http://www.prowlapp.com">Prowl</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>prowl/text</td>
+        <td>n/a</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Quirky</td>
+        <td><a class="text" target="_blank" href="http://www.quirky.com/shop/596">Nimbus</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>wink/nimbus<br />wink/gauge</td>
+        <td>WiFi (cloud)</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Xively</td>
+        <td><a class="text" target="_blank" href="http://xively.com">Xively (nee cosm)</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>xively/sensor</td>
+        <td>n/a</td>
+        <td>above average</td>
+      </tr>
+      <tr>
+        <td>ThingM</td>
+        <td><a class="text" target="_blank" href="http://thingm.com/products/blink-1.html">blink(1)</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>blink1/led</td>
+        <td>USB</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Agile Innovative Ltd</td>
+        <td><a class="text" target="_blank" href="http://blinkstick.com">BlinkStick</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>blinkstick/led</td>
+        <td>USB</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Heroic Robotics</td>
+        <td><a class="text" target="_blank" href="http://www.heroicrobotics.com/products/pixelpusher">PixelPusher</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>heroic-robotics/rgb<br />heroic-robotics/rgb16<br />heroic-robotics/rgbow</td>
+        <td>UDP</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Hue</td>
+        <td><a class="text" target="_blank" href="http://www.meethue.com">Hue</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>hue/bulb<br />hue/downlight<br />hue/lightstrip<br />hue/uplight</td>
+        <td>Ethernet (JSON)</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/bulb.html">LED Bulb</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>insteon/bulb<br />insteon/downlight</td>
+        <td>RF (Insteon)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>Smart Home Labs</td>
+        <td><a class="text" target="_blank" href="http://www.smarthome-labs.com">Robosmart</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>robosmart/bulb</td>
+        <td>BLE</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Tabu</td>
+        <td><a class="text" target="_blank" href="http://www.lumenbulb.net">Lumen</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>tabu/bulb</td>
+        <td>BLE</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>TCP Wireless</td>
+        <td style="white-space: nowrap;"><a class="text" target="_blank" href="http://www.tcpwireless.com">Wireless Lighting System</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>tcpi/bulb<br />tcpi/cfl<br />tcpi/downlight</td>
+        <td>Ethernet</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Yoctopuce</td>
+        <td><a class="text" target="_blank" href="http://www.yoctopuce.com/EN/products/usb-actuators/yocto-powercolor">Yoctopuce</a></td>
+        <td class="ready">ready</td>
+        <td>/device/lighting</td>
+        <td>yoctopuce/color<br />yoctopuce/powercolor</td>
+        <td>USB</td>
+        <td>most excellent</td>
+      </tr>
+      <tr>
+        <td>Apple</td>
+        <td><a class="text" target="_blank" href="http://www.apple.com/appletv/">Apple TV</a></td>
+        <td class="ready">ready</td>
+        <td>/device/media</td>
+        <td>appletv/video</td>
+        <td>Ethernet or WiFi</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>Google</td>
+        <td><a class="text" target="_blank" href="http://google.com/chromecast">Chromecast</a></td>
+        <td class="ready">ready</td>
+        <td>/device/media</td>
+        <td>chromecast/video</td>
+        <td>WiFi</td>
+        <td>okay, but limited</td>
+      </tr>
+      <tr>
+        <td>SONOS</td>
+        <td><a class="text" target="_blank" href="http://www.sonos.com/shop/products/playbar">Sonos Playbar</a></td>
+        <td class="ready">ready</td>
+        <td>/device/media</td>
+        <td>sonos/audio</td>
+        <td>RF or WiFi (UPnP)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>Lockitron</td>
+        <td><a class="text" target="_blank" href="http://lockitron.com">Lockitron</a></td>
+        <td class="ready">ready</td>
+        <td>/device/motive</td>
+        <td>lockitron/lock</td>
+        <td>Cloud</td>
+        <td>average</td>
+      </tr>
+      <tr>
+        <td>Tesla Motors</td>
+        <td><a class="text" target="_blank" href="http://www.teslamotors.com/models">Model S</a></td>
+        <td class="ready">ready</td>
+        <td>/device/motive</td>
+        <td>tesla/model-s</td>
+        <td>Cloud</td>
+        <td>average</td>
+      </tr>
+      <tr>
+        <td>Chipolo</td>
+        <td><a class="text" target="_blank" href="http://www.chipolo.net">Chipolo</a></td>
+        <td class="ready">ready</td>
+        <td>/device/presence</td>
+        <td>chipolo/fob</td>
+        <td>BLE</td>
+        <td>average</td>
+      </tr>
+      <tr>
+        <td>glsoft.mobi</td>
+        <td><a class="text" target="_blank" href="http://gethone.com">Hone</a></td>
+        <td class="ready">ready</td>
+        <td>/device/presence</td>
+        <td>hone/fob</td>
+        <td>BLE</td>
+        <td>opportunistic</td>
+      </tr>
+      <tr>
+        <td>OwnTracks</td>
+        <td><a class="text" target="_blank" href="http://owntracks.org">OwnTracks for Android/iOS</a></td>
+        <td class="ready">ready</td>
+        <td>/device/presence</td>
+        <td>owntracks/mobile</td>
+        <td>MQTT</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Philips</td>
+        <td><a class="text" target="_blank" href="http://www.usa.philips.com/c/App-enhanced-accessories/for-iphone-5-4s-the-new-ipad-aea1000_00/prd/en/">Inrange</a></td>
+        <td class="ready">ready</td>
+        <td>/device/presence</td>
+        <td>inrange/fob</td>
+        <td>BLE</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>reelyActive</td>
+        <td><a class="text" target="_blank" href="http://reelyactive.com">Active RFID Tag</a></td>
+        <td class="ready">nearly ready</td>
+        <td>/device/presence</td>
+        <td>reelyactive/fob</td>
+        <td>RFID</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Nest</td>
+        <td><a class="text" target="_blank" href="http://nest.com">Nest Protect</a></td>
+        <td class="ready">ready</td>
+        <td>/device/sensor</td>
+        <td>nest/smoke</td>
+        <td>WiFi (cloud)</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>2 Save Energy Limited</td>
+        <td><a class="text" target="_blank" href="http://www.theowl.com">OWL</a></td>
+        <td class="ready">ready</td>
+        <td>/device/sensor</td>
+        <td>owl/meter<br />owl/solarpanels</td>
+        <td>IP Multicast</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Texas Instruments</td>
+        <td><a class="text" target="_blank" href="http://www.ti.com/tool/cc2541dk-sensor">SensorTag</a></td>
+        <td class="ready">ready</td>
+        <td>/device/sensor</td>
+        <td style="white-space: nowrap;">texas-instruments/sensortag</td>
+        <td>BLE</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Belkin</td>
+        <td><a class="text" target="_blank" href="http://www.belkin.com/us/p/P-F7C028-APL">WeMo Motion</a></td>
+        <td class="ready">ready</td>
+        <td>/device/sensor</td>
+        <td>wemo/motion</td>
+        <td>WiFi(UPnP)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>Quirky</td>
+        <td><a class="text" target="_blank" href="http://www.quirky.com/shop/609-Spotter-Multipurpose-Sensors">Spotter</a></td>
+        <td class="ready">ready</td>
+        <td>/device/sensor</td>
+        <td>wink/spotter</td>
+        <td>WiFi (cloud)</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/2457D2-lamplinc-dual-band.html">LampLinc Plug-In Dimmer Module</a></td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>insteon/dimmer</td>
+        <td>RF (Insteon)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/2456s3-appliancelinc.html">Insteon Appliance Linc</a></td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>insteon/onoff</td>
+        <td>RF (Insteon)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>Quirky</td>
+        <td><a class="text" target="_blank" href="http://www.quirky.com/shop/633-Pivot-Power-Genius">Pivot Power Geninus</a></td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>wink/onoff<br />wink/strip</td>
+        <td>WiFi (cloud)</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>Belkin</td>
+        <td><a class="text" target="_blank"
+href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/">WeMo Light Switch, Wemo Insight Switch, and WeMo Switch</a></td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>wemo/meter<br />wemo/onoff</td>
+        <td>WiFi (UPnP)</td>
+        <td>okay</td>
+      </tr>
+      <tr>
+        <td>Z-wave</td>
+        <td>"multi-level" switches</td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>zwave/dimmer<br />cooper/dimmer<br />ge/dimmer</td>
+        <td>Z-Wave</td>
+        <td>good</td>
+      </tr>
+      <tr>
+        <td>Z-wave</td>
+        <td>"binary" switches</td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>zwave/onoff<br />aeotech/onoff<br />ge/onoff</td>
+        <td>Z-Wave</td>
+        <td>good</td>
+      </tr>
+      <tr>
+        <td style="white-space: nowrap;">Connected Devices</td>
+        <td><a class="text" target="_blank" href="http://cookoowatch.com">Cookoo Watch</a></td>
+        <td class="ready">ready</td>
+        <td>/device/wearable</td>
+        <td>cookoo/watch</td>
+        <td>BLE</td>
+        <td>fair</td>
+      </tr>
+      <tr>
+        <td>metawatch.com</td>
+        <td><a class="text" target="_blank" href="http://shop.metawatch.com">METAWATCH</a></td>
+        <td class="ready">ready</td>
+        <td>/device/wearable</td>
+        <td>metawatch/watch</td>
+        <td>BLE</td>
+        <td>low</td>
+      </tr>
+      <tr>
+        <td>LIFX</td>
+        <td><a class="text" target="_blank" href="http://www.lifx.co">LED smart bulb</a></td>
+        <td class="coding-queue">coding queue</td>
+        <td style="white-space: nowrap;">/device/lighting</td>
+        <td></td>
+        <td>WiFi</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Motrr</td>
+        <td><a class="text" target="_blank" href="http://motrr.com">Galileo</a></td>
+        <td class="coding-queue">coding queue</td>
+        <td>/device/motive</td>
+        <td></td>
+        <td>proxy</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Parrot</td>
+        <td><a class="text" target="_blank" href="http://ardrone2.parrot.com/usa/">AR.Drone 2.0</a></td>
+        <td class="coding-queue">coding queue</td>
+        <td>/device/motive</td>
+        <td></td>
+        <td>WiFi</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Romotive</td>
+        <td><a class="text" target="_blank" href="http://romotive.com">Romo</a></td>
+        <td class="coding-queue">coding queue</td>
+        <td>/device/motive</td>
+        <td></td>
+        <td>proxy</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Satarii Inc.</td>
+        <td><a class="text" target="_blank" href="http://www.swivl.com">Swivl</a></td>
+        <td class="coding-queue">coding queue</td>
+        <td>/device/motive</td>
+        <td></td>
+        <td>proxy</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Belkin</td>
+        <td><a class="text" target="_blank" href="http://www.belkin.com/us/wemo-switch-motion">WeMo Switch + Motion</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>WiFi (UPnP)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>BlueRadios</td>
+        <td><a class="text" target="_blank" href="http://www.blueradios.com/BR-BUTTON-S2A.pdf">SensorBug</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Ecobee</td>
+        <td><a class="text" target="_blank" href="http://www.ecobee.com/solutions/accessories/">smart plug</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>ZigBee (HA)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>exegin</td>
+        <td><a class="text" target="_blank" href="http://www.exegin.com/hardware/q53app.php">Q53</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>Ethernet (GMO)</td>
+        <td>high</td>
+      </tr>
+      <tr>
+        <td>Hidden Radio</td>
+        <td><a class="text" target="_blank" href="http://www.hiddenradiodesign.com/collections/all">Hidden Radio</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/2842-x22-wireless-motion-sensor.html">Insteon Motion Sensor</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>RF (Insteon)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>INSTEON</td>
+        <td><a class="text" target="_blank" href="http://www.insteon.com/2852-222-leak-sensor.html">Leak Sensor</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>RF (Insteon)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Kwikset</td>
+        <td><a class="text" target="_blank" href="http://www.kwikset.com/Kevo/default.aspx">Kevo</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>MIO Global</td>
+        <td><a class="text" target="_blank" href="http://www.alphaheartrate.com/%23apps">MIO Alpha</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Pebble</td>
+        <td><a class="text" target="_blank" href="http://getpebble.com">Pebble</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Protronica Limited</td>
+        <td><a class="text" target="_blank" href="http://www.protronica.co.uk/onlinestore/gbu0-catshow/iUSBportCAMERA.html">iUSBportCAMERA</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>SensorCon</td>
+        <td><a class="text" target="_blank" href="http://www.sensorcon.com/sensordrone/">SensorDrone</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td>modest</td>
+      </tr>
+      <tr>
+        <td>Smartenit</td>
+        <td><a class="text" target="_blank" href="http://simplehomenet.com/">Harmony ZigBee/Insteon/X10 Gateway</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>Ethernet (XML mostly)</td>
+        <td>low</td>
+      </tr>
+      <tr>
+        <td>Smartenit</td>
+        <td><a class="text" target="_blank" href="http://www.simplehomenet.com/proddetail.asp?prod=ZigBee_HA_Metering_Smart_Plug">ZBMPlug15</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>ZigBee</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Super Mechanical</td>
+        <td><a class="text" target="_blank" href="http://supermechanical.com">Twine</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>WiFi (proprietary)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>ThinkFlood</td>
+        <td><a class="text" target="_blank" href="http://thinkflood.com/products/">Redeye</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>WiFi</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Variable Tech</td>
+        <td><a class="text" target="_blank" href="http://nodesensors.com">Node</a></td>
+        <td class="hold">hold</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td>very high</td>
+      </tr>
+      <tr>
+        <td>3D Robotics</td>
+        <td><a class="text" target="_blank" href="http://store.3drobotics.com/t/diy-kits/arducopter">ArduCopter</a></td>
+        <td class="wait">acquisition wait</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>August</td>
+        <td><a class="text" target="_blank" href="http://august.com">Smart Lock</a></td>
+        <td class="wait">acquisition wait</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Goji</td>
+        <td><a class="text" target="_blank" href="http://www.gojiaccess.com">Smart Lock</a></td>
+        <td class="wait">acquisition wait</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Haystack Technologies</td>
+        <td><a class="text" target="_blank" href="http://haytagstore.com">HayTag</a></td>
+        <td class="wait">acquisition wait</td>
+        <td></td>
+        <td></td>
+        <td>Dash7</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>KISI Systems GmbH</td>
+        <td><a class="text" target="_blank" href="http://kisibox.de">KISI</a></td>
+        <td class="wait">acquisition wait</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Techject</td>
+        <td><a class="text" target="_blank" href="http://www.techject.com">Robot Dragonfly</a></td>
+        <td class="wait">acquisition wait</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Wicked Devices</td>
+        <td><a class="text" target="_blank" href="http://aqe.wickeddevice.com">Air Quality Egg</a></td>
+        <td class="coding-queue">partial</td>
+        <td>/device/climate</td>
+        <td>eggshield/sensor</td>
+        <td>WiFi</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Roku</td>
+        <td><a class="text" target="_blank" href="http://www.roku.com/">Roku</a></td>
+        <td class="coding-queue">partial</td>
+        <td>/device/media</td>
+        <td>roku/video</td>
+        <td>Ethernet/WiFi</td>
+        <td>API too minimal for autonomy</td>
+      </tr>
+      <tr>
+        <td>BlueBulb.com</td>
+        <td><a class="text" target="_blank" href="http://BlueBulb.com">Bluetooth Bulb</a></td>
+        <td class="fail">fail</td>
+        <td></td>
+        <td></td>
+        <td>BLE</td>
+        <td>only for mobile</td>
+      </tr>
+      <tr>
+        <td>Cao Gadgets</td>
+        <td><a class="text" target="_blank" href="http://www.mytaglist.com/">Wireless Sensor Tags</a></td>
+        <td class="fail">fail</td>
+        <td></td>
+        <td></td>
+        <td>RF (proprietary)</td>
+        <td>hardware: high</td>
+      </tr>
+      <tr>
+        <td>Remote LED</td>
+        <td><a class="text" target="_blank" href="http://remoteled.com">various</a></td>
+        <td class="fail">fail</td>
+        <td></td>
+        <td></td>
+        <td>RF (proprietary)</td>
+        <td>no discovery</td>
+      </tr>
+      <tr>
+        <td>Treehouse Labs LLC</td>
+        <td><a class="text" target="_blank" href="http://bikn.com">Bikn</a></td>
+        <td class="fail">fail</td>
+        <td></td>
+        <td></td>
+        <td>JenNet-IP (Zigbee compatible?)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="footer">
+	<div class="footer-left"><a href="index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../code/index.html" class="select-orange">Get The Code</a></div>
+</div>
+
+<div class="pulldown styled-select" style="background-color: #6bbf56;">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
+  <option value="../index.html">Select an Option</option>
+  <option value="../index.html">Select an Option</option>
+  <option value="../things/index.html">The Trouble With Things</option>
+  <option value="../dev/index.html">For Implementors</option>
+  <option value="https://github.com/TheThingSystem/steward/wiki">Documentation</option>
+  <option value="selected">Supported Things</option>
+  <option value="../code/index.html">Get The Code</option>
+  <option value="../index.html">&#x24E3;</option>
+</select> 
+</form>
+</div>
+</div>
+
+</body>
+</html>
