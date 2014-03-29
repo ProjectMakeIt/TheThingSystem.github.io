@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="Author" content="The Thing System" />
+	<meta name="Keywords" content="Internet of Things, iot, home automation, Thing Sensor Report Protocol, TRSP, Simple Thing Protocol, Cloud, API, steward, curators, Rendezvous Server, Rendezvous Protocol, The Trouble With Things," />
+	<meta name="Description" content="Welcome to The Thing System! Your life and your house went from one computer to an Internet of things. From tablets to lightbulbs, from sensors to media boxes, everybody gets their own Internet. Today, you have to fight your things. They don't talk to each other, the apps don't work, it's a tower of babel. Our solution is open source." />
+
+	<title>&#x24E3; the thing system - Philips Hue certification</title>
+
+	<link rel="stylesheet" href="../print.css" type="text/css" media="print" />
+	<link rel="stylesheet" href="../master.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../knapsack.css" type="text/css" media="screen" />
+
+<link rel="stylesheet" href="../colorbox.css" type="text/css" media="screen">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.colorbox.js"></script>
+
+
+	<script>
+		$(document).ready(function(){
+			//Examples of how to assign the ColorBox event to elements
+			$("a[rel='example1']").colorbox();
+			$("a[rel='example2']").colorbox({transition:"fade"});
+			$("a[rel='example3']").colorbox({transition:"none", width:"75%", height:"75%"});
+			$("a[rel='example4']").colorbox({slideshow:true});
+			$(".example5").colorbox();
+			$(".example6").colorbox({iframe:true, innerWidth:425, innerHeight:344});
+			$(".example7").colorbox({width:"80%", height:"80%", iframe:true});
+			$(".example8").colorbox({width:"50%", inline:true, href:"#inline_example1"});
+			$(".example9").colorbox({
+				onOpen:function(){ alert('onOpen: colorbox is about to open'); },
+				onLoad:function(){ alert('onLoad: colorbox has started to load the targeted content'); },
+				onComplete:function(){ alert('onComplete: colorbox has displayed the loaded content'); },
+				onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
+				onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
+			});
+			
+			//Example of preserving a JavaScript event for inline calls.
+			$("#click").click(function(){ 
+				$('#click').css({"background-color":"#f00", "color":"#fff", "cursor":"inherit"}).text("Open this window again and this message will still be here.");
+				return false;
+			});
+		});
+	</script>
+	
+<style type="text/css">
+table.directory { text-align: center; margin-left: auto; margin-right: auto;  border: none; }
+
+table.directory td { text-align: center ; border: none; }
+table.directory td.selected { text-align: center ; background-color: #A69F5C; color: #fff; font-family: "Arial Black"; font-weight: bold; }
+table.directory th { text-align: center ; color: #fff ; text-transform: none ;  }
+table.directory th a { color: #000 ; text-decoration: underline ; }
+table.directory td a { color: #666 ; text-decoration: none ; font-family: "Arial Black"; font-weight: bold; }
+
+</style>
+</head>
+
+<body class="leaf">
+
+<div class="header" style="visibility: hidden;">
+	<a href="../index.html" class="logo"><img alt="&#x24E3; the thing system" src="../images/thing.system.logo.svg" /></a>
+</div>
+
+<div class="main-content">
+<ul class="nav">
+	<li><a href="index.html" class="select-orange">Certified Things</a></li>
+	<ol class="toc-nav">
+		<li><a href="insteon.html" class="toc">Insteon</a></li>
+		<li><a href="lifx.html" class="toc">LiFX</a></li>
+		<li><a href="philips-hue.html" class="select-toc">Philips Hue</a> <span style="color: #f05687;">&rarr;</span></li>
+		<li><a href="robosmart.html" class="toc">Robosmart</a></li>
+		<li><a href="TCPi.html" class="toc">TCPi</a></li>
+		<li><a href="yeelight.html" class="toc">Yeelight</a></li>
+	</ol>	
+		<li><a href="http://www.amazon.com/Philips-431650-Personal-Wireless-Frustration/dp/B00BSN8DLG/ref=sr_1_1?ie=UTF8&qid=1395250399&sr=8-1&keywords=philips+hue+a19" class="select-orange">Buy This Thing</a></li>
+	<ol class="toc-nav" style="padding-left: 32px;">
+		<li><a href="http://www.amazon.com/Philips-431643-Personal-Wireless-Frustration/dp/B00BSN8DN4/ref=sr_1_2?ie=UTF8&qid=1395253365&sr=8-2&keywords=philips+hue+starter+pack" class="toc" style="line-height: 22px;"><b>Just Getting Started?</b><br />Buy the Starter Pack<br />(3 bulbs + bridge)</a></li>
+</ol>
+</ul>
+
+
+<div class="content" style="margin-left: 230px;">
+
+<h1 style="margin-top: -80px;">The Philips Hue</h1>
+
+<h4 style="margin-top: -4px; font-size: 16px; border-top: #999 dotted 1px; margin-right: 300px; padding-top: 6px;">100% CERTIFIED BY THE THING SYSTEM</h4>
+
+<img src="hue.icon.png" style="width: 250px; float: right; margin-left: 30px; margin-top: -80px;" /><br />
+
+<!-- <p><a href="" class="select-orange montserrat">Hardware</a></p>
+
+<p>When operating the bulb temperature is approximately 79F (26C).</p>
+
+<p>Removing the diffuser with a hacksaw you expose the PCB holding the LEDs—these are not RGB LEDS. Below that is a large Aluminium heat spreader, and the two separate circuit boards—one for power and one for networking encased back-to-back in silicone sealant.</p>
+
+<p>The main ICs on the networking board, and the only ones of real interest, are the <a href="Philips_Hue/CC2530.pdf" class="text">TI CC2530 SoC</a> — which includes the 2.4GHx 802.15.4 for <a href="https://docs.google.com/a/bs4.nl/viewer?a=v&pid=sites&srcid=YnM0Lm5sfGJsb2d8Z3g6NWJiMDZkYjY3MmY5ZDQ1ZA" class="text">Zigbee,</a> and an 8051 low-power micro-controller — along with a <a href="Philips_Hue/MX25L4006E.pdf" class="text">Macronix MX25L4006E</a> — which handles the serial bus. </p>
+<p><a href="" class="select-orange montserrat">Software</a></p>
+-->
+
+
+<h2>The Philips Hue API</h2>
+
+<p>The Philips Hue is the first commercially-available ethernet-controllable bulb. Unofficial implementations of its <a href="https://github.com/PhilipsHue/philipshue.github.com" class="text">API</a> have been available since late fall, 2012.
+Philips released their own SDK in spring, 2013, and periodically updates the SDK to provide new functionality (e.g., geofencing).</p>
+
+<p>Briefly, authorized applications communicate via <a href=">http://en.wikipedia.org/wiki/Representational_state_transfer" class="text">REST</a> / <a href="http://en.wikipedia.org/wiki/JSON" class="text">JSON</a> to a "bridge", which is a small device with ethernet connectivity. This bridge mediates the API calls to the bulbs associated with the bridge. The bridge and bulbs communicate via a <a href="http://en.wikipedia.org/wiki/Zigbee" class="text">Zigbee mesh.</a></p>
+
+<h3>Applications</h3>
+<p>Philips provides applications for both <a href="https://itunes.apple.com/us/app/philips-hue/id557206189?mt=8" class="text">iOS</a>
+and <a href="https://play.google.com/store/apps/details?id=com.philips.lighting.hue" class="text">Android.</a> It is recommended that these applications be used to pair bulbs to the bridge. The applications provide considerable functionality, viz.,</p>
+
+<ul>
+<li>Scene definition and execution</li>
+<li>Control of individual bulbs</li>
+<li>Timer parameters for each scene</li>
+<li>Geofencing parameters for each scene</li>
+</ul>
+
+<p>Philips periodically updates the applications (as noted below, the first version had some rough edges).</p>
+
+<p>There are also many third-party applications available (over 40 for iOS, and over 30 for Android, as of this writing) In addition, there is a <a href="https://ifttt.com/hue" class="text">Philips hue Channel</a> on IFTTT that contains several "recipes" for the Philips Hue.</p>
+
+<h4>Pairing</h4>
+
+<p>When pairing a bulb with the bridge, the bulb must be in "direct" contact with the bridge (i.e., Zigbee pairing traffic between the bridge and the bulb must not pass through an intermediary bulb). Accordingly, all bulb pairings should occur in a location very close to the bridge -- after pairing, the bulb may be moved to its intended location.</p>
+
+<h3>Remote Access</h3>
+
+<p>Philips' <a href="https://www.meethue.com/" class="text">MeetHue</a> website provides a mechanism for a user to register an account and associate it with a bridge. Applications requiring remote access to the bridge use an <a href="http://blog.paulshi.me/technical/2013/11/27/Philips-Hue-Remote-API-Explained.html" class="text">undocumented protocol</a> to redirect the user to the MeetHue site to ask for permission. If given, the site subsequently redirects the application to a URL containing an access token --
+effectively a proprietary implementation of the core functionality of <a href="http://en.wikipedia.org/wiki/Oauth" class="text">OAuth</a>. Once a token is granted, the documented API may be encapsulated and sent to the MeetHue site for subsequent transmission to the Hue bridge. Finally, the MeetHue site allows a user to view and disable applications from using the remote service.
+
+<h2>The Protocol</h2>
+
+<h3>Discovery and Authorization</h3>
+
+<p>The bridge advertises itself via <a href="http://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol" class="text">SSDP</a>, which allows any device on the same multicast segment (typically, though not always, the entire home network) to discover the bridge. Multiple bridges may exist on the same multicast segment, as independent entities (of course, a single bulb may be paired with only one bridge at a time).</p>
+
+<p>When a device discovers a bridge, it must be authorized. Authorization occurs when the user presses the pairing button on the bridge, followed by the device making an API request identifying itself using a unpredictable string. All subsequent API requests must include that identifying string. The security model assumes that third-parties are not able to snoop on data exchanges, which are always plaintext (cf., the Security section below).</p>
+
+<p>If the device and bridge reside on different multicast segments, then there are two solutions:</p>
+
+<p>- <b>First,</b> if different multicast segments are not required in the home network, reconfigure the network to have a single multicast segment, independent of the number of physical segments. This is the "correct" solution, but requires either a "clueful" network installer or a devoted home user.</p>
+
+<p>- <b>Second,</b> when a bridge is able to access the Internet, it registers its local IP address (e.g., '192.168.1.2') and MAC address (e.g., '00:17:88:ab:cd:ef') with a "network UPnP" (nUPnP) service in the Internet. That service records the local IP address along with the associated global IP address. As a side-effect of today's network practice, all devices in a home network tend to have the same global IP address. Thus, the device makes a request to the nUPnP service asking for all bridge addresses having the same global IP address. This allows the device to discover all bridges on the home network (cf., the Security section below).</p>
+
+<p>The preferred behavior for a device is to attempt discovery both via SSDP and nUPnP, correlating results accordingly.</p>
+
+<h3>Data Exchange</h3>
+
+<p>The API is notable for being both "modern" and "minimalistic" -- using HTTP, REST, and JSON. This combination of technologies is easy to develop with and available to the widest range of platforms.</p>
+
+<h3>Implementations</h3>
+
+<p>Philips makes available an "official" SDK at its <a href="http://developers.meethue.com" class="text">developer site</a> of the <a href="https://github.com/PhilipsHue/philipshue.github.com" class="text">Philips Hue API</a> for <a href="https://github.com/PhilipsHue/PhilipsHueSDK-iOS-OSX" class="text">iOS and OSX</a>, and <a href="https://github.com/PhilipsHue/PhilipsHueSDK-Java-MultiPlatform-Android" class="text">Java and Android</a>. In addition,
+on <a href="https://github.com" class="text">GitHub</a> alone, there are over 50 different implementations of the Philips Hue API in every "modern" programming language, viz., ActionScript, Arduino library, Bash, C++, C#, Clojure, F#, Go, Haskell, Java, JavaScript, Lua, .Net, Node.js, Objective-C, Perl PHP, Python, Ruby, and  Smalltalk. <a href="http://q42.com" class="text">Q42</a> also maintains a so-called <a href="https://github.com/Q42/hue-libs" class="text">"complete list of libraries"</a>. This list is rather minimal, but it is linked to by the Philips Hue <a href="http://developers.meethue.com/" class="text">developer site.</a></p>
+
+<h2>Security</h2>
+
+<h3>Authorization and Spoofing</h3>
+
+<p>The choice of an unpredictable string sent in a plaintext message is controversial. Security professionals point out that third-parties can either intercept or deduce the string. This is particularly true given that the advice provided by discussions of the API indicate that the unpredictable string should be generated by applying an MD5 hash to the device's MAC address. (Thus, if a third-party knows the MAC address of a management device, that third-party is able to forge commands as that device.) It is recommended that devices generate a <a href="http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29" class="text">version 4 UUID</a> for this purpose.</p>
+
+<p>All things being equal, encrypted traffic is preferrable to plaintext traffic -- even in a home network. However, "correctly" encrypting traffic comes at a cost, not in terms of computational overhead but in terms of provisioning confidence. Specifically, current consumer encryption technologies require proper key management discipline. The current state of home networking makes this a rare event.</p>
+
+<p>Accordingly, the approach taken by the Philips Hue API is a reasonable compromise providing that two assumptions are true:</p>
+
+<ul>
+<li>the bridging/routing infrastructure of the home network is not compromised; and,</li>
+<li>the unpredictable string is _truly_ unpredictable.</li>
+</ul>
+
+<h3>Unauthorized Disclosure of Bridge information</h3>
+
+<p>The nUPnP service relies on the source IP address of incoming traffic in order to determine what information to disclose. It is possible for source addresses to be spoofed and for the return traffic to be intercepted.</p>
+
+<p>However, unless the third-party also has a presence on the home network, this information is of arguable utility. (Of course, if the third-party does have a presence on the home network, there may be no need to spoof unless the home network administrator has configured packet filtering.)</p>
+
+<h3>In more detail</h3>
+
+<p>The most comprehensive public discussion of potential security issues with the Philips Hue was released in a August, 2013 <a href="http://www.dhanjani.com/blog/2013/08/hacking-lightbulbs.html" class="text">blog post</a> by Nitesh Dhanjani.
+Associated with the post is a <a href="http://www.dhanjani.com/docs/Hacking%20Lighbulbs%20Hue%20Dhanjani%202013.pdf" class="text">paper</a> describing his analysis.</p>
+
+
+<h1>Overall</h1>
+
+<p>The Philips Hue is the first-to-market network lighting system for consumers. Although the initial version of the iOS app did lack some polish, the current version is fairly described as both usable and powerful.</p>
+
+<p>The API provided by the bridge is easily described as best-in-market. Current and future implementors would do well to take note of the design trade-offs in the Philips' design. The widespread implementation of the API by numerous third-party developers confirms this advice.</p>
+
+<p>To be the clear best-of-market product, we require good applications, an excellent API, multiple API implementations, and great hardware. We believe that the Philips Hue system meets these criteria quite handily.</p>
+
+<p style="font-weight: bold; color: red;">**BECKY: AT THIS POINT, I WOULD LIKE TO SEE FIVE SMALL SILOUETTED HUE BULBS ALL GREEN, SHOWING THAT THE PHILIPS HUE HAS A FIVE STAR RATING.**</p>
+
+
+<!-- 
+<p>The Philips Hue bulb is solidly constructed, and not meant for to be disassembled.</p>
+
+<p>The Philips Hue bridge is powered by an ST STM32F217VET6 ARM Cortex-M3 Chip, and also has a CC2530 along with a CC2590 (a RF Range Extender) chip.</p>
+-->
+<!-- 
+<img src="map.png" style="clear: right; float: right; margin-left: 30px; margin-top: 0px;" />
+<p><a href="" class="select-orange montserrat">Applications</a></p>
+
+<p>Our case study involves three Philips Hue A19 bulbs <span style="color: #0f75bc">⬤</span><span style="color: #fcb040">⬤</span><span style="color: #ed217c">⬤</span> and one downlight <span style="color: #662d91">⬤</span> used to illuminate a computer media lab. The A19 Phillips Hue is rated by the manufacturer at 600 lumens, with a slightly brighter <a href="http://store.apple.com/us/product/HD618VC/A/philips-hue-7w-br30-connected-downlight-lamp-single-pack?fnode=0001050701" class="text">BR40 downlight</a> version at 630 lumens for beaming directional light. In #thingsystem laboratory testing, we used a Variable Tech Sensor to measure the lumens of each bulb. Our research found that the A19 bulb is actually brighter at 640 lumens and that the A19 bulbs were in sync with the manufacturers ratings on average. We plan to continue to test this theory as we build out our laboratory as the Phillips Hue bridge can support up to 50 bulbs. We also have our eyes on the next generation <a href="http://www.slashgear.com/philips-tled-aims-to-replace-all-fluorescent-bulbs-in-near-future-11277446/" class="text">Philips TLED</a> slated for release in 2015 to replace our flourescents, which Philips claims will be 2x as efficient as fluorescents. Learn more in the video below:</p>
+
+
+<p>We’re deep in the mines configuring the Point.B Studio street level gallery and the Cobwebs Media Lab for The All New #rdcHQ project. We have replaced nine of our bulbs with state-of-the-art LEDs from three different manufacturers: Philips Hue, TCPi Connected, and one LIFX which is a very nifty and BRIGHT bulb (900 lumens) that does not require a bridge in order to be controlled over wireless. The bulbs start out in the Media Lab so they can be paired with the bridge in our server room before being moved to their permanent location (a bulb needs to be at least 20 feet from the bridge in order to be paired). Our two TCPi bulbs are not shown in the diagram as they are currently illuminating the Art Attic (where we’ll host our first Cobwebs screening in May).</p> -->
+
+<h2>Notes</h2>
+<p>A bridge is purchased as a part of a "Hue starter pack" that also contains three bulbs. These bulbs are factory-paried to the bridge. Although this is a convenience; as of this writing, if one of these bulbs becomes non-operational, then the bridge must be factory reset in order to remove the pairing information from the bridge. To avoid this situation: factory reset the bridge prior to installation and then pair the three bulbs manually.</p>
+
+<p>Finally, as far as is known, Philips has not documented the Zigbee exchanges between the bridge and the bulbs; accordingly, only the REST/JSON API should be used to control the bulbs.</p>
+
+<p style="font-weight: bold; color: red;">**BECKY: THE SECTION SECTION SHOULD BE RIGHT BEFORE THE FIGURES. ALSO, ALASDAIR SHOULD MAKE AN EDITING PASS ON IT.**</p>
+
+
+ <table dir="ltr" class="supported" id="tblMain" border="0" cellpadding="0" cellspacing="0" style="width: 95%; margin-top: 20px;">
+    <tbody>
+	  <tr>
+        <td dir="ltr" class="things" colspan="2">Photographs</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;"><a href="Philips_Hue/00.jpg" title="Philips Hue box" rel="example1" class="text">00</a></td><td>Philips Hue box</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/01.jpg" title="Philips Hue bulb" rel="example1" class="text">01</a></td><td>Philips Hue bulb</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/01a.jpg" title="The bulb in a lamp fixture after 30min (in C)" rel="example1" class="text">01a</a></td><td>The bulb in a lamp fixture after 30min (in C)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/01b.jpg" title="The bulb in a lamp fixture after 30min (in F)" rel="example1" class="text">01b</a></td><td>The bulb in a lamp fixture after 30min (in F)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/02.jpg" title="The bulb with diffuser removed" rel="example1" class="text">02</a></td><td>The bulb with diffuser removed</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/03.jpg" title="The bulb with diffuser removed (being held)" rel="example1" class="text">03</a></td><td>The bulb with diffuser removed (being held)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/04.jpg" title="The bulb with diffuser removed (plastic shield over LED PCB removed)" rel="example1" class="text">04</a></td><td>The bulb with diffuser removed (plastic shield over LED PCB removed)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/05.jpg" title="The bulb with diffuser and plastic shield removed (being held)" rel="example1" class="text">05</a></td><td>The bulb with diffuser and plastic shield removed (being held)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/06.jpg" title="The bulb with LED board removed, showing the Aluminium heat spreader below" rel="example1" class="text">06</a></td><td>The bulb with LED board removed, showing the Aluminium heat spreader below</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/06a.jpg" title="Close up of the LED board" rel="example1" class="text">06a</a></td><td>Close up of the LED board</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/06b.jpg" title="Macro of the LED board" rel="example1" class="text">06b</a></td><td>Macro of the LED board</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/06c.jpg" title="Macro of the LED board" rel="example1" class="text">06c</a></td><td>Macro of the LED board</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/07.jpg" title="The bulb with the Aluminium heat spreader removed" rel="example1" class="text">07</a></td><td>The bulb with the Aluminium heat spreader removed</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/08.jpg" title="The interior of the bulb, with the networking board (left) and power board (right) encased in silicone" rel="example1" class="text">08</a></td><td>The interior of the bulb, with the networking board (left) and power board (right) encased in silicone</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/09.jpg" title="The exterior Aluminium shielding torn back to expost the silicone encased boards" rel="example1" class="text">09</a></td><td>The exterior Aluminium shielding torn back to expost the silicone encased boards</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/10.jpg" title="Aluminium and silicone removed to show the two boards back-to-back" rel="example1" class="text">10</a></td><td>Aluminium and silicone removed to show the two boards back-to-back</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/11.jpg" title="The power board in-situ" rel="example1" class="text">11</a></td><td>The power board in-situ</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/12.jpg" title="The networking board in-situ" rel="example1" class="text">12</a></td><td>The networking board in-situ</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/13.jpg" title="The power board in-situ (alternative view)" rel="example1" class="text">13</a></td><td>The power board in-situ (alternative view)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/14.jpg" title="The networking board in-situ (alternative view)" rel="example1" class="text">14</a></td><td>The networking board in-situ (alternative view)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/15.jpg" title="The networking board" rel="example1" class="text">15</a></td><td>The networking board</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/16.jpg" title="The networking board (back)" rel="example1" class="text">16</a></td><td>The networking board (back)</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/17.jpg" title="Macro of the CC2530 chip" rel="example1" class="text">17</a></td><td>Macro of the CC2530 chip</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/18.jpg" title="Extreme macro of the CC2530 chip" rel="example1" class="text">18</a></td><td>Extreme macro of the CC2530 chip</td>
+      </tr>
+	  <tr>
+        <td dir="ltr" class="title" style="vertical-align: top; font-size: 16px; border-bottom: none;">
+<a href="Philips_Hue/19.jpg" title="Networking board (left) and LED board (right)" rel="example1" class="text">19</a></td><td>Networking board (left) and LED board (right)</td>
+	</tr>
+	</tbody>
+</table>
+	      
+</div>
+
+<div class="footer">
+	<div class="footer-left"><a href="../index.html" class="green">&uarr;</a> <a href="../index.html" class="yellow">the thing system</a></div>
+	<div class="footer-right"><a href="../privacy/index.html" class="yellow">privacy policy</a></div>
+</div>
+
+<div class="pulldown styled-select" style="background-color: #fca34c;">
+<form method="get" action="http://thethingsystem.com/">
+<select name="primary" onchange="parent.location=(this.options[this.selectedIndex].value)">
+  <option value="../index.html">Select an Option</option>
+  <option value="../things/index.html">The Trouble With Things</option>
+  <option value="../dev/index.html">For Implementors</option>
+  <option value="../dev/supported-things.html">Supported Things</option>
+  <option value="selected">Get The Code</option>
+	  <option value="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">Get The Disk Image</option>
+	  <option value="https://github.com/TheThingSystem/steward">&nbsp;&nbsp;&nbsp;Contribute To The Repo</option>
+	  <option value="../code/integrators.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- System Integrators</option>
+	  <option value="../code/developers.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Client Developers</option>
+	  <option value="../code/node.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Node Gurus</option>
+	  <option value="../code/enhancements.html">&nbsp;&nbsp;&nbsp;Third-Party Enhancements</option>
+  <option value="../dev/Installation.html">Quick Start</option>
+  <option value="../meet/index.html">About Us</option>
+  <option value="../index.html">&#x24E3;</option>
+</select> 
+</form>
+</div>
+</div>
+
+</body>
+</html>
