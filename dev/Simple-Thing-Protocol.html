@@ -263,7 +263,11 @@ you <strong>MUST</strong> read the documentation on the <a href="Taxonomy.html">
 , requestID         : '3'
 , things            :
   { '/device/A/B/C' :
-    { observe       : [ 'o1', 'o2', ..., 'oN' ]
+    { device        :
+      { name        : '...'
+      , maker       : '...'
+      }
+    , observe       : [ 'o1', 'o2', ..., 'oN' ]
     , perform       : [ 'p1', 'p2', ..., 'pN' ]
     , name          : true
     , status        : [ 's1', 's2', ..., 'sN' ]
