@@ -124,6 +124,22 @@
         <td>RF 433.92</td>
       </tr>
       <tr>
+        <td>2 Save Energy Limited</td>
+        <td><a class="text" target="_blank" href="http://www.theowl.com">OWL</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>owl/monitor<br />owl/meteo</td>
+        <td>IP Multicast</td>
+      </tr>
+      <tr>
+        <td>Plant Link</td>
+        <td><a class="text" target="_blank" href="http://myplantlink.com/">Koubachi</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>plantlink/plant<br />plantlink/soil</td>
+        <td>WiFi (cloud)</td>
+      </tr>
+      <tr>
         <td>Samsung</td>
         <td><a class="text" target="_blank" href="http://www.samsung.com/au/air-conditioning/smart-zone/">Samsung Smart Air Conditioners
 </a></td>
@@ -133,19 +149,27 @@
         <td>WiFi</td>
       </tr>
       <tr>
-        <td>2 Save Energy Limited</td>
-        <td><a class="text" target="_blank" href="http://www.theowl.com">OWL</a></td>
+        <td>Telldus Live</td>
+        <td><a class="text" target="_blank" href="http://live.telldus.com/">Telldus</a></td>
         <td class="ready">ready</td>
         <td>/device/climate</td>
-        <td>owl/monitor<br />owl/meteo</td>
-        <td>IP Multicast</td>
+        <td>telldus/meteo<br />telldus/rain<br />telldus/wind<br />fineoffset/meteo<br />fineoffset/rain<br />fineoffset/wind<br />oregon-scientific/rain<br />oregon-scientific/wind</td>
+        <td>RF (cloud)</td>
+      </tr>
+      <tr>
+        <td>Quirky</td>
+        <td><a class="text" target="_blank" href="https://www.quirky.com/shop/752-aros-smart-window-a-c">Aros</a></td>
+        <td class="ready">ready</td>
+        <td>/device/climate</td>
+        <td>wink/control</td>
+        <td>WiFi (cloud)</td>
       </tr>
       <tr>
         <td>Yoctopuce</td>
         <td><a class="text" target="_blank" href="http://www.yoctopuce.com">Yoctopuce</a></td>
         <td class="ready">ready</td>
         <td>/device/climate</td>
-        <td>yoctopuce/co2<br />yoctopuce/light<br />yoctopuce/meteo<br />yoctopuce/voc</td>
+        <td>yoctopuce/meteo</td>
         <td>USB</td>
       </tr>
       <tr>
@@ -154,7 +178,7 @@
         <td class="ready">ready</td>
         <td>/device/gateway</td>
         <td>aeotec/zstick-s2<br/ >aeotech/repeater</td>
-        <td>USB (Z-Wave)</td>
+        <td>USB</td>
       </tr>
       <tr>
         <td>INSTEON</td>
@@ -162,7 +186,7 @@
         <td class="ready">ready</td>
         <td>/device/gateway</td>
         <td>insteon/hub<br />insteon/smartlinc (usb only)</td>
-        <td>Ethernet (Insteon)</td>
+        <td>Ethernet</td>
       </tr>
       <tr>
         <td>INSTEON</td>
@@ -229,6 +253,14 @@
         <td>n/a</td>
       </tr>
       <tr>
+        <td>Instapush</td>
+        <td><a class="text" target="_blank" href="https://instapush.im">Instapush</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>instapush/text</td>
+        <td>n/a</td>
+      </tr>
+      <tr>
         <td>MQTT</td>
         <td><a class="text" target="_blank" href="http://mqtt.org">MQTT</a></td>
         <td class="ready">ready</td>
@@ -253,12 +285,28 @@
         <td>n/a</td>
       </tr>
       <tr>
+        <td>Pushover</td>
+        <td><a class="text" target="_blank" href="https://pushover.net">Pushover</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>pushover/text</td>
+        <td>n/a</td>
+      </tr>
+      <tr>
+        <td>Twitter</td>
+        <td><a class="text" target="_blank" href="http://twitter.com">Twitter</a></td>
+        <td class="ready">ready</td>
+        <td>/device/indicator</td>
+        <td>twitter/text</td>
+        <td>n/a</td>
+      </tr>
+      <tr>
         <td>Quirky</td>
         <td><a class="text" target="_blank" href="http://www.quirky.com/shop/596">Nimbus</a></td>
         <td class="ready">ready</td>
         <td>/device/indicator</td>
         <td>wink/nimbus<br />wink/gauge</td>
-        <td>WiFi (cloud)</td>
+        <td>n/a</td>
       </tr>
       <tr>
         <td>Xively</td>
@@ -306,14 +354,14 @@
         <td class="ready">ready</td>
         <td>/device/lighting</td>
         <td>insteon/bulb<br />insteon/downlight</td>
-        <td>RF (Insteon)</td>
+        <td>Insteon</td>
       </tr>
       <tr>
         <td>LIFX</td>
         <td><a class="text" target="_blank" href="http://www.lifx.co">LED smart bulb</a></td>
         <td class="ready">ready</td>
         <td style="white-space: nowrap;">/device/lighting</td>
-        <td></td>
+        <td>LIFX/bulb</td>
         <td>WiFi</td>
       </tr>
       <tr>
@@ -365,12 +413,44 @@
         <td>WiFi</td>
       </tr>
       <tr>
+        <td>Pioneer</td>
+        <td><a class="text" target="_blank" href="http://www.pioneerelectronics.com/PUSA/Home/AV-Receivers/Elite+Receivers">Pioneer</a></td>
+        <td class="ready">ready</td>
+        <td>/device/media</td>
+        <td>pioneer/receiver</td>
+        <td>Ethernet (UPnP)</td>
+      </tr>
+      <tr>
+        <td>Roku</td>
+        <td><a class="text" target="_blank" href="http://www.roku.com/">Roku</a></td>
+        <td class="ready">ready</td>
+        <td>/device/media</td>
+        <td>roku/video</td>
+        <td>Ethernet or WiFi</td>
+      </tr>
+      <tr>
         <td>SONOS</td>
         <td><a class="text" target="_blank" href="http://www.sonos.com/shop/products/playbar">Sonos Playbar</a></td>
         <td class="ready">ready</td>
         <td>/device/media</td>
         <td>sonos/audio</td>
-        <td>RF or WiFi (UPnP)</td>
+        <td>Ethernet (UPnP)</td>
+      </tr>
+      <tr>
+        <td>UPnP audio</td>
+        <td><a class="text" target="_blank" href="http://en.wikipedia.org/wiki/Upnp">generic UPnP</a></td>
+        <td class="ready">ready</td>
+        <td>/device/media</td>
+        <td>upnp/audio</td>
+        <td>Ethernet or WiFi (UPnP)</td>
+      </tr>
+      <tr>
+        <td>Automatic</td>
+        <td><a class="text" target="_blank" href="https://www.automatic.com">Automatic</a></td>
+        <td class="ready">ready</td>
+        <td>/device/motive</td>
+        <td>automatic/vehicle</td>
+        <td>Cloud</td>
       </tr>
       <tr>
         <td>Lockitron</td>
@@ -405,20 +485,20 @@
         <td>BLE</td>
       </tr>
       <tr>
-        <td>OwnTracks</td>
-        <td><a class="text" target="_blank" href="http://owntracks.org">OwnTracks for Android/iOS</a></td>
-        <td class="ready">ready</td>
-        <td>/device/presence</td>
-        <td>owntracks/mobile</td>
-        <td>MQTT</td>
-      </tr>
-      <tr>
         <td>Philips</td>
         <td><a class="text" target="_blank" href="http://www.usa.philips.com/c/App-enhanced-accessories/for-iphone-5-4s-the-new-ipad-aea1000_00/prd/en/">Inrange</a></td>
         <td class="ready">ready</td>
         <td>/device/presence</td>
         <td>inrange/fob</td>
         <td>BLE</td>
+      </tr>
+      <tr>
+        <td>OwnTracks</td>
+        <td><a class="text" target="_blank" href="http://owntracks.org">OwnTracks for Android/iOS</a></td>
+        <td class="ready">ready</td>
+        <td>/device/presence</td>
+        <td>mqtt/mobile<br />owntracks/mobile</td>
+        <td>MQTT</td>
       </tr>
       <tr>
         <td>reelyActive</td>
@@ -469,12 +549,20 @@
         <td>WiFi (cloud)</td>
       </tr>
       <tr>
+        <td>Yoctopuce</td>
+        <td><a class="text" target="_blank" href="http://www.yoctopuce.com">Yoctopuce</a></td>
+        <td class="ready">ready</td>
+        <td>/device/sensor</td>
+        <td>yoctopuce/co2<br />yoctopuce/light<br />yoctopuce/voc</td>
+        <td>USB</td>
+      </tr>
+      <tr>
         <td>INSTEON</td>
         <td><a class="text" target="_blank" href="http://www.insteon.com/2457D2-lamplinc-dual-band.html">LampLinc Plug-In Dimmer Module</a></td>
         <td class="ready">ready</td>
         <td>/device/switch</td>
         <td>insteon/dimmer</td>
-        <td>RF (Insteon)</td>
+        <td>Insteon</td>
       </tr>
       <tr>
         <td>INSTEON</td>
@@ -482,15 +570,15 @@
         <td class="ready">ready</td>
         <td>/device/switch</td>
         <td>insteon/onoff</td>
-        <td>RF (Insteon)</td>
+        <td>Insteon</td>
       </tr>
       <tr>
-        <td>Quirky</td>
-        <td><a class="text" target="_blank" href="http://www.quirky.com/shop/633-Pivot-Power-Genius">Pivot Power Geninus</a></td>
+        <td>Telldus Live</td>
+        <td><a class="text" target="_blank" href="http://live.telldus.com/">Telldus</a></td>
         <td class="ready">ready</td>
-        <td>/device/switch</td>
-        <td>wink/onoff<br />wink/strip</td>
-        <td>WiFi (cloud)</td>
+        <td>/device/climate</td>
+        <td>telldus/dimmer<br />telldus/onoff<br />nexa/dimmer<br />nexa/onoff</td>
+        <td>RF (cloud)</td>
       </tr>
       <tr>
         <td>Belkin</td>
@@ -502,11 +590,19 @@ href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/"
         <td>WiFi (UPnP)</td>
       </tr>
       <tr>
+        <td>Quirky</td>
+        <td><a class="text" target="_blank" href="http://www.quirky.com/shop/633-Pivot-Power-Genius">Pivot Power Geninus</a></td>
+        <td class="ready">ready</td>
+        <td>/device/switch</td>
+        <td>wink/onoff<br />wink/strip</td>
+        <td>WiFi (cloud)</td>
+      </tr>
+      <tr>
         <td>Z-wave</td>
         <td>"multi-level" switches</td>
         <td class="ready">ready</td>
         <td>/device/switch</td>
-        <td>zwave/dimmer<br />cooper/dimmer<br />ge/dimmer</td>
+        <td>zwave/dimmer</td>
         <td>Z-Wave</td>
       </tr>
       <tr>
@@ -514,7 +610,7 @@ href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/"
         <td>"binary" switches</td>
         <td class="ready">ready</td>
         <td>/device/switch</td>
-        <td>zwave/onoff<br />aeotech/onoff<br />ge/onoff</td>
+        <td>zwave/onoff</td>
         <td>Z-Wave</td>
       </tr>
       <tr>
@@ -611,7 +707,7 @@ href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/"
         <td class="hold">hold</td>
         <td></td>
         <td></td>
-        <td>RF (Insteon)</td>
+        <td>Insteon</td>
       </tr>
       <tr>
         <td>INSTEON</td>
@@ -619,7 +715,7 @@ href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/"
         <td class="hold">hold</td>
         <td></td>
         <td></td>
-        <td>RF (Insteon)</td>
+        <td>Insteon</td>
       </tr>
       <tr>
         <td>Kwikset</td>
@@ -750,20 +846,20 @@ href="http://www.belkin.com/us/Products/home-automation/c/wemo-home-automation/"
         <td></td>
       </tr>
       <tr>
+        <td>SONOS</td>
+        <td>Sonos Dock</td>
+        <td class="coding-queue">partial</td>
+        <td>/device/media</td>
+        <td>upnp/ignore</td>
+        <td>Ethernet (UPnP)</td>
+      </tr>
+      <tr>
         <td>Wicked Devices</td>
         <td><a class="text" target="_blank" href="http://aqe.wickeddevice.com">Air Quality Egg</a></td>
         <td class="coding-queue">partial</td>
         <td>/device/climate</td>
         <td>eggshield/sensor</td>
         <td>WiFi</td>
-      </tr>
-      <tr>
-        <td>Roku</td>
-        <td><a class="text" target="_blank" href="http://www.roku.com/">Roku</a></td>
-        <td class="coding-queue">partial</td>
-        <td>/device/media</td>
-        <td>roku/video</td>
-        <td>Ethernet/WiFi</td>
       </tr>
       <tr>
         <td>BlueBulb.com</td>
