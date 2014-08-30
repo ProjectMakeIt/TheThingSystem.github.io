@@ -95,7 +95,10 @@
 
  
  <h2>Installation</h2>
-<p>There are a number of different ways to install the <em>steward</em> software. After installation please see the documentation <a href="Instructions-for-starting-the-Steward.html">on how to start the Steward</a>. For most users we recommend using the supplied disk images <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">for the Raspberry Pi</a> and <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">the BeagleBone</a> based around the latest version of Debian Wheezy.</p>
+<p>There are a number of different ways to install the <em>steward</em> software. After installation please see the documentation <a href="Instructions-for-starting-the-Steward.html">on how to start the Steward</a>. For most users we recommend using the
+<a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">supplied disk images</a>
+for the Raspberry Pi, Raspberry Pi B+, and the BeagleBone Black,
+based around the latest version of Debian Wheezy.</p>
 
 <a name="quick-start"></a>
 
@@ -135,15 +138,21 @@ npm install -l
 
 <h2>Disk images</h2>
 
-<p>There are raw disk disk images available <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">for the Raspberry Pi</a> and <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">the BeagleBone</a> based around the latest version of Debian Wheezy for these platforms. You will need a 4GB SD card.</p>
+<p>There are <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">raw disk images</a>
+available for the Raspberry Pi, the Raspberry Pi B+,
+and the BeagleBone Black,
+based around the latest version of Debian Wheezy for these platforms.
+You will need a 4GB SD card for the Raspberry Pi and BeagleBone Black images;
+however, the Raspberry Pi B+ image requires an 8GB SD card.</p>
 
 <p>The latest release is <strong>version 1.10</strong>, code named "Tooth Fairy" (25th August 2014)</p>
 
-<p>The latest Raspberry Pi image is: <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">sdcard_rpi_b_1.10.img</a> 
-</p><p>MD5 (sdcard_rpi_b_1.10.img) = 62b3aec66a72e1a57ce52e91eb329694</p>
-
-<p>The latest Beaglebone Black image is: <a href="https://drive.google.com/folderview?id=0B27nSHVkupK9a0dCRTJwaUo2WHM&amp;usp=sharing">sdcard_bbb_1.10.img</a> 
-</p><p>MD5 (sdcard_bbb_1.10.img) = fc5c467399aaf102b36b356026802d3c</p>
+<table>
+<tr><th>System</th><th>File</th><th>MD5</th></tr>
+<tr><td>Raspberry Pi</td><td>sdcard_rpi_b_1.10.img</td><td>62b3aec66a72e1a57ce52e91eb329694</td></tr>
+<tr><td>Raspberry Pi B+</td><td>sdcard_rpi_bplus_1.10.img.gz&nbsp;</td><td>20e69a3df135c4150bfab8fe5541c568</td></tr>
+<tr><td>Beaglebone Black&nbsp;</td><td>sdcard_bbb_1.10.img</td><td>fc5c467399aaf102b36b356026802d3c</td></tr>
+</table>
 
 <p>The Beaglebone Black disk image should also work with the original Beaglebone Rev.A6 (white) but has not been extensively tested.</p>
 
@@ -164,7 +173,15 @@ map auto_home    0Bi    0Bi    0Bi   100%        0        0  100%   /home
 <pre><code>sudo diskutil unmount /dev/disk1s1
 </code></pre>
 
-<p>rather than ejecting it by dragging it to the trash. Then in the Terminal window change to the directory with your disk image in and type,</p>
+<p>rather than ejecting it by dragging it to the trash.</p>
+
+<p>If you are preparing an SD card for the Raspberry Pi B+, then
+  decompress the file to get the disk image,</p>
+
+<pre><code>gunzip sdcard_rpi_bplus_1.10.img.gz
+</code></pre>
+
+<p>Then in the Terminal window change to the directory with your disk image in and type,</p>
 
 <pre><code>sudo dd bs=1m if=sdcard.img of=/dev/rdisk1
 </code></pre>
