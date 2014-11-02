@@ -505,8 +505,21 @@ either a detailed result or error response is returned:</p>
 </code></pre>
 
 <p>If the <em>testOnly</em> parameter is false,
-then the implementation immediately returns a detailed result or error response,
-and
+then the implementation immediately returns a process status or an error response:</p>
+
+<pre><code>{ path              : '/api/v1/thing/report'
+, requestID         : '6'
+, events            :
+  { 'eventID1'      :
+    { status        : 'proceed'
+    }
+
+    // other results, if any, go here...
+  }
+}
+</code></pre>
+
+<p>and going forward,
 the <em>eventID</em> value is used by both the steward and implementation when referring to the thing for the duration of the session.</p>
 
 <p>Whenever any of the events occur in the future, will send an <em>report</em> message to the steward:</p>
